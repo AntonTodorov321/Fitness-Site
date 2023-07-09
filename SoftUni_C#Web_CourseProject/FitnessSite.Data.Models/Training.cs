@@ -8,6 +8,7 @@
         public Training()
         {
             Exercises = new HashSet<Exercise>();
+
             Id = Guid.NewGuid();
         }
 

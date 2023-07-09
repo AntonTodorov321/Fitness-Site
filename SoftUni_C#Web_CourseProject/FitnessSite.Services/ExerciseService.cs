@@ -8,6 +8,7 @@
     using Web.Data;
     using Web.ViewModels.Exercise;
     using Web.ViewModels.TypeExercise;
+    using FitnessSite.Data.Models;
 
     public class ExerciseService : IExerciseService
     {
@@ -38,6 +39,35 @@
                      .ToList()
                  }).ToArray()
             }).ToArrayAsync();
+        }
+
+        public async Task AddExerciseAsync(int id, string userId)
+        {
+            Exercise exerciseToAdd = 
+                dbContext.Exercises.First(e => e.Id == id);
+
+            ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
+
+            if (user.TrainingId == Guid.Empty)
+            {
+                Training training = new Training()
+                {
+                    ApplicationUserId = user.Id,
+                };
+
+                user.TrainingId = training.Id;
+                await dbContext.Trainings.AddAsync(training);
+            }
+
+
+            exerciseToAdd.TrainingId = user.TrainingId.ToString();
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExersiceExistById(int id)
+        {
+            return await dbContext.Exercises.AnyAsync(e => e.Id == id);
         }
     }
 }

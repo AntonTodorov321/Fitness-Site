@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Models;
+
     public class HomeController : Controller
     {
         public IActionResult Index()

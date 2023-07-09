@@ -8,8 +8,6 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
-         
-            Exercises = new HashSet<Exercise>();
         }
 
         [ForeignKey(nameof(Trainer))]
@@ -17,6 +15,8 @@
 
         public Trainer? Trainer { get; set; }
 
-        public virtual ICollection<Exercise> Exercises { get; set; }
+        public Guid TrainingId { get; set; }
+
+        public Training? Training { get; set; }
     }
 }

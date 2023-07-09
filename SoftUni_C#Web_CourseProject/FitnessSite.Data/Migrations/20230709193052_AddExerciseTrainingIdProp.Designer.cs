@@ -4,6 +4,7 @@ using FitnessSite.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    partial class FitnessSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230709193052_AddExerciseTrainingIdProp")]
+    partial class AddExerciseTrainingIdProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,10 +127,7 @@ namespace FitnessSite.Data.Migrations
                     b.Property<string>("Sets")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TrainingId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TrainingId1")
+                    b.Property<Guid?>("TrainingId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("TypeId")
@@ -136,7 +135,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TrainingId1");
+                    b.HasIndex("TrainingId");
 
                     b.HasIndex("TypeId");
 
@@ -576,7 +575,7 @@ namespace FitnessSite.Data.Migrations
                 {
                     b.HasOne("FitnessSite.Data.Models.Training", "Training")
                         .WithMany("Exercises")
-                        .HasForeignKey("TrainingId1");
+                        .HasForeignKey("TrainingId");
 
                     b.HasOne("FitnessSite.Data.Models.TypeExercise", "Type")
                         .WithMany("Exercises")

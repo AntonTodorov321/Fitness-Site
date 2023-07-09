@@ -38,5 +38,9 @@
         public string ImageUrl { get; set; } = null!;
 
         public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }
+
+        public string? TrainingId { get; set; }
+
+        public Training? Training { get; set; }
     }
 }
