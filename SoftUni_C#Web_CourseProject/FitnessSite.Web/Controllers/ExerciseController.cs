@@ -5,7 +5,7 @@
 
     using Services.Intarfaces;
 
-    [AllowAnonymous]
+    [Authorize]
     public class ExerciseController : Controller
     {
         private readonly IExerciseService exerciseService;
@@ -15,6 +15,7 @@
             this.exerciseService = exerciseService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var allTypes = await exerciseService.AllExerciseAsync();
