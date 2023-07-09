@@ -21,7 +21,7 @@
 
         public async Task<IEnumerable<TypeExerciseViewModel>> AllExerciseAsync()
         {
-            IEnumerable<TypeExerciseViewModel> models =   await dbContext.TypeExercises.Select(t => new TypeExerciseViewModel()
+            IEnumerable<TypeExerciseViewModel> models = await dbContext.TypeExercises.Select(t => new TypeExerciseViewModel()
             {
                 Name = t.Name,
                 AllExercises = dbContext.Exercises.Where(e => e.TypeId == t.Id).
@@ -61,9 +61,13 @@
                 await dbContext.Trainings.AddAsync(training);
             }
 
+            TrainingExercise trainingExercise = new TrainingExercise()
+            {
+                ExerciseId = exerciseToAdd.Id,
+                TrainingId = (Guid)user.TrainingId!
+            };
 
-           //TODO exerciseToAdd.TrainingId = user.TrainingId;
-
+            await dbContext.TrainingExercises.AddAsync(trainingExercise);
             await dbContext.SaveChangesAsync();
         }
 
