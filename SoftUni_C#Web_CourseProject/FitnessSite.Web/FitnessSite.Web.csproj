@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-FitnessSite.Web-2d73558b-42af-40e6-95e6-d4dbf3c8b460</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FitnessSite.Common\FitnessSite.Common.csproj" />
+    <ProjectReference Include="..\FitnessSite.Data.Models\FitnessSite.Data.Models.csproj" />
+    <ProjectReference Include="..\FitnessSite.Data\FitnessSite.Data.csproj" />
+    <ProjectReference Include="..\FitnessSite.Services\FitnessSite.Services.csproj" />
+    <ProjectReference Include="..\FitnessSite.Web.ViewModels\FitnessSite.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TypeExerciseViewModel>
+@{
+    ViewBag.Title = "Choose your favorite exersice";
+}
+
+<h1 class="text-lg-center">@ViewBag.Title</h1>
+
+<div class="container-fluid">
+  <div class="row">
+      @foreach (var typeEx in Model)
+      {
+            <div class="col-4">
+                <h3 class="text-center m-lg-3 bg-light border">@typeEx.Name</h3>
+
+                @foreach (var exercise in typeEx.AllExercises)
+                     {
+                         <h4 class="d-inline-block text-center m-lg-2">@exercise.Name</h4>
+                         <img class="d-block w-100" style="height:200px" src="@exercise.ImageUrl" alt="@exercise.Name">
+                         <div class="d-inline-block">@exercise.Description</div>
+                         <div>Reps: @exercise.Reps</div>
+                         <div>Sets: @exercise.Sets</div>
+                         <div>Target muscle: @string.Join(", ",exercise.TargetMuscle)</div>
+                      }
+            </div>
+      }
+   </div>
+</div>
