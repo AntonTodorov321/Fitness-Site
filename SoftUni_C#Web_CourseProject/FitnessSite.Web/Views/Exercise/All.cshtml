@@ -26,6 +26,12 @@
                             <div>Sets: @exercise.Sets</div>
                          }
                          <div>Target muscle: @string.Join(", ",exercise.TargetMuscle)</div>
+
+                             if (this.User.Identity?.IsAuthenticated ?? false)
+                             {
+                                <a class="btn btn-primary m-3 d-block" asp-controller="Training" asp-action="Add" method="post" asp-route-id="@exercise.Id">Add</a>
+                                
+                             }
                          <hr />
                       }
             </div>
