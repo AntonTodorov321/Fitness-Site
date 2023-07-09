@@ -21,12 +21,17 @@
         public DbSet<Trainer> Trainers { get; set; } = null!;
         public DbSet<Muscle> Muscles { get; set; } = null!;
 
+        public DbSet<TrainingExercise> TrainingExercises = null!;
+
         public DbSet<MuscleExercise> MuscleExercises { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<MuscleExercise>()
                 .HasKey(me => new { me.ExerciseId, me.MuscleId});
+
+            builder.Entity<TrainingExercise>()
+                .HasKey(te => new { te.TrainingId, te.ExerciseId });
 
             Assembly assembly = Assembly.GetAssembly(typeof(FitnessSiteDbContext))
                 ?? Assembly.GetExecutingAssembly();

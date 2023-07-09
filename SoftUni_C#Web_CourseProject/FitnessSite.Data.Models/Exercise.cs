@@ -10,6 +10,7 @@
         public Exercise()
         {
             MuscleExercises = new HashSet<MuscleExercise>();
+            TrainingExercises = new HashSet<TrainingExercise>();
         }
 
         [Key]
@@ -39,8 +40,7 @@
 
         public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }
 
-        public string? TrainingId { get; set; }
+        public virtual ICollection<TrainingExercise> TrainingExercises { get; set; }
 
-        public Training? Training { get; set; }
     }
 }

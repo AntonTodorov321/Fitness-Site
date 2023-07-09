@@ -7,7 +7,7 @@
     {
         public Training()
         {
-            Exercises = new HashSet<Exercise>();
+            TrainingExercises = new HashSet<TrainingExercise>();
 
             Id = Guid.NewGuid();
         }
@@ -33,6 +33,6 @@
 
         public virtual ApplicationUser ApllicationUser { get; set; } = null!;
 
-        public virtual ICollection<Exercise> Exercises { get; set; }
+        public virtual ICollection<TrainingExercise> TrainingExercises { get; set; }
     }
 }

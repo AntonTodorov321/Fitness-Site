@@ -15,7 +15,9 @@
 
         public Trainer? Trainer { get; set; }
 
-        public Guid TrainingId { get; set; }
+
+        [ForeignKey(nameof(Training))]
+        public Guid? TrainingId { get; set; }
 
         public Training? Training { get; set; }
     }

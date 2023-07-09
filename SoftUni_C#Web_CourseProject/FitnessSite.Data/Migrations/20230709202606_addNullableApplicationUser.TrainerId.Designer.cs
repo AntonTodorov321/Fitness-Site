@@ -4,6 +4,7 @@ using FitnessSite.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    partial class FitnessSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230709202606_addNullableApplicationUser.TrainerId")]
+    partial class addNullableApplicationUserTrainerId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,8 +95,6 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.HasIndex("TrainingId");
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -127,10 +127,15 @@ namespace FitnessSite.Data.Migrations
                     b.Property<string>("Sets")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("TrainingId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TrainingId");
 
                     b.HasIndex("TypeId");
 
@@ -381,24 +386,10 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
 
                     b.ToTable("Trainings");
-                });
-
-            modelBuilder.Entity("FitnessSite.Data.Models.TrainingExercise", b =>
-                {
-                    b.Property<Guid>("TrainingId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ExerciseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TrainingId", "ExerciseId");
-
-                    b.HasIndex("ExerciseId");
-
-                    b.ToTable("TrainingExercise");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.TypeExercise", b =>
@@ -577,22 +568,22 @@ namespace FitnessSite.Data.Migrations
                         .WithMany("ApllicationUsers")
                         .HasForeignKey("TrainerId");
 
-                    b.HasOne("FitnessSite.Data.Models.Training", "Training")
-                        .WithMany()
-                        .HasForeignKey("TrainingId");
-
                     b.Navigation("Trainer");
-
-                    b.Navigation("Training");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Exercise", b =>
                 {
+                    b.HasOne("FitnessSite.Data.Models.Training", "Training")
+                        .WithMany("Exercises")
+                        .HasForeignKey("TrainingId");
+
                     b.HasOne("FitnessSite.Data.Models.TypeExercise", "Type")
                         .WithMany("Exercises")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Training");
 
                     b.Navigation("Type");
                 });
@@ -619,31 +610,12 @@ namespace FitnessSite.Data.Migrations
             modelBuilder.Entity("FitnessSite.Data.Models.Training", b =>
                 {
                     b.HasOne("FitnessSite.Data.Models.ApplicationUser", "ApllicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
+                        .WithOne("Training")
+                        .HasForeignKey("FitnessSite.Data.Models.Training", "ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ApllicationUser");
-                });
-
-            modelBuilder.Entity("FitnessSite.Data.Models.TrainingExercise", b =>
-                {
-                    b.HasOne("FitnessSite.Data.Models.Exercise", "Esercise")
-                        .WithMany("TrainingExercises")
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FitnessSite.Data.Models.Training", "Training")
-                        .WithMany("TrainingExercises")
-                        .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Esercise");
-
-                    b.Navigation("Training");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -697,11 +669,14 @@ namespace FitnessSite.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FitnessSite.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Training");
+                });
+
             modelBuilder.Entity("FitnessSite.Data.Models.Exercise", b =>
                 {
                     b.Navigation("MuscleExercises");
-
-                    b.Navigation("TrainingExercises");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Muscle", b =>
@@ -716,7 +691,7 @@ namespace FitnessSite.Data.Migrations
 
             modelBuilder.Entity("FitnessSite.Data.Models.Training", b =>
                 {
-                    b.Navigation("TrainingExercises");
+                    b.Navigation("Exercises");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.TypeExercise", b =>
