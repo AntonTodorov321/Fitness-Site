@@ -49,13 +49,12 @@
                 new Muscle()
                 {
                     Id = 6,
-                    Name = "Legs"
+                    Name = "Abs"
                 },
-
                 new Muscle()
                 {
                     Id = 7,
-                    Name = "Abs"
+                    Name = "Back"
                 }
             };
 

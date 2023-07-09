@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    [Migration("20230706174544_SeedMuscleExInEx")]
-    partial class SeedMuscleExInEx
+    [Migration("20230709144504_ChangeExerciseRepsAndSetsPropToString")]
+    partial class ChangeExerciseRepsAndSetsPropToString
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,11 +121,11 @@ namespace FitnessSite.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.Property<int>("Reps")
-                        .HasColumnType("int");
+                    b.Property<string>("Reps")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Sets")
-                        .HasColumnType("int");
+                    b.Property<string>("Sets")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("TrainingId")
                         .HasColumnType("uniqueidentifier");
@@ -150,8 +150,54 @@ namespace FitnessSite.Data.Migrations
                             Description = "An exercise in which a person, keeping a prone position with the handspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
                             Name = "Push-Ups",
-                            Reps = 10,
-                            Sets = 4,
+                            Reps = "10",
+                            Sets = "4",
+                            TypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Start in a tabletop position on your hands and knees, then lower down to your forearms with your elbows stacked beneath your shoulders. Step your feet back until your body makes a line from shoulders to heels.",
+                            ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
+                            Name = "Plank",
+                            Reps = "8",
+                            Sets = "3",
+                            TypeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground",
+                            ImageUrl = "https://post.healthline.com/wp-content/uploads/2020/01/Runner-training-on-running-track-732x549-thumbnail.jpg",
+                            Name = "Running",
+                            TypeId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking,[3] is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
+                            ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
+                            Name = "Cycling",
+                            TypeId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
+                            ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
+                            Name = "Bench Press",
+                            Reps = "10 - 12",
+                            Sets = "4",
+                            TypeId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
+                            ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
+                            Name = "Squat",
+                            Reps = "8 - 10",
+                            Sets = "",
                             TypeId = 1
                         });
                 });
@@ -219,10 +265,7 @@ namespace FitnessSite.Data.Migrations
                     b.Property<int>("MuscleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExerciseId", "MuscleId", "Id");
+                    b.HasKey("ExerciseId", "MuscleId");
 
                     b.HasIndex("MuscleId");
 
@@ -232,14 +275,12 @@ namespace FitnessSite.Data.Migrations
                         new
                         {
                             ExerciseId = 1,
-                            MuscleId = 7,
-                            Id = 1
+                            MuscleId = 7
                         },
                         new
                         {
                             ExerciseId = 1,
-                            MuscleId = 2,
-                            Id = 2
+                            MuscleId = 2
                         });
                 });
 

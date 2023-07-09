@@ -29,9 +29,9 @@
         [MaxLength(DescriptionMaxLenght)]
         public string Description { get; set; } = null!;
 
-        public string Reps { get; set; }
+        public string? Reps { get; set; }
 
-        public string Sets { get; set; }
+        public string? Sets { get; set; }
 
         [Required]
         [MaxLength(2048)]
