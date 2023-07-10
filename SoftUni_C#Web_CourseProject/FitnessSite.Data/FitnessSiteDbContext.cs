@@ -21,7 +21,7 @@
         public DbSet<Trainer> Trainers { get; set; } = null!;
         public DbSet<Muscle> Muscles { get; set; } = null!;
 
-        public DbSet<TrainingExercise> TrainingExercises = null!;
+        public DbSet<TrainingExercise>? TrainingExercises { get; set; }
 
         public DbSet<MuscleExercise> MuscleExercises { get; set; } = null!;
 

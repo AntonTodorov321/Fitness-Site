@@ -25,7 +25,7 @@
                        TypeId = 1,
                        Sets = "4",
                        Reps = "10",
-                       ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg"
+                       ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
                  },
 
                   new Exercise()

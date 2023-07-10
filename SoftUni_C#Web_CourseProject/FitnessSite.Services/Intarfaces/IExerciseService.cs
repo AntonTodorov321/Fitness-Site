@@ -9,5 +9,7 @@
         public Task AddExerciseAsync(int id, string userId);
 
         public Task<bool> IsExersiceExistById(int id);
+
+        public Task<bool> IsExerciseExistInThisTrainingAsync(int id,string userId);
     }
 }

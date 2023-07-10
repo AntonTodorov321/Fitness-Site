@@ -50,7 +50,7 @@
 
             ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
 
-            if (user.TrainingId == Guid.Empty)
+            if (user.TrainingId == null)
             {
                 Training training = new Training()
                 {
@@ -67,13 +67,24 @@
                 TrainingId = (Guid)user.TrainingId!
             };
 
-            await dbContext.TrainingExercises.AddAsync(trainingExercise);
+            await dbContext.TrainingExercises!.AddAsync(trainingExercise);
             await dbContext.SaveChangesAsync();
         }
 
         public async Task<bool> IsExersiceExistById(int id)
         {
             return await dbContext.Exercises.AnyAsync(e => e.Id == id);
+        }
+
+        public async Task<bool> IsExerciseExistInThisTrainingAsync(int id, string userId)
+        {
+            Exercise exerciseToAdd =
+                dbContext.Exercises.First(e => e.Id == id);
+
+            ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
+
+            return await dbContext.TrainingExercises!.AnyAsync(te => te.TrainingId == user.TrainingId
+            && te.ExerciseId == exerciseToAdd.Id);
         }
     }
 }
