@@ -1,15 +1,23 @@
 ﻿@model IEnumerable<TypeExerciseViewModel>
 @{
     ViewBag.Title = "Choose your favorite exersice";
+
+    int counter = 0;
 }
 
 <h1 class="text-lg-center">@ViewBag.Title</h1>
 
 <div class="container-fluid">
   <div class="row">
+
       @foreach (var typeEx in Model)
       {
-            <div class="col-4">
+          @if (typeEx.AllExercises.Count == 0)
+            {
+                counter++;
+                continue;
+            }
+            <div class="col-4 container-fluid">
                 <h3 class="text-center m-lg-3 bg-light border">@typeEx.Name</h3>
 
                 @foreach (var exercise in typeEx.AllExercises)
@@ -37,5 +45,10 @@
                       }
             </div>
       }
+
+      @if (counter == Model.Count())
+        {
+            <h4 class="text-center m-4 text-success">You already add all available exercises</h4>
+        }
    </div>
 </div>
