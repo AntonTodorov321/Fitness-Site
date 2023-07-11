@@ -32,7 +32,7 @@
                      .Where(te => te.TrainingId == t.Id)
                      .Select(te => new AllExerciseViewModel()
                      {
-                         Name = te.Esercise.Name
+                         Name = te.Esercise.Name,
                      })
                      .ToList()
                 }).ToListAsync();

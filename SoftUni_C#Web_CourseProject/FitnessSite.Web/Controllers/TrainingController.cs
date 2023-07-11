@@ -4,7 +4,7 @@
 
     public class TrainingController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Mine()
         {
             return View();
         }

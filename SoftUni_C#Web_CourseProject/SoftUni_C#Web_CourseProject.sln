@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessSite.Services", "Fit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D03AD15A-48A3-4656-B39E-1E7EA50CA5D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessSite.Web.Infastructure", "FitnessSite.Web.Infastructure\FitnessSite.Web.Infastructure.csproj", "{B03A358F-D4B0-4F53-BEC8-556281685B55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{6FE518AB-8364-4F5A-99A5-DBB204203B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FE518AB-8364-4F5A-99A5-DBB204203B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FE518AB-8364-4F5A-99A5-DBB204203B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B03A358F-D4B0-4F53-BEC8-556281685B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B03A358F-D4B0-4F53-BEC8-556281685B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B03A358F-D4B0-4F53-BEC8-556281685B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B03A358F-D4B0-4F53-BEC8-556281685B55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{50D5AE49-3BC7-430A-9BAA-4B3A085B8194} = {D3BFBC7D-FF76-4E84-95B5-BE336481085D}
 		{D0AEB0E1-B57D-423F-B997-2BBD13C9F452} = {3934149B-0EC3-4CD0-B759-09CEE5A79958}
 		{6FE518AB-8364-4F5A-99A5-DBB204203B97} = {D03AD15A-48A3-4656-B39E-1E7EA50CA5D1}
+		{B03A358F-D4B0-4F53-BEC8-556281685B55} = {D3BFBC7D-FF76-4E84-95B5-BE336481085D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD410D25-3FAA-4583-AAF7-11F358D92D07}
