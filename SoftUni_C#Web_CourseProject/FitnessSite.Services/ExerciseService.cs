@@ -19,13 +19,19 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<TypeExerciseViewModel>> AllExerciseAsync()
+        public async Task<IEnumerable<TypeExerciseViewModel>> AllExerciseWithUserAsync(string userId)
         {
-            IEnumerable<TypeExerciseViewModel> models = await dbContext.TypeExercises.Select(t => new TypeExerciseViewModel()
+            ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
+            Guid? trainingId = user?.TrainingId;
+
+            IEnumerable<TypeExerciseViewModel> models = 
+                await dbContext.TypeExercises.Select(t => new TypeExerciseViewModel()
             {
                 Name = t.Name,
-                AllExercises = dbContext.Exercises.Where(e => e.TypeId == t.Id).
-                 Select(e => new AllExerciseViewModel()
+                AllExercises = dbContext.Exercises.
+                Where(e => e.TypeId == t.Id && !(e.TrainingExercises.
+                Any(te => te.TrainingId == trainingId))).
+                Select(e => new AllExerciseViewModel()
                  {
                      Id = e.Id,
                      Name = e.Name,
@@ -36,7 +42,7 @@
                      TargetMuscle = dbContext.MuscleExercises
                      .Where(me => me.ExerciseId == e.Id)
                      .Select(me => me.Muscle.Name)
-                     .ToList()
+                     .ToList(),
                  }).ToArray()
             }).ToArrayAsync();
 
@@ -85,6 +91,32 @@
 
             return await dbContext.TrainingExercises!.AnyAsync(te => te.TrainingId == user.TrainingId
             && te.ExerciseId == exerciseToAdd.Id);
+        }
+
+        public async Task<IEnumerable<TypeExerciseViewModel>> AllExerciseWithoutUserAsync()
+        {
+            IEnumerable<TypeExerciseViewModel> models = await dbContext.TypeExercises.
+                Select(t => new TypeExerciseViewModel()
+            {
+                Name = t.Name,
+                AllExercises = dbContext.Exercises.Where(e => e.TypeId == t.Id).
+                Select(e => new AllExerciseViewModel()
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Description = e.Description,
+                    ImageUrl = e.ImageUrl,
+                    Reps = e.Reps,
+                    Sets = e.Sets,
+                    TargetMuscle = dbContext.MuscleExercises
+                    .Where(me => me.ExerciseId == e.Id)
+                    .Select(me => me.Muscle.Name)
+                    .ToList(),
+                })
+                .ToArray()
+            }).ToArrayAsync();
+
+            return models;
         }
     }
 }

@@ -4,7 +4,9 @@
 
     public interface IExerciseService
     {
-        public Task<IEnumerable<TypeExerciseViewModel>> AllExerciseAsync();
+        public Task<IEnumerable<TypeExerciseViewModel>> AllExerciseWithUserAsync(string userId);
+
+        public Task<IEnumerable<TypeExerciseViewModel>> AllExerciseWithoutUserAsync();
 
         public Task AddExerciseAsync(int id, string userId);
 

@@ -1,5 +1,6 @@
 ﻿namespace FitnessSite.Web.ViewModels.Exercise
 {
+    using FitnessSite.Web.ViewModels.Training;
 
     public class AllExerciseViewModel
     {
@@ -21,5 +22,6 @@
         public string ImageUrl { get; set; } = null!;
 
         public List<string> TargetMuscle { get; set; }
+
     }
 }

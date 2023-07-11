@@ -21,10 +21,20 @@
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            var allTypes = await exerciseService.AllExerciseAsync();
-            return View(allTypes);
+            string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                var allTypesWhithoutUser = 
+                    await exerciseService.AllExerciseWithoutUserAsync();
+                return View(allTypesWhithoutUser);
+            }
+
+            var allTypesWhitUser = await exerciseService.AllExerciseWithUserAsync(userId);
+            return View(allTypesWhitUser);
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
             return RedirectToAction("All");
@@ -40,13 +50,14 @@
             
             if (!isExerciceExist)
             {
-                
+                ModelState.AddModelError((nameof(id)), "Selected exercise does not exist.");
+                return RedirectToAction("All");
             }
 
             if (isExerciseAddedToThisTraining)
             {
                 TempData[WarningMessage] = "You already have this exercise to your training";
-                return RedirectToAction("All");
+                return RedirectToAction("Mine","Training");
             }
 
             await exerciseService.AddExerciseAsync(id, userId);
