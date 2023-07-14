@@ -6,7 +6,11 @@
     int colResult = 12 / Model.Count();
 }
 
-<h1 class="text-lg-center">@ViewBag.Title</h1>
+@if (!Model.Any(te => te.AllExercises.Count() == 0))
+{
+    <h1 class="text-lg-center">@ViewBag.Title</h1>
+}
+
 
 <div class="container-fluid">
   <div class="row">

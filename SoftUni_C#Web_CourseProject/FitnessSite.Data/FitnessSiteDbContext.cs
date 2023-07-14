@@ -30,8 +30,18 @@
             builder.Entity<MuscleExercise>()
                 .HasKey(me => new { me.ExerciseId, me.MuscleId});
 
-            builder.Entity<TrainingExercise>()
-                .HasKey(te => new { te.TrainingId, te.ExerciseId });
+            builder.Entity<TrainingExercise>(e =>
+            {
+                e.HasKey(te => new { te.TrainingId, te.ExerciseId });
+
+                e.HasOne(te => te.Training)
+                .WithMany(te => te.TrainingExercises)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                e.HasOne(te => te.Exercise)
+                .WithMany(te => te.TrainingExercises)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
 
             Assembly assembly = Assembly.GetAssembly(typeof(FitnessSiteDbContext))
                 ?? Assembly.GetExecutingAssembly();

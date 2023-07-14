@@ -1,14 +1,27 @@
 ﻿@model TrainingViewModel
+@{
+    ViewBag.Title = "Start your training";
+}
 
-
-@if(Model == null)
+@if (Model != null)
 {
-    <h3 class="text-center">You dont have exercise yet</h3>
+    <h1>@ViewBag.Title</h1>
+    <div class="row">
+        @foreach(AllExerciseViewModel exercise in Model!.Exercises)
+        {
+            <div class="col-4 d-inline">
+            <Partial name = "_ExercisePartial" model="exercise"/>
+            <form class="text-center" asp-controller="Training" asp-action="Remove" method="post" asp-route-id="@exercise.Id">
+            <input type="submit" value="Remove" class="btn btn-primary text-center">
+            </form>
+            <form class="text-center" asp-controller="Training" asp-action="Edit" method="get" asp-route-id="@exercise.Id">
+            <input type="submit" value="Edit" class="btn btn-primary text-center">
+            </form>
+           </div>
+        }
+    </div>
 }
 else
 {
-@foreach(var currEx in Model.Exercises)
-    {
-        <h1>@currEx.Name</h1>
-    }
+    <h3 class="text-center text-warning">You dont have exercise yet!</h3>
 }

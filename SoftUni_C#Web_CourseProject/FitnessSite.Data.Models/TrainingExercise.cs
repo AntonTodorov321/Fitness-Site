@@ -12,6 +12,6 @@
         [ForeignKey(nameof(Exercise))]
         public int ExerciseId { get; set; }
 
-        public virtual Exercise Esercise { get; set; } = null!;
+        public virtual Exercise Exercise { get; set; } = null!;
     }
 }

@@ -5,5 +5,7 @@
     public interface ITrainingService
     {
         Task<TrainingViewModel?> GetTrainingAsync(string userId);
+
+        Task RemoveExerciseFromTraining(int exersiceId, string userId);
     }
 }

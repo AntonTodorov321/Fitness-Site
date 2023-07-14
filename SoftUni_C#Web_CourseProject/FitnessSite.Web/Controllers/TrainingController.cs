@@ -25,5 +25,16 @@
 
             return View(myTraining);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove(int exersiceId)
+        {
+            string userId = User.GetById();
+            await trainingServise.RemoveExerciseFromTraining(exersiceId,userId);
+
+            return RedirectToAction("Index");
+        }
+
+       
     }
 }
