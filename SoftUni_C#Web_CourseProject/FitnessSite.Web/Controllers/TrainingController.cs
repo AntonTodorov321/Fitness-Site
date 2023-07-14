@@ -5,6 +5,7 @@
 
     using Services.Intarfaces;
     using Infastructure.Extensions;
+    using FitnessSite.Web.ViewModels.Training;
 
     [Authorize]
     public class TrainingController : Controller
@@ -20,7 +21,8 @@
         {
             string userId = User.GetById();
 
-            var myTraining = await trainingServise.GetTrainingAsync(userId);
+            TrainingViewModel? myTraining = await trainingServise.GetTrainingAsync(userId);
+
             return View(myTraining);
         }
     }

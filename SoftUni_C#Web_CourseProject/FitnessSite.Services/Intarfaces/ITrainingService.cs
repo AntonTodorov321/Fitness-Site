@@ -4,6 +4,6 @@
 
     public interface ITrainingService
     {
-        Task<TrainingViewModel> GetTrainingAsync(string userId);
+        Task<TrainingViewModel?> GetTrainingAsync(string userId);
     }
 }

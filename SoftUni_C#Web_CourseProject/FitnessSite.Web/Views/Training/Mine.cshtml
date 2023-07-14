@@ -1,7 +1,14 @@
 ﻿@model TrainingViewModel
 
 
-    @foreach(var currEx in Model.Exercises)
+@if(Model == null)
+{
+    <h1>You dont have exercise</h1>
+}
+else
+{
+@foreach(var currEx in Model.Exercises)
     {
         <h1>@currEx.Name</h1>
     }
+}
