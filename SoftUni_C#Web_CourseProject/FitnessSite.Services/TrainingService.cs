@@ -2,12 +2,13 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using Data.Models;
     using Web.Data;
     using Web.ViewModels.Exercise;
     using Intarfaces;
     using Web.ViewModels.Training;
-    using Microsoft.EntityFrameworkCore;
 
     public class TrainingService : ITrainingService
     {
@@ -57,7 +58,7 @@
             return trainingViewModel;
         }
 
-        public async Task RemoveExerciseFromTraining(int exersiceId, string userId)
+        public async Task RemoveExerciseFromTrainingAsync(int exersiceId, string userId)
         {
             ApplicationUser user = await GetApplicationUserByIdAsync(userId);
 

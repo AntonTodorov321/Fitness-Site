@@ -5,7 +5,7 @@
 
     using Services.Intarfaces;
     using Infastructure.Extensions;
-    using FitnessSite.Web.ViewModels.Training;
+    using ViewModels.Training;
 
     [Authorize]
     public class TrainingController : Controller
@@ -30,11 +30,9 @@
         public async Task<IActionResult> Remove(int id)
         {
             string userId = User.GetById();
-            await trainingServise.RemoveExerciseFromTraining(id,userId);
+            await trainingServise.RemoveExerciseFromTrainingAsync(id,userId);
 
             return RedirectToAction("Mine");
         }
-
-       
     }
 }

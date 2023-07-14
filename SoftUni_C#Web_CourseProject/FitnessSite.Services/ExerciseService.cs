@@ -8,7 +8,7 @@
     using Web.Data;
     using Web.ViewModels.Exercise;
     using Web.ViewModels.TypeExercise;
-    using FitnessSite.Data.Models;
+    using Data.Models;
 
     public class ExerciseService : IExerciseService
     {
@@ -117,6 +117,13 @@
             }).ToArrayAsync();
 
             return models;
+        }
+
+        public async Task<string> GetExerciseNameByIdAsync(int id)
+        {
+            Exercise exercise = await dbContext.Exercises.FirstAsync(x => x.Id == id);
+
+            return exercise.Name;
         }
     }
 }

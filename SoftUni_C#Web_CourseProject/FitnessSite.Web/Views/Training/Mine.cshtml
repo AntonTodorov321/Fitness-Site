@@ -3,7 +3,7 @@
     ViewBag.Title = "Start your training";
 }
 
-@if (Model != null)
+@if (Model.Exercises.Any())
 {
     <h1>@ViewBag.Title</h1>
     <div class="row">

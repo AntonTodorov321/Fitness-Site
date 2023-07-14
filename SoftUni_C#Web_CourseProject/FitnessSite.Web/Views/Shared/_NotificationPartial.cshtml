@@ -10,7 +10,7 @@
 
 @if(TempData.ContainsKey(SuccessMessage))
 {
-    <script>toastr.error('@TempData[SuccessMessage]');</script>
+    <script>toastr.success('@TempData[SuccessMessage]');</script>
 }
 
 @if(TempData.ContainsKey(InformationMessage))

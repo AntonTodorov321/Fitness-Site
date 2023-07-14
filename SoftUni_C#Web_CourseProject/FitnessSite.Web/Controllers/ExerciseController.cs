@@ -28,10 +28,18 @@
                 var allTypesWhithoutUser = 
                     await exerciseService.AllExerciseWithoutUserAsync();
                 return View(allTypesWhithoutUser);
+
             }
 
-            var allTypesWhitUser = await exerciseService.AllExerciseWithUserAsync(userId);
-            return View(allTypesWhitUser);
+            try
+            {
+                var allTypesWhitUser = await exerciseService.AllExerciseWithUserAsync(userId);
+                return View(allTypesWhitUser);
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
         }
 
         [HttpGet]
@@ -60,8 +68,25 @@
                 return RedirectToAction("Mine","Training");
             }
 
-            await exerciseService.AddExerciseAsync(id, userId);
-            return RedirectToAction("All");
+            try
+            {
+                await exerciseService.AddExerciseAsync(id, userId);
+                TempData[SuccessMessage] =
+                    $"You successfully add {await exerciseService.GetExerciseNameByIdAsync(id)} exercise.";
+                return RedirectToAction("All");
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+
+        private IActionResult GeneralError()
+        {
+            TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later or contact administrator";
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

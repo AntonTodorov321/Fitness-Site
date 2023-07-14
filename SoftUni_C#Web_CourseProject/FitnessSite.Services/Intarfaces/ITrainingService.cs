@@ -6,6 +6,6 @@
     {
         Task<TrainingViewModel?> GetTrainingAsync(string userId);
 
-        Task RemoveExerciseFromTraining(int exersiceId, string userId);
+        Task RemoveExerciseFromTrainingAsync(int exersiceId, string userId);
     }
 }

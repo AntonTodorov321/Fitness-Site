@@ -6,7 +6,7 @@
     int colResult = 12 / Model.Count();
 }
 
-@if (!Model.Any(te => te.AllExercises.Count() == 0))
+@if (Model.Any(te => te.AllExercises.Count != 0))
 {
     <h1 class="text-lg-center">@ViewBag.Title</h1>
 }
@@ -17,7 +17,7 @@
 
       @foreach (var typeEx in Model)
       {
-          @if (typeEx.AllExercises.Count == 0)
+          @if (!typeEx.AllExercises.Any())
             {
                 counter++;
                 continue;
@@ -42,7 +42,7 @@
 
       @if (counter == Model.Count())
         {
-            <h4 class="text-center m-4 text-success">You already add all available exercises</h4>
+            <h2 class="text-center m-4 text-success">You already add all available exercises</h2>
         }
    </div>
 </div>
