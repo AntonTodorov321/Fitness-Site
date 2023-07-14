@@ -10,6 +10,7 @@
         }
 
         public Guid Id { get; set; }
+
         public ICollection<AllExerciseViewModel> Exercises { get; set; }
     }
 }

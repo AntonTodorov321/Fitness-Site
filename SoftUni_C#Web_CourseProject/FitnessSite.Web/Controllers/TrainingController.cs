@@ -27,12 +27,12 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Remove(int exersiceId)
+        public async Task<IActionResult> Remove(int id)
         {
             string userId = User.GetById();
-            await trainingServise.RemoveExerciseFromTraining(exersiceId,userId);
+            await trainingServise.RemoveExerciseFromTraining(id,userId);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Mine");
         }
 
        

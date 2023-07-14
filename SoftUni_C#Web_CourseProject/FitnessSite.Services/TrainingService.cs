@@ -63,9 +63,11 @@
 
             Training? training = await GetTrainingByUserAsync(user);
 
-            TrainingExercise trainingExerciseToRemove = 
-                dbContext.TrainingExercises!
-                .First(te => te.ExerciseId == exersiceId && te.TrainingId == training!.Id);
+            TrainingExercise trainingExerciseToRemove = new TrainingExercise()
+            {
+                 ExerciseId = exersiceId,
+                 TrainingId = training!.Id
+            };
 
             dbContext.TrainingExercises!.Remove(trainingExerciseToRemove);
             await dbContext.SaveChangesAsync();
