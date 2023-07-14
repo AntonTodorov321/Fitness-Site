@@ -3,6 +3,7 @@
     ViewBag.Title = "Choose your favorite exersice";
 
     int counter = 0;
+    int colResult = 12 / Model.Count();
 }
 
 <h1 class="text-lg-center">@ViewBag.Title</h1>
@@ -17,7 +18,7 @@
                 counter++;
                 continue;
             }
-            <div class="col-4 container-fluid">
+            <div class="col-@colResult container-fluid">
                 <h3 class="text-center m-lg-3 bg-light border">@typeEx.Name</h3>
 
                 @foreach (var exercise in typeEx.AllExercises)
