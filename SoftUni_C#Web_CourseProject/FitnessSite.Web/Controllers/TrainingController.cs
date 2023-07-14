@@ -7,7 +7,7 @@
     using Infastructure.Extensions;
     using ViewModels.Training;
     using static Common.NotificationMessagesConstants;
-    using FitnessSite.Web.ViewModels.Exercise;
+    using ViewModels.Exercise;
 
     [Authorize]
     public class TrainingController : Controller
@@ -75,7 +75,7 @@
             }
         }
 
-        [HttpGet]
+
         public async Task<IActionResult> Edit(int id)
         {
             bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);

@@ -128,16 +128,19 @@
 
         public async Task<EditExerciseViewModel> GetExerciseToEditAsync(int id)
         {
-            EditExerciseViewModel viewModel = await dbContext.Exercises.
-                Select(e => new EditExerciseViewModel()
-                {
-                    Id = id,
-                    Kilogram = e.Kilogram,
-                    Reps = e.Reps,
-                    Sets = e.Sets
-                }).FirstAsync(e => e.Id == id);
+            Exercise exercise = await dbContext.Exercises.
+                FirstAsync(e => e.Id == id);
 
-            return viewModel;
+            EditExerciseViewModel editViewModel = new EditExerciseViewModel()
+            {
+                Id = id,
+                Kilogram = exercise.Kilogram,
+                Reps = exercise.Reps,
+                Sets = exercise.Sets,
+                Name = exercise.Name
+            };
+
+            return editViewModel;
         }
     }
 }

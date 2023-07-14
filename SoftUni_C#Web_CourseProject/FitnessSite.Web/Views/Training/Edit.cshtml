@@ -1,0 +1,27 @@
+﻿@model EditExerciseViewModel
+@{
+    ViewBag.Title = $"Customise your {Model.Name} exercise for you";
+}
+
+<h1 class="text-center">@ViewBag.Title</h1>
+<div class="row">
+   <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+      <form method="post">
+       <div class="form-group">
+        <label asp-for="@Model.Reps"></label>
+        <input asp-for="@Model.Reps" class="form-control" placeholder="Reps">
+        <span asp-validation-for="@Model.Reps" class="small text-danger"></span>
+      </div>
+       <div class="form-group">
+        <label asp-for="@Model.Sets"></label>
+        <input asp-for="@Model.Sets" class="form-control" placeholder="Sets">
+        <span asp-validation-for="@Model.Sets" class="small text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="@Model.Kilogram"></label>
+        <input asp-for="@Model.Kilogram" class="form-control" placeholder="Kilogram">
+        <span asp-validation-for="@Model.Kilogram" class="small text-danger"></span>
+        </div>
+     </form>
+   </div>
+</div>

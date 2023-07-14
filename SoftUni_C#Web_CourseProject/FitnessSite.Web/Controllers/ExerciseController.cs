@@ -45,6 +45,7 @@
         [HttpGet]
         public IActionResult Add()
         {
+            TempData[InformationMessage] = "Please use the button";
             return RedirectToAction("All");
         }
 
