@@ -7,6 +7,7 @@
     using Infastructure.Extensions;
     using ViewModels.Training;
     using static Common.NotificationMessagesConstants;
+    using FitnessSite.Web.ViewModels.Exercise;
 
     [Authorize]
     public class TrainingController : Controller
@@ -34,6 +35,7 @@
         [HttpGet]
         public IActionResult Remove()
         {
+            TempData[InformationMessage] = "Please use the button";
             return RedirectToAction("Mine");
         }
 
@@ -53,7 +55,7 @@
             bool isExerciseInTraining = await trainingServise.isExerciseExistInTrainingAsync(userId, id);
             if (!isExerciseInTraining)
             {
-                TempData[ErrorMessage] =
+                TempData[WarningMessage] =
                     "Exercise does not exist in this training. Please select exercise from this training";
                 return RedirectToAction("Mine");
             }
@@ -74,16 +76,28 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int exersiceId)
+        public async Task<IActionResult> Edit(int id)
         {
-            bool isExerciseExist = await exerciseServise.IsExersiceExistById(exersiceId);
+            bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
             if (!isExerciseExist)
             {
-                TempData[WarningMessage] = "Selected exercise does not exist. Please select another exercise";
+                TempData[ErrorMessage] = "Selected exercise does not exist. Please select another exercise";
                 return RedirectToAction("Mine");
             }
 
-            return View();
+            string userId = User.GetById();
+            bool isExerciseInTraining = await trainingServise.isExerciseExistInTrainingAsync(userId, id);
+
+            if (!isExerciseInTraining)
+            {
+                TempData[WarningMessage] =
+                    "Exercise does not exist in this training. Please select exercise from this training";
+                return RedirectToAction("Mine");
+            }
+
+            EditExerciseViewModel viewModel = await exerciseServise.GetExerciseToEditAsync(id);
+
+            return View(viewModel);
         }
     }
 }

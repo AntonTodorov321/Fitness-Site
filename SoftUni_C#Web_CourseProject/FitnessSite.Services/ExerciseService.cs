@@ -24,34 +24,34 @@
             ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
             Guid? trainingId = user?.TrainingId;
 
-            IEnumerable<TypeExerciseViewModel> models = 
+            IEnumerable<TypeExerciseViewModel> models =
                 await dbContext.TypeExercises.Select(t => new TypeExerciseViewModel()
-            {
-                Name = t.Name,
-                AllExercises = dbContext.Exercises.
+                {
+                    Name = t.Name,
+                    AllExercises = dbContext.Exercises.
                 Where(e => e.TypeId == t.Id && !(e.TrainingExercises.
                 Any(te => te.TrainingId == trainingId))).
                 Select(e => new AllExerciseViewModel()
-                 {
-                     Id = e.Id,
-                     Name = e.Name,
-                     Description = e.Description,
-                     ImageUrl = e.ImageUrl,
-                     Reps = e.Reps,
-                     Sets = e.Sets,
-                     TargetMuscle = dbContext.MuscleExercises
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Description = e.Description,
+                    ImageUrl = e.ImageUrl,
+                    Reps = e.Reps,
+                    Sets = e.Sets,
+                    TargetMuscle = dbContext.MuscleExercises
                      .Where(me => me.ExerciseId == e.Id)
                      .Select(me => me.Muscle.Name)
                      .ToList(),
-                 }).ToArray()
-            }).ToArrayAsync();
+                }).ToArray()
+                }).ToArrayAsync();
 
             return models;
         }
 
         public async Task AddExerciseAsync(int id, string userId)
         {
-            Exercise exerciseToAdd = 
+            Exercise exerciseToAdd =
                 dbContext.Exercises.First(e => e.Id == id);
 
             ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
@@ -97,9 +97,9 @@
         {
             IEnumerable<TypeExerciseViewModel> models = await dbContext.TypeExercises.
                 Select(t => new TypeExerciseViewModel()
-            {
-                Name = t.Name,
-                AllExercises = dbContext.Exercises.Where(e => e.TypeId == t.Id).
+                {
+                    Name = t.Name,
+                    AllExercises = dbContext.Exercises.Where(e => e.TypeId == t.Id).
                 Select(e => new AllExerciseViewModel()
                 {
                     Id = e.Id,
@@ -114,7 +114,7 @@
                     .ToList(),
                 })
                 .ToArray()
-            }).ToArrayAsync();
+                }).ToArrayAsync();
 
             return models;
         }
@@ -124,6 +124,20 @@
             Exercise exercise = await dbContext.Exercises.FirstAsync(x => x.Id == id);
 
             return exercise.Name;
+        }
+
+        public async Task<EditExerciseViewModel> GetExerciseToEditAsync(int id)
+        {
+            EditExerciseViewModel viewModel = await dbContext.Exercises.
+                Select(e => new EditExerciseViewModel()
+                {
+                    Id = id,
+                    Kilogram = e.Kilogram,
+                    Reps = e.Reps,
+                    Sets = e.Sets
+                }).FirstAsync(e => e.Id == id);
+
+            return viewModel;
         }
     }
 }
