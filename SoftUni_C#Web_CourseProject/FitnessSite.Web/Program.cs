@@ -3,9 +3,9 @@ namespace FitnessSite.Web
     using Microsoft.EntityFrameworkCore;
 
     using Data;
-    using Services;
-    using Services.Intarfaces;
     using FitnessSite.Data.Models;
+    using Infastructure.Extensions;
+    using FitnessSite.Services.Intarfaces;
 
     public class Program
     {
@@ -40,7 +40,7 @@ namespace FitnessSite.Web
 
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<IExerciseService, ExerciseService>();
+            builder.Services.AddApplicationServices(typeof(IExerciseService));
 
             var app = builder.Build();
 

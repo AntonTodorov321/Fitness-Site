@@ -1,16 +1,17 @@
 ﻿namespace FitnessSite.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using FitnessSite.Data.Models;
-    using FitnessSite.Web.Data;
-    using FitnessSite.Web.ViewModels.Exercise;
-    using Intarfaces;
+
     using Microsoft.EntityFrameworkCore;
+
+    using Data.Models;
+    using Web.Data;
+    using Web.ViewModels.Exercise;
+    using Intarfaces;
     using Web.ViewModels.Training;
 
-    internal class TrainingService : ITrainingServise
+    public class TrainingService : ITrainingService
     {
         private readonly FitnessSiteDbContext dbContext;
 
@@ -19,25 +20,27 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<ICollection<TrainingViewModel>> GetTrainingAsync(string userId)
+        public async Task<TrainingViewModel?> GetTrainingAsync(string userId)
         {
             ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
 
-            Training training = dbContext.Trainings.First(t => t.Id.ToString() == user.TrainerId.ToString());
+            Training? training = dbContext.Trainings.FirstOrDefault(t => t.Id.ToString() == user.TrainingId.ToString());
 
-            ICollection<TrainingViewModel> trainingViewModels = await
-                dbContext.Trainings.Select(t => new TrainingViewModel()
+            TrainingViewModel? trainingViewModel =
+                 dbContext.Trainings.
+                Select(t => new TrainingViewModel()
                 {
+                    Id = t.Id,
                     Exercises = dbContext.TrainingExercises
                      .Where(te => te.TrainingId == t.Id)
                      .Select(te => new AllExerciseViewModel()
                      {
                          Name = te.Esercise.Name,
-                     })
-                     .ToList()
-                }).ToListAsync();
-                
-                return trainingViewModels;
+                     }).ToList()
+                }).FirstOrDefault(t => t.Id == training.Id);
+
+
+                return trainingViewModel;
         }
     }
 }

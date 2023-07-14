@@ -1,11 +1,11 @@
 ﻿namespace FitnessSite.Web.Controllers
 {
-    using System.Security.Claims;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Services.Intarfaces;
+    using Infastructure.Extensions;
     using static Common.NotificationMessagesConstants;
 
     [Authorize]
@@ -21,7 +21,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string? userId = this.User.GetById();
 
             if (userId == null)
             {
@@ -43,7 +43,7 @@
         [HttpPost]
         public async Task<IActionResult> Add(int id)
         {
-            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.GetById();
 
             bool isExerciceExist = await exerciseService.IsExersiceExistById(id);
             bool isExerciseAddedToThisTraining = await exerciseService.IsExerciseExistInThisTrainingAsync(id,userId);

@@ -21,6 +21,7 @@
     <ProjectReference Include="..\FitnessSite.Data.Models\FitnessSite.Data.Models.csproj" />
     <ProjectReference Include="..\FitnessSite.Data\FitnessSite.Data.csproj" />
     <ProjectReference Include="..\FitnessSite.Services\FitnessSite.Services.csproj" />
+    <ProjectReference Include="..\FitnessSite.Web.Infastructure\FitnessSite.Web.Infastructure.csproj" />
     <ProjectReference Include="..\FitnessSite.Web.ViewModels\FitnessSite.Web.ViewModels.csproj" />
   </ItemGroup>
 
