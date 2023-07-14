@@ -1,0 +1,14 @@
+﻿@model AllExerciseViewModel
+
+<h4 class="d-inline-block text-center m-lg-2">@Model.Name</h4>
+  <img class="d-block w-100" style="height:200px" src="@Model.ImageUrl" alt="@Model.Name">
+  <div class="d-inline-block">@Model.Description</div>
+  @if(Model.Reps != null)
+  {
+     <div>Reps: @Model.Reps</div>
+  }
+  @if(Model.Reps != null)
+  {
+     <div>Sets: @Model.Sets</div>
+  }
+  <div>Target muscle: @string.Join(", ",@Model.TargetMuscle)</div>

@@ -23,18 +23,7 @@
 
                 @foreach (var exercise in typeEx.AllExercises)
                      {
-                         <h4 class="d-inline-block text-center m-lg-2">@exercise.Name</h4>
-                         <img class="d-block w-100" style="height:200px" src="@exercise.ImageUrl" alt="@exercise.Name">
-                         <div class="d-inline-block">@exercise.Description</div>
-                         @if(exercise.Reps != null)
-                         {
-                            <div>Reps: @exercise.Reps</div>
-                         }
-                         @if(exercise.Reps != null)
-                         {
-                            <div>Sets: @exercise.Sets</div>
-                         }
-                         <div>Target muscle: @string.Join(", ",exercise.TargetMuscle)</div>
+                         <Partial name = "_ExercisePartial" model="exercise"/>
 
                              if (this.User.Identity?.IsAuthenticated ?? false)
                              {
