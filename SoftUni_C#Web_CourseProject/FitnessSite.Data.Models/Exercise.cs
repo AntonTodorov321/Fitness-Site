@@ -38,6 +38,8 @@
         [MaxLength(2048)]
         public string ImageUrl { get; set; } = null!;
 
+        public int? Kilogram { get; set; }
+
         public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }
 
         public virtual ICollection<TrainingExercise> TrainingExercises { get; set; }

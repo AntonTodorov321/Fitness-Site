@@ -6,17 +6,22 @@
     using Services.Intarfaces;
     using Infastructure.Extensions;
     using ViewModels.Training;
+    using static Common.NotificationMessagesConstants;
 
     [Authorize]
     public class TrainingController : Controller
     {
         private readonly ITrainingService trainingServise;
+        private readonly IExerciseService exerciseServise;
 
-        public TrainingController(ITrainingService trainingService)
+        public TrainingController(ITrainingService trainingService, IExerciseService exerciseServise)
         {
             this.trainingServise = trainingService;
+            this.exerciseServise = exerciseServise;
+
         }
 
+        [HttpGet]
         public async Task<IActionResult> Mine()
         {
             string userId = User.GetById();
@@ -26,13 +31,59 @@
             return View(myTraining);
         }
 
+        [HttpGet]
+        public IActionResult Remove()
+        {
+            return RedirectToAction("Mine");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Remove(int id)
         {
-            string userId = User.GetById();
-            await trainingServise.RemoveExerciseFromTrainingAsync(id,userId);
+            bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
 
-            return RedirectToAction("Mine");
+            if (!isExerciseExist)
+            {
+                TempData[ErrorMessage] =
+                    "Exercise does not exist. Please select another exercise";
+                return RedirectToAction("Mine");
+            }
+
+            string userId = User.GetById();
+            bool isExerciseInTraining = await trainingServise.isExerciseExistInTrainingAsync(userId, id);
+            if (!isExerciseInTraining)
+            {
+                TempData[ErrorMessage] =
+                    "Exercise does not exist in this training. Please select exercise from this training";
+                return RedirectToAction("Mine");
+            }
+
+            try
+            {
+                await trainingServise.RemoveExerciseFromTrainingAsync(id, userId);
+                TempData[WarningMessage] =
+                    $"You successfully remove " +
+                    $"{await exerciseServise.GetExerciseNameByIdAsync(id)} exercise";
+                return RedirectToAction("Mine");
+
+            }
+            catch (Exception)
+            { 
+                throw;
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int exersiceId)
+        {
+            bool isExerciseExist = await exerciseServise.IsExersiceExistById(exersiceId);
+            if (!isExerciseExist)
+            {
+                TempData[WarningMessage] = "Selected exercise does not exist. Please select another exercise";
+                return RedirectToAction("Mine");
+            }
+
+            return View();
         }
     }
 }

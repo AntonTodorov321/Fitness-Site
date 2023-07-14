@@ -54,14 +54,13 @@
             string userId = User.GetById();
 
             bool isExerciceExist = await exerciseService.IsExersiceExistById(id);
-            bool isExerciseAddedToThisTraining = await exerciseService.IsExerciseExistInThisTrainingAsync(id,userId);
-            
             if (!isExerciceExist)
             {
-                ModelState.AddModelError((nameof(id)), "Selected exercise does not exist.");
+               TempData[ErrorMessage] = "Selected exercise does not exist.";
                 return RedirectToAction("All");
             }
 
+            bool isExerciseAddedToThisTraining = await exerciseService.IsExerciseExistInThisTrainingAsync(id,userId);
             if (isExerciseAddedToThisTraining)
             {
                 TempData[WarningMessage] = "You already have this exercise to your training";

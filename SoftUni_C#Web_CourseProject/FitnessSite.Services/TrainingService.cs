@@ -58,6 +58,18 @@
             return trainingViewModel;
         }
 
+        public async Task<bool> isExerciseExistInTrainingAsync
+            (string userId, int exerciseId)
+        {
+            ApplicationUser user = await GetApplicationUserByIdAsync(userId);
+
+            Training? training = await GetTrainingByUserAsync(user);
+
+            return await dbContext.Trainings
+                .AnyAsync(t => t.TrainingExercises.
+                Any(te => te.TrainingId == training!.Id && te.ExerciseId == exerciseId));
+        }
+
         public async Task RemoveExerciseFromTrainingAsync(int exersiceId, string userId)
         {
             ApplicationUser user = await GetApplicationUserByIdAsync(userId);

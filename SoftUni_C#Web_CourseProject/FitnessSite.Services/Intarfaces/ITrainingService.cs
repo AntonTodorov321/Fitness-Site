@@ -7,5 +7,7 @@
         Task<TrainingViewModel?> GetTrainingAsync(string userId);
 
         Task RemoveExerciseFromTrainingAsync(int exersiceId, string userId);
+
+        Task<bool> isExerciseExistInTrainingAsync(string userId, int exerciseId);
     }
 }
