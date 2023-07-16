@@ -9,7 +9,7 @@
     {
         public Exercise()
         {
-            //MuscleExercises = new HashSet<MuscleExercise>();
+            MuscleExercises = new HashSet<MuscleExercise>();
             TrainingExercises = new HashSet<TrainingExercise>();
             Id = Guid.NewGuid();
         }
@@ -41,7 +41,12 @@
 
         public int? Kilogram { get; set; }
 
-        //public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }
+        [ForeignKey(nameof(User))]
+        public Guid? UserId { get; set; }
+
+        public virtual ApplicationUser? User { get; set; }
+
+        public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }
 
         public virtual ICollection<TrainingExercise> TrainingExercises { get; set; }
 

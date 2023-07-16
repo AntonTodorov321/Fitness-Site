@@ -47,10 +47,10 @@
                          ImageUrl = te.Exercise.ImageUrl,
                          Reps = te.Exercise.Reps,
                          Sets = te.Exercise.Sets,
-                         //TargetMuscle =
-                         //te.Exercise.MuscleExercises.
-                         //Where(me => me.ExerciseId == te.Exercise.Id).
-                         //Select(me => me.Muscle.Name).ToList()
+                         TargetMuscle =
+                         te.Exercise.MuscleExercises.
+                         Where(me => me.ExerciseId == te.Exercise.Id).
+                         Select(me => me.Muscle.Name).ToList()
                      }).ToList()
                 }).FirstOrDefaultAsync(t => t.Id == training.Id);
 

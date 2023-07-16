@@ -4,6 +4,7 @@ using FitnessSite.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    partial class FitnessSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230716090621_SeedExercise")]
+    partial class SeedExercise
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,21 +133,16 @@ namespace FitnessSite.Data.Migrations
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("TypeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Exercises");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dfbea820-d0e5-40db-bd18-5a1e23be533f"),
+                            Id = new Guid("23f41c9e-da15-4282-b5cc-1cbadb6ca92e"),
                             Description = "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
                             Name = "Push-Ups",
@@ -155,7 +152,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("459f6bde-2c9f-42ba-b9c5-4416e51760fc"),
+                            Id = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
                             Description = "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
                             ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
                             Name = "Plank",
@@ -165,7 +162,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6639c1c3-9ecb-4c4f-91ee-862de85f474d"),
+                            Id = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
                             Description = "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
                             ImageUrl = "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg",
                             Name = "Pull-Ups",
@@ -173,7 +170,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("98bde593-26f3-4305-9ddd-dfa16b593385"),
+                            Id = new Guid("a22ab0dd-3e6a-444f-b21d-b7f69707bb28"),
                             Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
                             ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
                             Name = "Cycling",
@@ -181,7 +178,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1c752277-8207-4d1d-a43c-8422643a82c6"),
+                            Id = new Guid("6587e2a8-e9f1-4fd9-bd7e-503078be010b"),
                             Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
                             ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
                             Name = "Bench Press",
@@ -191,7 +188,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f43d786c-c848-4fa2-a8fe-ab574fba4c3d"),
+                            Id = new Guid("8cb1af1b-b63a-458b-adfa-dc077a02c4f9"),
                             Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
                             ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
                             Name = "Squat",
@@ -253,83 +250,6 @@ namespace FitnessSite.Data.Migrations
                         {
                             Id = 7,
                             Name = "Back"
-                        });
-                });
-
-            modelBuilder.Entity("FitnessSite.Data.Models.MuscleExercise", b =>
-                {
-                    b.Property<Guid>("ExerciseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("MuscleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExerciseId", "MuscleId");
-
-                    b.HasIndex("MuscleId");
-
-                    b.ToTable("MuscleExercises");
-
-                    b.HasData(
-                        new
-                        {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 7
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("23f41c9e-da15-4282-b5cc-1cbadb6ca92e"),
-                            MuscleId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("8cb1af1b-b63a-458b-adfa-dc077a02c4f9"),
-                            MuscleId = 6
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
-                            MuscleId = 7
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
-                            MuscleId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("23f41c9e-da15-4282-b5cc-1cbadb6ca92e"),
-                            MuscleId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("a22ab0dd-3e6a-444f-b21d-b7f69707bb28"),
-                            MuscleId = 4
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("6587e2a8-e9f1-4fd9-bd7e-503078be010b"),
-                            MuscleId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("8cb1af1b-b63a-458b-adfa-dc077a02c4f9"),
-                            MuscleId = 4
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
-                            MuscleId = 6
                         });
                 });
 
@@ -601,32 +521,7 @@ namespace FitnessSite.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FitnessSite.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Type");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FitnessSite.Data.Models.MuscleExercise", b =>
-                {
-                    b.HasOne("FitnessSite.Data.Models.Exercise", "Exercise")
-                        .WithMany("MuscleExercises")
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FitnessSite.Data.Models.Muscle", "Muscle")
-                        .WithMany("MuscleExercises")
-                        .HasForeignKey("MuscleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Exercise");
-
-                    b.Navigation("Muscle");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Training", b =>
@@ -712,14 +607,7 @@ namespace FitnessSite.Data.Migrations
 
             modelBuilder.Entity("FitnessSite.Data.Models.Exercise", b =>
                 {
-                    b.Navigation("MuscleExercises");
-
                     b.Navigation("TrainingExercises");
-                });
-
-            modelBuilder.Entity("FitnessSite.Data.Models.Muscle", b =>
-                {
-                    b.Navigation("MuscleExercises");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Trainer", b =>

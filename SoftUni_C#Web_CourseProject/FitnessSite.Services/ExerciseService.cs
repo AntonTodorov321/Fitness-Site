@@ -40,10 +40,10 @@
                     Reps = e.Reps,
                     Sets = e.Sets,
                     Kilograms = e.Kilogram,
-                    //TargetMuscle = dbContext.MuscleExercises
-                    // .Where(me => me.ExerciseId == e.Id)
-                    // .Select(me => me.Muscle.Name)
-                    // .ToList(),
+                    TargetMuscle = dbContext.MuscleExercises
+                     .Where(me => me.ExerciseId == e.Id)
+                     .Select(me => me.Muscle.Name)
+                     .ToList(),
                 }).ToArray()
                 }).ToArrayAsync();
 
@@ -110,10 +110,10 @@
                     Reps = e.Reps,
                     Sets = e.Sets,
                     Kilograms = e.Kilogram,
-                    //TargetMuscle = dbContext.MuscleExercises
-                    //.Where(me => me.ExerciseId == e.Id)
-                    //.Select(me => me.Muscle.Name)
-                    //.ToList(),
+                    TargetMuscle = dbContext.MuscleExercises
+                    .Where(me => me.ExerciseId == e.Id)
+                    .Select(me => me.Muscle.Name)
+                    .ToList(),
                 })
                 .ToArray()
                 }).ToArrayAsync();

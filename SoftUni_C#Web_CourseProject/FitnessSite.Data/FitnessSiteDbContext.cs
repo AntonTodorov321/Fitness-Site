@@ -19,15 +19,16 @@
         public DbSet<Training> Trainings { get; set; } = null!;
         public DbSet<TypeExercise> TypeExercises { get; set; } = null!;
         public DbSet<Trainer> Trainers { get; set; } = null!;
-        //public DbSet<Muscle> Muscles { get; set; } = null!;
         public DbSet<TrainingExercise>? TrainingExercises { get; set; }
-        //public DbSet<MuscleExercise> MuscleExercises { get; set; } = null!;
+        public DbSet<Muscle> Muscles { get; set; } = null!;
+        public DbSet<MuscleExercise> MuscleExercises { get; set; } = null!;
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder.Entity<MuscleExercise>()
-            //    .HasKey(me => new { me.ExerciseId, me.MuscleId});
+            builder.Entity<MuscleExercise>()
+                .HasKey(me => new { me.ExerciseId, me.MuscleId });
 
             builder.Entity<TrainingExercise>(e =>
             {
