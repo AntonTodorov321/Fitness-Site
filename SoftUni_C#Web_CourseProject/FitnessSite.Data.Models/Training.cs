@@ -28,6 +28,10 @@
             }
         }
 
+        public bool IsStarted { get; set; }
+
+        public bool IsEnded { get; set; }
+
         [ForeignKey(nameof(ApllicationUser))]
         public Guid ApplicationUserId { get; set; }
 

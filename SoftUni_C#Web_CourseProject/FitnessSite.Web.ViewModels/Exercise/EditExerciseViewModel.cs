@@ -6,8 +6,6 @@
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } = null!;
-
         [RegularExpression(@"(^\d{1,2} - \d{1,2}$|^\d{1,2}$)",
             ErrorMessage = "Reps must be in format dd or dd - dd")]
         public string? Reps { get; set; }

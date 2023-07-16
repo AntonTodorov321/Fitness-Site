@@ -70,18 +70,18 @@
 
             }
             catch (Exception)
-            { 
-                throw;
+            {
+                return GeneralError();
             }
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
             if (!isExerciseExist)
             {
-                TempData[ErrorMessage] = "Selected exercise does not exist. Please select another exercise";
+                TempData[ErrorMessage] = "Selected exercise does not exist. Please select existing exercise";
                 return RedirectToAction("Mine");
             }
 
@@ -95,9 +95,55 @@
                 return RedirectToAction("Mine");
             }
 
-            EditExerciseViewModel viewModel = await exerciseServise.GetExerciseToEditAsync(id);
+            GetExerciseToEditViewModel viewModel = await exerciseServise.GetExerciseToEditAsync(id);
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditExerciseViewModel model)
+        {
+            bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
+            if (!isExerciseExist)
+            {
+                TempData[ErrorMessage] = "Selected exercise does not exist. Please select existing exercise";
+                return RedirectToAction("Mine");
+            }
+
+            string userId = User.GetById();
+            bool isExerciseInTraining = await trainingServise.isExerciseExistInTrainingAsync(userId, id);
+
+            if (!isExerciseInTraining)
+            {
+                TempData[WarningMessage] =
+                    "Exercise does not exist in this training. Please select exercise from this training";
+                return RedirectToAction("Mine");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Please fild the labels corecctly");
+                return RedirectToAction("Edit");
+            }
+
+            try
+            {
+                await exerciseServise.EditExerciseAsync(id, model);
+                return RedirectToAction("Mine");
+
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+
+        }
+        private IActionResult GeneralError()
+        {
+            TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later or contact administrator";
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

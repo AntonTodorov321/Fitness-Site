@@ -1,4 +1,4 @@
-﻿@model EditExerciseViewModel
+﻿@model GetExerciseToEditViewModel
 @{
     ViewBag.Title = $"Customise your {Model.Name} exercise for you";
 }
@@ -6,7 +6,7 @@
 <h1 class="text-center">@ViewBag.Title</h1>
 <div class="row">
    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-      <form method="post">
+       <form method="post">
        <div class="form-group">
         <label asp-for="@Model.Reps"></label>
         <input asp-for="@Model.Reps" class="form-control" placeholder="Reps">
@@ -22,6 +22,13 @@
         <input asp-for="@Model.Kilogram" class="form-control" placeholder="Kilogram">
         <span asp-validation-for="@Model.Kilogram" class="small text-danger"></span>
         </div>
+     
+         <input class="btn btn-primary container-fluid mt-2" value="Save" type="submit">
      </form>
    </div>
 </div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

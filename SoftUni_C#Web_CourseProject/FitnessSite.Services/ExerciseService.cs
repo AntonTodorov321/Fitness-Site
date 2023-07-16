@@ -126,21 +126,32 @@
             return exercise.Name;
         }
 
-        public async Task<EditExerciseViewModel> GetExerciseToEditAsync(int id)
+        public async Task<GetExerciseToEditViewModel> GetExerciseToEditAsync(int id)
         {
             Exercise exercise = await dbContext.Exercises.
                 FirstAsync(e => e.Id == id);
 
-            EditExerciseViewModel editViewModel = new EditExerciseViewModel()
+            GetExerciseToEditViewModel editViewModel = new GetExerciseToEditViewModel()
             {
                 Id = id,
                 Kilogram = exercise.Kilogram,
                 Reps = exercise.Reps,
                 Sets = exercise.Sets,
-                Name = exercise.Name
+                Name = exercise.Name,
             };
 
             return editViewModel;
+        }
+
+        public async Task EditExerciseAsync(int id, EditExerciseViewModel model)
+        {
+            Exercise exercise = await dbContext.Exercises.FirstAsync(e => e.Id == id);
+
+            exercise.Sets = model.Sets;
+            exercise.Reps = model.Reps;
+            exercise.Kilogram = model.Kilogram;
+
+            await dbContext.SaveChangesAsync();
         }
     }
 }

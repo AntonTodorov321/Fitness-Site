@@ -17,6 +17,8 @@
 
         public Task<string> GetExerciseNameByIdAsync(int id);
 
-        public Task<EditExerciseViewModel> GetExerciseToEditAsync(int id);
+        public Task<GetExerciseToEditViewModel> GetExerciseToEditAsync(int id);
+
+        public Task EditExerciseAsync(int id,EditExerciseViewModel model);
     }
 }
