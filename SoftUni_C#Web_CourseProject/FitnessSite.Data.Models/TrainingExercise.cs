@@ -10,7 +10,7 @@
         public virtual Training? Training { get; set; }
 
         [ForeignKey(nameof(Exercise))]
-        public int ExerciseId { get; set; }
+        public Guid ExerciseId { get; set; }
 
         public virtual Exercise Exercise { get; set; } = null!;
     }

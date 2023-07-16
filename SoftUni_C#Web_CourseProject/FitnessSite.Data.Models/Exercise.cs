@@ -9,12 +9,13 @@
     {
         public Exercise()
         {
-            MuscleExercises = new HashSet<MuscleExercise>();
+            //MuscleExercises = new HashSet<MuscleExercise>();
             TrainingExercises = new HashSet<TrainingExercise>();
+            Id = Guid.NewGuid();
         }
 
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(NameMaxLenght)]
@@ -40,7 +41,7 @@
 
         public int? Kilogram { get; set; }
 
-        public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }
+        //public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }
 
         public virtual ICollection<TrainingExercise> TrainingExercises { get; set; }
 

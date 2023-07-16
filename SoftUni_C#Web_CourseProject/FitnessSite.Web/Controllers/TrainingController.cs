@@ -40,7 +40,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> Remove(Guid id)
         {
             bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
 
@@ -76,7 +76,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
             if (!isExerciseExist)
@@ -101,7 +101,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditExerciseViewModel model)
+        public async Task<IActionResult> Edit(Guid id, EditExerciseViewModel model)
         {
             bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
             if (!isExerciseExist)
@@ -128,7 +128,7 @@
 
             try
             {
-                await exerciseServise.EditExerciseAsync(id, model);
+                await exerciseServise.EditExerciseAsync(id, model,userId);
                 return RedirectToAction("Mine");
 
             }

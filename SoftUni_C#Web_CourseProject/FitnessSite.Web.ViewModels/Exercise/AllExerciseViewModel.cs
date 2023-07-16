@@ -9,7 +9,7 @@
             TargetMuscle = new List<string>();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; } = null!;
 
@@ -20,6 +20,8 @@
         public string? Sets { get; set; }
 
         public string ImageUrl { get; set; } = null!;
+
+        public int? Kilograms { get; set; }
 
         public List<string> TargetMuscle { get; set; }
 

@@ -18,7 +18,6 @@
             {
                  new Exercise()
                  {
-                      Id = 1,
                       Name = "Push-Ups",
                       Description =
                       "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
@@ -30,7 +29,6 @@
 
                   new Exercise()
                  {
-                      Id = 2,
                       Name = "Plank",
                       Description =
                       "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
@@ -42,7 +40,6 @@
 
                    new Exercise()
                  {
-                      Id = 3,
                       Name = "Pull-Ups",
                       Description =
                       "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
@@ -51,7 +48,6 @@
                  },
                     new Exercise()
                  {
-                      Id = 4,
                       Name = "Cycling",
                       Description =
                        "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
@@ -60,7 +56,6 @@
                  },
                      new Exercise()
                  {
-                      Id = 5,
                       Name = "Bench Press",
                        Description =
                        "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
@@ -71,7 +66,6 @@
                  },
                       new Exercise()
                  {
-                      Id = 6,
                       Name = "Squat",
                       Description =
                        "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",

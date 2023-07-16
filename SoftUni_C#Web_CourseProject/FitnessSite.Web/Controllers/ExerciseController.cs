@@ -50,7 +50,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(int id)
+        public async Task<IActionResult> Add(Guid id)
         {
             string userId = User.GetById();
 

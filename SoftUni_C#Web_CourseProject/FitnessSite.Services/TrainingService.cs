@@ -47,10 +47,10 @@
                          ImageUrl = te.Exercise.ImageUrl,
                          Reps = te.Exercise.Reps,
                          Sets = te.Exercise.Sets,
-                         TargetMuscle =
-                         te.Exercise.MuscleExercises.
-                         Where(me => me.ExerciseId == te.Exercise.Id).
-                         Select(me => me.Muscle.Name).ToList()
+                         //TargetMuscle =
+                         //te.Exercise.MuscleExercises.
+                         //Where(me => me.ExerciseId == te.Exercise.Id).
+                         //Select(me => me.Muscle.Name).ToList()
                      }).ToList()
                 }).FirstOrDefaultAsync(t => t.Id == training.Id);
 
@@ -59,7 +59,7 @@
         }
 
         public async Task<bool> isExerciseExistInTrainingAsync
-            (string userId, int exerciseId)
+            (string userId, Guid exerciseId)
         {
             ApplicationUser user = await GetApplicationUserByIdAsync(userId);
 
@@ -70,7 +70,7 @@
                 Any(te => te.TrainingId == training!.Id && te.ExerciseId == exerciseId));
         }
 
-        public async Task RemoveExerciseFromTrainingAsync(int exersiceId, string userId)
+        public async Task RemoveExerciseFromTrainingAsync(Guid exersiceId, string userId)
         {
             ApplicationUser user = await GetApplicationUserByIdAsync(userId);
 

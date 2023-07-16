@@ -11,4 +11,8 @@
   {
      <div>Sets: @Model.Sets</div>
   }
+  @if(Model.Kilograms.HasValue)
+  {
+     <div>Kg: @Model.Kilograms</div>
+  }
   <div>Target muscle: @string.Join(", ",@Model.TargetMuscle)</div>

@@ -39,17 +39,18 @@
                     ImageUrl = e.ImageUrl,
                     Reps = e.Reps,
                     Sets = e.Sets,
-                    TargetMuscle = dbContext.MuscleExercises
-                     .Where(me => me.ExerciseId == e.Id)
-                     .Select(me => me.Muscle.Name)
-                     .ToList(),
+                    Kilograms = e.Kilogram,
+                    //TargetMuscle = dbContext.MuscleExercises
+                    // .Where(me => me.ExerciseId == e.Id)
+                    // .Select(me => me.Muscle.Name)
+                    // .ToList(),
                 }).ToArray()
                 }).ToArrayAsync();
 
             return models;
         }
 
-        public async Task AddExerciseAsync(int id, string userId)
+        public async Task AddExerciseAsync(Guid id, string userId)
         {
             Exercise exerciseToAdd =
                 dbContext.Exercises.First(e => e.Id == id);
@@ -77,12 +78,12 @@
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExersiceExistById(int id)
+        public async Task<bool> IsExersiceExistById(Guid id)
         {
             return await dbContext.Exercises.AnyAsync(e => e.Id == id);
         }
 
-        public async Task<bool> IsExerciseExistInThisTrainingAsync(int id, string userId)
+        public async Task<bool> IsExerciseExistInThisTrainingAsync(Guid id, string userId)
         {
             Exercise exerciseToAdd =
                 dbContext.Exercises.First(e => e.Id == id);
@@ -108,10 +109,11 @@
                     ImageUrl = e.ImageUrl,
                     Reps = e.Reps,
                     Sets = e.Sets,
-                    TargetMuscle = dbContext.MuscleExercises
-                    .Where(me => me.ExerciseId == e.Id)
-                    .Select(me => me.Muscle.Name)
-                    .ToList(),
+                    Kilograms = e.Kilogram,
+                    //TargetMuscle = dbContext.MuscleExercises
+                    //.Where(me => me.ExerciseId == e.Id)
+                    //.Select(me => me.Muscle.Name)
+                    //.ToList(),
                 })
                 .ToArray()
                 }).ToArrayAsync();
@@ -119,14 +121,14 @@
             return models;
         }
 
-        public async Task<string> GetExerciseNameByIdAsync(int id)
+        public async Task<string> GetExerciseNameByIdAsync(Guid id)
         {
             Exercise exercise = await dbContext.Exercises.FirstAsync(x => x.Id == id);
 
             return exercise.Name;
         }
 
-        public async Task<GetExerciseToEditViewModel> GetExerciseToEditAsync(int id)
+        public async Task<GetExerciseToEditViewModel> GetExerciseToEditAsync(Guid id)
         {
             Exercise exercise = await dbContext.Exercises.
                 FirstAsync(e => e.Id == id);
@@ -143,13 +145,29 @@
             return editViewModel;
         }
 
-        public async Task EditExerciseAsync(int id, EditExerciseViewModel model)
+        public async Task EditExerciseAsync(Guid id, EditExerciseViewModel model, string userId)
         {
-            Exercise exercise = await dbContext.Exercises.FirstAsync(e => e.Id == id);
+            ApplicationUser user = 
+                await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
+            Training training =
+                await dbContext.Trainings.
+                FirstAsync(t => t.Id.ToString() == user.TrainingId.ToString());
 
-            exercise.Sets = model.Sets;
-            exercise.Reps = model.Reps;
-            exercise.Kilogram = model.Kilogram;
+            TrainingExercise trainingExercise = 
+                await dbContext.TrainingExercises!.Include(t => t.Exercise).
+                FirstAsync(te => te.ExerciseId == id && te.TrainingId == training.Id);
+
+            Exercise exerciseDb = trainingExercise.Exercise;
+
+            user.Training!.TrainingExercises.Remove(trainingExercise);
+            Exercise exercise = new Exercise()
+            {
+
+            };
+            user.Training.TrainingExercises.Add(new TrainingExercise()
+            {
+
+            });
 
             await dbContext.SaveChangesAsync();
         }
