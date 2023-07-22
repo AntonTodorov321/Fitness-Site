@@ -13,5 +13,7 @@
         public Guid ExerciseId { get; set; }
 
         public virtual Exercise Exercise { get; set; } = null!;
+
+        public bool IsModify { get; set; }
     }
 }

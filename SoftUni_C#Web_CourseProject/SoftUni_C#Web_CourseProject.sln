@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessSite.Services", "Fit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D03AD15A-48A3-4656-B39E-1E7EA50CA5D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessSite.Web.Infastructure", "FitnessSite.Web.Infastructure\FitnessSite.Web.Infastructure.csproj", "{B03A358F-D4B0-4F53-BEC8-556281685B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessSite.Web.Infastructure", "FitnessSite.Web.Infastructure\FitnessSite.Web.Infastructure.csproj", "{B03A358F-D4B0-4F53-BEC8-556281685B55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

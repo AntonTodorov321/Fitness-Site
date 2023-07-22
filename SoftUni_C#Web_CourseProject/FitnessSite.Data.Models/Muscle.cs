@@ -18,7 +18,6 @@
         [MaxLength(NameMaxLenght)]
         public string Name { get; set; } = null!;
 
-
        public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<TypeExerciseViewModel>
+@inject IExerciseService exerciseService
 @{
     ViewBag.Title = "Choose your favorite exersice";
+    List<string> allUserExerciseNames = await exerciseService.AllUserExercisesNames(User.GetById());
 
     int counter = 0;
     int colResult = 12 / Model.Count();
@@ -27,6 +29,10 @@
 
                 @foreach (var exercise in typeEx.AllExercises)
                      {
+                              if (allUserExerciseNames.Contains(exercise.Name))
+                              {
+                                 continue;
+                              }
                          <Partial name = "_ExercisePartial" model="exercise"/>
 
                              if (this.User.Identity?.IsAuthenticated ?? false)

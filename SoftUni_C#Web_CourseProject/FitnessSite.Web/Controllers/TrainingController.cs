@@ -126,16 +126,14 @@
                 return RedirectToAction("Edit");
             }
 
-            try
-            {
                 await exerciseServise.EditExerciseAsync(id, model,userId);
+                TempData[SuccessMessage] = $"You successfully edit {await exerciseServise.GetExerciseNameByIdAsync(id)} exercise";
                 return RedirectToAction("Mine");
-
-            }
-            catch (Exception)
-            {
-                return GeneralError();
-            }
+            
+            //catch (Exception)
+            //{
+            //   return GeneralError();
+            //}
 
         }
         private IActionResult GeneralError()

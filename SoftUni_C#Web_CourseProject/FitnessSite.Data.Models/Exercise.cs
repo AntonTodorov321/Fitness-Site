@@ -41,6 +41,8 @@
 
         public int? Kilogram { get; set; }
 
+        public bool IsAdded { get; set; }
+
         [ForeignKey(nameof(User))]
         public Guid? UserId { get; set; }
 

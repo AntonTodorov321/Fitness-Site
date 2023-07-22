@@ -83,6 +83,9 @@
             };
 
             dbContext.TrainingExercises!.Remove(trainingExerciseToRemove);
+            Exercise exercise =
+                await dbContext.Exercises.FirstAsync(e => e.Id == exersiceId);
+            exercise.UserId = null;
             await dbContext.SaveChangesAsync();
         }
 

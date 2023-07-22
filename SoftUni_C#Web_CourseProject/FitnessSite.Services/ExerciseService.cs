@@ -31,6 +31,7 @@
                     AllExercises = dbContext.Exercises.
                 Where(e => e.TypeId == t.Id && !(e.TrainingExercises.
                 Any(te => te.TrainingId == trainingId))).
+                Where(e => e.UserId == null).
                 Select(e => new AllExerciseViewModel()
                 {
                     Id = e.Id,
@@ -147,29 +148,67 @@
 
         public async Task EditExerciseAsync(Guid id, EditExerciseViewModel model, string userId)
         {
-            ApplicationUser user = 
-                await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
-            Training training =
-                await dbContext.Trainings.
-                FirstAsync(t => t.Id.ToString() == user.TrainingId.ToString());
+            Exercise exercise = await dbContext.
+                Exercises.Include(e => e.MuscleExercises).FirstAsync(e => e.Id == id);
+            ApplicationUser user = await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
+            Guid? trainingId = user.TrainingId;
 
-            TrainingExercise trainingExercise = 
-                await dbContext.TrainingExercises!.Include(t => t.Exercise).
-                FirstAsync(te => te.ExerciseId == id && te.TrainingId == training.Id);
-
-            Exercise exerciseDb = trainingExercise.Exercise;
-
-            user.Training!.TrainingExercises.Remove(trainingExercise);
-            Exercise exercise = new Exercise()
+            if (!exercise.UserId.HasValue)
             {
+                Exercise exerciseToAdd = new Exercise()
+                {
+                    Description = exercise.Description,
+                    ImageUrl = exercise.ImageUrl,
+                    Name = exercise.Name,
+                    UserId = Guid.Parse(userId),
+                    TypeId = exercise.TypeId,
+                    Reps = model.Reps,
+                    Sets = model.Sets,
+                    Kilogram = model.Kilogram,
+                    MuscleExercises = exercise.MuscleExercises
+                };
 
-            };
-            user.Training.TrainingExercises.Add(new TrainingExercise()
+                await dbContext.AddAsync(exerciseToAdd);
+
+                TrainingExercise trainingExercise =
+                    await dbContext.TrainingExercises!
+                    .FirstAsync(te => te.ExerciseId == id && te.TrainingId == trainingId);
+
+                dbContext.TrainingExercises!.Remove(trainingExercise);
+                await dbContext.SaveChangesAsync();
+
+                TrainingExercise trainingExerciseToAdd = new TrainingExercise()
+                {
+                    IsModify = true,
+                    ExerciseId = exerciseToAdd.Id,
+                    TrainingId = trainingId
+                };
+
+                dbContext.TrainingExercises.Add(trainingExerciseToAdd);
+                await dbContext.SaveChangesAsync();
+            }
+            else
             {
-
-            });
+                exercise.Sets = model.Sets;
+                exercise.Reps = model.Reps;
+                exercise.Kilogram = model.Kilogram;
+            }
 
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<string>> AllUserExercisesNames(string userId)
+        {
+            if (userId == null)
+            {
+                return new List<string>();
+            }
+
+            return
+                await dbContext.Exercises.
+                Where(e => e.UserId.ToString() == userId).
+                Select(e => e.Name).
+                ToListAsync();
         }
     }
 }
