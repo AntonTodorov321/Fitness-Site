@@ -62,10 +62,10 @@
 
             try
             {
+                string exerciseName = await exerciseServise.GetExerciseNameByIdAsync(id);
                 await trainingServise.RemoveExerciseFromTrainingAsync(id, userId);
                 TempData[WarningMessage] =
-                    $"You successfully remove " +
-                    $"{await exerciseServise.GetExerciseNameByIdAsync(id)} exercise";
+                    $"You successfully remove {exerciseName} exercise";
                 return RedirectToAction("Mine");
 
             }

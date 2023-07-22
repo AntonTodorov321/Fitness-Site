@@ -47,6 +47,7 @@
                          ImageUrl = te.Exercise.ImageUrl,
                          Reps = te.Exercise.Reps,
                          Sets = te.Exercise.Sets,
+                         Kilograms = te.Exercise.Kilogram,
                          TargetMuscle =
                          te.Exercise.MuscleExercises.
                          Where(me => me.ExerciseId == te.Exercise.Id).
@@ -83,21 +84,15 @@
             };
 
             dbContext.TrainingExercises!.Remove(trainingExerciseToRemove);
+
             Exercise exercise =
                 await dbContext.Exercises.FirstAsync(e => e.Id == exersiceId);
 
-            Exercise? originalExercise = await
-                dbContext.Exercises.
-                FirstOrDefaultAsync(e => e.Name == exercise.Name && !(e.UserId.HasValue));
+            if (exercise.UserId.HasValue)
+            {
+                dbContext.Exercises.Remove(exercise);
+            }
 
-            if (originalExercise != null)
-            {
-                exercise.UserId = null;
-            }
-            else
-            {
-                exercise.UserId = null;
-            }
             await dbContext.SaveChangesAsync();
         }
 

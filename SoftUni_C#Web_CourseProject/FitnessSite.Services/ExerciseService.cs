@@ -31,6 +31,7 @@
                     AllExercises = dbContext.Exercises.
                 Where(e => e.TypeId == t.Id && !(e.TrainingExercises.
                 Any(te => te.TrainingId == trainingId))).
+                Where(e => !e.UserId.HasValue).
                 Select(e => new AllExerciseViewModel()
                 {
                     Id = e.Id,
@@ -54,7 +55,6 @@
         {
             Exercise exerciseToAdd =
                 dbContext.Exercises.First(e => e.Id == id);
-            exerciseToAdd.UserId = id;
 
             ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
 
@@ -166,6 +166,15 @@
                     Sets = model.Sets,
                     Kilogram = model.Kilogram
                 };
+
+                foreach (int muscleId in exercise.MuscleExercises.Select(me => me.MuscleId))
+                {
+                    exerciseToAdd.MuscleExercises.Add(new MuscleExercise()
+                    {
+                        ExerciseId = exerciseToAdd.Id,
+                        MuscleId = muscleId,
+                    });
+                }
 
                 await dbContext.AddAsync(exerciseToAdd);
 

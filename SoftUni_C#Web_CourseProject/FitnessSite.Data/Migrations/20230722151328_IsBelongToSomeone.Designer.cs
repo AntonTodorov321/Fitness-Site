@@ -4,6 +4,7 @@ using FitnessSite.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    partial class FitnessSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230722151328_IsBelongToSomeone")]
+    partial class IsBelongToSomeone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,6 +116,9 @@ namespace FitnessSite.Data.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
+                    b.Property<bool>("IsBelongToSomeone")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("Kilogram")
                         .HasColumnType("int");
 
@@ -145,9 +150,10 @@ namespace FitnessSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("82955134-16f0-43fe-9e63-ddd7759a6a20"),
+                            Id = new Guid("3779789b-0641-440b-bbf4-bf5b66c2e043"),
                             Description = "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
+                            IsBelongToSomeone = false,
                             Name = "Push-Ups",
                             Reps = "10",
                             Sets = "4",
@@ -155,9 +161,10 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("174d1363-5c1b-4b5c-aaf5-39d3bc813aa8"),
+                            Id = new Guid("894edced-f368-4128-9e14-f953a7670c4a"),
                             Description = "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
                             ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
+                            IsBelongToSomeone = false,
                             Name = "Plank",
                             Reps = "8",
                             Sets = "3",
@@ -165,25 +172,28 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("eaf31fe6-2076-49ea-a380-8970ca2da744"),
+                            Id = new Guid("58d1f4aa-ae6e-44ed-95a6-79edc4e5c0e3"),
                             Description = "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
                             ImageUrl = "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg",
+                            IsBelongToSomeone = false,
                             Name = "Pull-Ups",
                             TypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("d021f579-8380-43f4-9d5c-48c298ecd1b2"),
+                            Id = new Guid("02cedcac-af59-4f5d-ab87-aa5636c10706"),
                             Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
                             ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
+                            IsBelongToSomeone = false,
                             Name = "Cycling",
                             TypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("6d93cbfe-b72d-4dd7-a134-0098e8ea9880"),
+                            Id = new Guid("750b0aad-6595-4da2-b4ff-b904e2ddffdd"),
                             Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
                             ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
+                            IsBelongToSomeone = false,
                             Name = "Bench Press",
                             Reps = "10 - 12",
                             Sets = "4",
@@ -191,9 +201,10 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("dd6d3684-1752-412b-9224-6dd772957f29"),
+                            Id = new Guid("fc7afded-09a2-4699-a963-d9c4ee0f0244"),
                             Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
                             ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
+                            IsBelongToSomeone = false,
                             Name = "Squat",
                             Reps = "8 - 10",
                             Sets = "3-4",

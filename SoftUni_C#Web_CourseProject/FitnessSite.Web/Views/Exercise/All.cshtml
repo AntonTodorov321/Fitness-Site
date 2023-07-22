@@ -6,11 +6,27 @@
 
     int counter = 0;
     int colResult = 12 / Model.Count();
+    bool haveExercise = false;
 }
 
-@if (Model.Any(te => te.AllExercises.Count != 0))
+@foreach (var te in @Model)
 {
-    <h1 class="text-lg-center">@ViewBag.Title</h1>
+    if (haveExercise)
+    {
+        break;
+    }
+
+    foreach (var ex in te.AllExercises)
+    {
+       @if (!allUserExerciseNames.Contains(ex.Name))
+       {
+           <h1 class="text-lg-center">@ViewBag.Title</h1>
+           haveExercise = true;
+           break;
+        }
+        counter++;
+        break;
+    }
 }
 
 
@@ -25,7 +41,17 @@
                 continue;
             }
             <div class="col-@colResult container-fluid">
-                <h3 class="text-center m-lg-3 bg-light border">@typeEx.Name</h3>
+                
+                @foreach (var exercise in typeEx.AllExercises)
+                {
+
+                       @if (!allUserExerciseNames.Contains(exercise.Name))
+                          {
+                            <h3 class="text-center m-lg-3 bg-light border">@typeEx.Name</h3>
+                            break;
+                          }
+                }
+
 
                 @foreach (var exercise in typeEx.AllExercises)
                      {
