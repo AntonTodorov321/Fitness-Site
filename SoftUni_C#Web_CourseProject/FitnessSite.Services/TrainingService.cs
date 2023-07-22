@@ -78,19 +78,31 @@
 
             TrainingExercise trainingExerciseToRemove = new TrainingExercise()
             {
-                 ExerciseId = exersiceId,
-                 TrainingId = training!.Id
+                ExerciseId = exersiceId,
+                TrainingId = training!.Id
             };
 
             dbContext.TrainingExercises!.Remove(trainingExerciseToRemove);
             Exercise exercise =
                 await dbContext.Exercises.FirstAsync(e => e.Id == exersiceId);
-            exercise.UserId = null;
+
+            Exercise? originalExercise = await
+                dbContext.Exercises.
+                FirstOrDefaultAsync(e => e.Name == exercise.Name && !(e.UserId.HasValue));
+
+            if (originalExercise != null)
+            {
+                exercise.UserId = null;
+            }
+            else
+            {
+                exercise.UserId = null;
+            }
             await dbContext.SaveChangesAsync();
         }
 
 
-        private  async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
+        private async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
         {
             return await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
         }

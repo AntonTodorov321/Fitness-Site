@@ -4,6 +4,7 @@ using FitnessSite.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    partial class FitnessSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230722143506_AddIsAddedPropertyToExerciseEntity")]
+    partial class AddIsAddedPropertyToExerciseEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,6 +116,9 @@ namespace FitnessSite.Data.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
+                    b.Property<bool>("IsAdded")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("Kilogram")
                         .HasColumnType("int");
 
@@ -145,9 +150,10 @@ namespace FitnessSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("081ee413-65e4-4e03-b877-390cbfd0051d"),
+                            Id = new Guid("fcb146b6-d311-45a8-8b19-045afa5c7fd8"),
                             Description = "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
+                            IsAdded = false,
                             Name = "Push-Ups",
                             Reps = "10",
                             Sets = "4",
@@ -155,9 +161,10 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c4afcf88-8953-4084-a2f6-46117c2b6bab"),
+                            Id = new Guid("359e28c4-d432-4c01-a646-6bfe9d976876"),
                             Description = "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
                             ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
+                            IsAdded = false,
                             Name = "Plank",
                             Reps = "8",
                             Sets = "3",
@@ -165,25 +172,28 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e2b16ee0-17ed-4351-9f1f-f9cff7decea1"),
+                            Id = new Guid("03746141-0b21-4158-8808-a8dc661ed880"),
                             Description = "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
                             ImageUrl = "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg",
+                            IsAdded = false,
                             Name = "Pull-Ups",
                             TypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("e746d5c9-b206-4e6d-b7b9-fdd1af9bc0f8"),
+                            Id = new Guid("879008aa-1f0e-45f2-be64-9ade06a609da"),
                             Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
                             ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
+                            IsAdded = false,
                             Name = "Cycling",
                             TypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("960c84ae-e927-47ca-84bd-b2623099b55f"),
+                            Id = new Guid("c9982883-d125-4b2b-89b7-910444a72eec"),
                             Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
                             ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
+                            IsAdded = false,
                             Name = "Bench Press",
                             Reps = "10 - 12",
                             Sets = "4",
@@ -191,9 +201,10 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b80216ee-104e-4bcd-9568-6344fe0c42fb"),
+                            Id = new Guid("93ab69a1-bb0e-4cc4-b2bd-956bbe13d30c"),
                             Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
                             ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
+                            IsAdded = false,
                             Name = "Squat",
                             Reps = "8 - 10",
                             Sets = "3-4",

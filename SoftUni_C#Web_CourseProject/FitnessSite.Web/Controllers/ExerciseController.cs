@@ -67,18 +67,15 @@
                 TempData[WarningMessage] = "You already have this exercise to your training";
                 return RedirectToAction("Mine","Training");
             }
-
-            try
-            {
                 await exerciseService.AddExerciseAsync(id, userId);
                 TempData[SuccessMessage] =
                     $"You successfully add {await exerciseService.GetExerciseNameByIdAsync(id)} exercise.";
                 return RedirectToAction("All");
-            }
-            catch (Exception)
-            {
-                return GeneralError();
-            }
+            
+            //catch (Exception)
+            //{
+            //    return GeneralError();
+            //}
         }
 
         private IActionResult GeneralError()
