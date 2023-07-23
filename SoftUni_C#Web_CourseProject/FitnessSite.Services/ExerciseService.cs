@@ -218,5 +218,22 @@
                 Select(e => e.Name).
                 ToListAsync();
         }
+
+        public async Task<bool> IsEditExerciseAddToTraining(string id,string userId)
+        {
+            Exercise originalExercise = await 
+                dbContext.Exercises.FirstAsync(e => e.Id.ToString() == id);
+
+            ApplicationUser? user = await dbContext.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+
+            string? trainingId = user!.TrainingId.ToString();
+                
+
+            TrainingExercise[] userExercises = 
+                await dbContext.TrainingExercises!.Include(te => te.Exercise).
+                Where(te => te.TrainingId.ToString() == trainingId).ToArrayAsync();
+
+            return userExercises.Any(te => te.Exercise.Name == originalExercise.Name && te.Exercise.UserId.ToString() == userId);
+        }
     }
 }
