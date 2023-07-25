@@ -36,7 +36,7 @@
         public string? Sets { get; set; }
 
         [Required]
-        [MaxLength(2048)]
+        [MaxLength(ImageUrlMaxLenght)]
         public string ImageUrl { get; set; } = null!;
 
         public int? Kilogram { get; set; }

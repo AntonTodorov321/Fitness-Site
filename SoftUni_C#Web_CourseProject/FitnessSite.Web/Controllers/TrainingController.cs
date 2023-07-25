@@ -29,7 +29,20 @@
 
             TrainingViewModel? myTraining = await trainingServise.GetTrainingAsync(userId);
 
+            if (myTraining!.IsStarted)
+            {
+
+            }
+
             return View(myTraining);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Start(Guid id)
+        {
+            await trainingServise.StartTraining(id);
+
+            return RedirectToAction("Mine");
         }
 
         [HttpGet]
@@ -52,7 +65,7 @@
             }
 
             string userId = User.GetById();
-            bool isExerciseInTraining = await trainingServise.isExerciseExistInTrainingAsync(userId, id);
+            bool isExerciseInTraining = await trainingServise.IsExerciseExistInTrainingAsync(userId, id);
             if (!isExerciseInTraining)
             {
                 TempData[WarningMessage] =
@@ -86,7 +99,7 @@
             }
 
             string userId = User.GetById();
-            bool isExerciseInTraining = await trainingServise.isExerciseExistInTrainingAsync(userId, id);
+            bool isExerciseInTraining = await trainingServise.IsExerciseExistInTrainingAsync(userId, id);
 
             if (!isExerciseInTraining)
             {
@@ -111,7 +124,7 @@
             }
 
             string userId = User.GetById();
-            bool isExerciseInTraining = await trainingServise.isExerciseExistInTrainingAsync(userId, id);
+            bool isExerciseInTraining = await trainingServise.IsExerciseExistInTrainingAsync(userId, id);
 
             if (!isExerciseInTraining)
             {
@@ -126,14 +139,16 @@
                 return RedirectToAction("Edit");
             }
 
-                await exerciseServise.EditExerciseAsync(id, model,userId);
+            try
+            {
+                await exerciseServise.EditExerciseAsync(id, model, userId);
                 TempData[SuccessMessage] = $"You successfully edit {await exerciseServise.GetExerciseNameByIdAsync(id)} exercise";
                 return RedirectToAction("Mine");
-            
-            //catch (Exception)
-            //{
-            //   return GeneralError();
-            //}
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
 
         }
         private IActionResult GeneralError()

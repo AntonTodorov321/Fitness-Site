@@ -187,7 +187,6 @@
 
                 TrainingExercise trainingExerciseToAdd = new TrainingExercise()
                 {
-                    IsModify = true,
                     ExerciseId = exerciseToAdd.Id,
                     TrainingId = trainingId
                 };

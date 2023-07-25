@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    [Migration("20230716153221_IsModifyTrainingExercise")]
-    partial class IsModifyTrainingExercise
+    [Migration("20230725081541_SeedTrainers")]
+    partial class SeedTrainers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,8 +70,8 @@ namespace FitnessSite.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainerId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("TrainerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("TrainingId")
                         .HasColumnType("uniqueidentifier");
@@ -147,7 +147,7 @@ namespace FitnessSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7533d428-825c-448b-ad94-ecbf2c0fd853"),
+                            Id = new Guid("005b9bd2-b59a-46d8-be56-8f4ab3c70414"),
                             Description = "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
                             Name = "Push-Ups",
@@ -157,7 +157,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d791d4ad-8024-4da8-b7a2-3f0f9b72ca87"),
+                            Id = new Guid("71bcf2f7-1aa2-4770-bfb2-88f1f5f9f44f"),
                             Description = "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
                             ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
                             Name = "Plank",
@@ -167,7 +167,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("423e6c58-295b-4d90-8e43-58aab613e51b"),
+                            Id = new Guid("1a18c4b0-f218-4278-9444-a86b2633a13d"),
                             Description = "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
                             ImageUrl = "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg",
                             Name = "Pull-Ups",
@@ -175,7 +175,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3cfbb3ec-f0e1-42fb-80bf-964e2903d2f7"),
+                            Id = new Guid("9ecf4e35-6793-4419-9727-777d7a9bbbf6"),
                             Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
                             ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
                             Name = "Cycling",
@@ -183,7 +183,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("98bb69c7-808f-416b-91d2-88c34cf31429"),
+                            Id = new Guid("c6b4b234-b85c-42fb-8eef-7c1f704582f4"),
                             Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
                             ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
                             Name = "Bench Press",
@@ -193,7 +193,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("546c5b78-235a-4c03-b4ef-476d51eb5a5b"),
+                            Id = new Guid("b1c62c92-fd84-48a8-911a-172627af9956"),
                             Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
                             ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
                             Name = "Squat",
@@ -337,16 +337,24 @@ namespace FitnessSite.Data.Migrations
 
             modelBuilder.Entity("FitnessSite.Data.Models.Trainer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -359,12 +367,43 @@ namespace FitnessSite.Data.Migrations
                     b.Property<int>("StartedAt")
                         .HasColumnType("int");
 
+                    b.Property<string>("TelefoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Trainers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("646fc80a-0361-43ec-bfd2-28644687a273"),
+                            Description = "Hello, my name is Ivan. I know every type of exercise and i will be glad if i work with you! I work mostly with men.",
+                            Email = "ivantrainer@gmail.com",
+                            ImageUrl = "https://media.istockphoto.com/id/1072395722/photo/fitness-trainer-at-gym.jpg?s=612x612&w=0&k=20&c=3VBLCgbxG3bGNRp9Sc3tN_7G-g_DxXhGk9rhuZo-jkE=",
+                            Name = "Ivan",
+                            PricePerMonth = 89.99m,
+                            StartedAt = 23,
+                            TelefoneNumber = "0895543981",
+                            Year = 31
+                        },
+                        new
+                        {
+                            Id = new Guid("896bb72d-45f8-45f6-958e-619bd3979d82"),
+                            Description = "Hello, my name is Maria.I've been going to the gym since i was 16, and when i grow up i decide to become professional trainer. I work mostly with men.",
+                            Email = "mariatrainer@gmail.com",
+                            ImageUrl = "https://media.istockphoto.com/id/856797530/photo/portrait-of-a-beautiful-woman-at-the-gym.jpg?s=612x612&w=0&k=20&c=0wMa1MYxt6HHamjd66d5__XGAKbJFDFQyu9LCloRsYU=",
+                            Name = "Maria",
+                            PricePerMonth = 84.99m,
+                            StartedAt = 21,
+                            TelefoneNumber = "0875587458",
+                            Year = 28
+                        });
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Training", b =>
@@ -403,7 +442,7 @@ namespace FitnessSite.Data.Migrations
                     b.Property<Guid>("ExerciseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsModify")
+                    b.Property<bool>("IsDoneForToday")
                         .HasColumnType("bit");
 
                     b.HasKey("TrainingId", "ExerciseId");

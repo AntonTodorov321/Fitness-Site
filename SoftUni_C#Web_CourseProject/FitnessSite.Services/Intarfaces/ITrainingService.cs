@@ -8,6 +8,8 @@
 
         Task RemoveExerciseFromTrainingAsync(Guid exersiceId, string userId);
 
-        Task<bool> isExerciseExistInTrainingAsync(string userId, Guid exerciseId);
+        Task<bool> IsExerciseExistInTrainingAsync(string userId, Guid exerciseId);
+
+        Task StartTraining(Guid id);
     }
 }

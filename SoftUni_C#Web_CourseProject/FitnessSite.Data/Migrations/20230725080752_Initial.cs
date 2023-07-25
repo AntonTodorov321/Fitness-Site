@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FitnessSite.Data.Migrations
 {
-    public partial class NewDatabaseWithExerciseIdGuid : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,15 +24,30 @@ namespace FitnessSite.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Trainers",
+                name: "Muscles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Muscles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trainers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(747)", maxLength: 747, nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     StartedAt = table.Column<int>(type: "int", nullable: false),
                     PricePerMonth = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TelefoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
@@ -70,30 +85,6 @@ namespace FitnessSite.Data.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Exercises",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Reps = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sets = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
-                    Kilogram = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exercises", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Exercises_TypeExercises_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "TypeExercises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -150,7 +141,7 @@ namespace FitnessSite.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TrainerId = table.Column<int>(type: "int", nullable: true),
+                    TrainerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TrainingId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -198,6 +189,36 @@ namespace FitnessSite.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Exercises",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    TypeId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Reps = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sets = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    Kilogram = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exercises", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Exercises_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Exercises_TypeExercises_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "TypeExercises",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Trainings",
                 columns: table => new
                 {
@@ -220,11 +241,36 @@ namespace FitnessSite.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MuscleExercises",
+                columns: table => new
+                {
+                    MuscleId = table.Column<int>(type: "int", nullable: false),
+                    ExerciseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MuscleExercises", x => new { x.ExerciseId, x.MuscleId });
+                    table.ForeignKey(
+                        name: "FK_MuscleExercises_Exercises_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalTable: "Exercises",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MuscleExercises_Muscles_MuscleId",
+                        column: x => x.MuscleId,
+                        principalTable: "Muscles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TrainingExercises",
                 columns: table => new
                 {
                     TrainingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExerciseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ExerciseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsDoneForToday = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -244,31 +290,59 @@ namespace FitnessSite.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "TypeExercises",
+                table: "Muscles",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "In Home" });
+                values: new object[,]
+                {
+                    { 1, "Biceps" },
+                    { 2, "Triceps" },
+                    { 3, "Shoulder" },
+                    { 4, "Legs" },
+                    { 5, "Chest" },
+                    { 6, "Abs" },
+                    { 7, "Back" }
+                });
 
             migrationBuilder.InsertData(
                 table: "TypeExercises",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Outside" });
-
-            migrationBuilder.InsertData(
-                table: "TypeExercises",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 3, "In the gym" });
+                values: new object[,]
+                {
+                    { 1, "In Home" },
+                    { 2, "Outside" },
+                    { 3, "In the gym" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Exercises",
-                columns: new[] { "Id", "Description", "ImageUrl", "Kilogram", "Name", "Reps", "Sets", "TypeId" },
+                columns: new[] { "Id", "Description", "ImageUrl", "Kilogram", "Name", "Reps", "Sets", "TypeId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("653ba49c-9353-4126-b5aa-e79f1784d454"), "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.", "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg", null, "Pull-Ups", null, null, 2 },
-                    { new Guid("7a2f5be1-4688-44cc-a293-41e033fd44de"), "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.", "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413", null, "Cycling", null, null, 2 },
-                    { new Guid("96f22700-2f1e-4b98-84db-3458bbd13a5d"), "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders", "https://blog.nasm.org/hubfs/power-pushups.jpg", null, "Push-Ups", "10", "4", 1 },
-                    { new Guid("af822264-c02f-4fb6-a975-a78a84b640f4"), "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.", "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg", null, "Plank", "8", "3", 1 },
-                    { new Guid("b63b8cc0-da25-4799-a4f7-6fb519a55d90"), "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes", "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all", null, "Squat", "8 - 10", "3-4", 3 },
-                    { new Guid("f91c367d-ecd8-441d-be5b-0dd44d0224cf"), "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.", "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg", null, "Bench Press", "10 - 12", "4", 3 }
+                    { new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"), "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders", "https://blog.nasm.org/hubfs/power-pushups.jpg", null, "Push-Ups", "10", "4", 1, null },
+                    { new Guid("44d5ed06-1160-4649-84fe-dc12e97fe016"), "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.", "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413", null, "Cycling", null, null, 2, null },
+                    { new Guid("5bdf7178-fb7b-420c-96a5-99846c021bf9"), "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.", "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg", null, "Bench Press", "10 - 12", "4", 3, null },
+                    { new Guid("b5138db6-8c21-43ad-b9bb-d5bc0e773d29"), "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes", "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all", null, "Squat", "8 - 10", "3-4", 3, null },
+                    { new Guid("c110f0d7-669a-4a11-848f-5384a15f296b"), "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.", "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg", null, "Plank", "8", "3", 1, null },
+                    { new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"), "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.", "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg", null, "Pull-Ups", null, null, 2, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MuscleExercises",
+                columns: new[] { "ExerciseId", "MuscleId" },
+                values: new object[,]
+                {
+                    { new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"), 2 },
+                    { new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"), 5 },
+                    { new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"), 1 },
+                    { new Guid("5bdf7178-fb7b-420c-96a5-99846c021bf9"), 2 },
+                    { new Guid("c110f0d7-669a-4a11-848f-5384a15f296b"), 7 },
+                    { new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"), 2 },
+                    { new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"), 3 },
+                    { new Guid("b5138db6-8c21-43ad-b9bb-d5bc0e773d29"), 6 },
+                    { new Guid("b5138db6-8c21-43ad-b9bb-d5bc0e773d29"), 7 },
+                    { new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"), 4 },
+                    { new Guid("c110f0d7-669a-4a11-848f-5384a15f296b"), 6 },
+                    { new Guid("44d5ed06-1160-4649-84fe-dc12e97fe016"), 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -324,6 +398,16 @@ namespace FitnessSite.Data.Migrations
                 name: "IX_Exercises_TypeId",
                 table: "Exercises",
                 column: "TypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exercises_UserId",
+                table: "Exercises",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MuscleExercises_MuscleId",
+                table: "MuscleExercises",
+                column: "MuscleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingExercises_ExerciseId",
@@ -389,10 +473,16 @@ namespace FitnessSite.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "MuscleExercises");
+
+            migrationBuilder.DropTable(
                 name: "TrainingExercises");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Muscles");
 
             migrationBuilder.DropTable(
                 name: "Exercises");

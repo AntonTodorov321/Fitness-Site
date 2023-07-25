@@ -26,6 +26,12 @@
 
             public const int DescriptionMinLenght = 30;
             public const int DescriptionMaxLengh = 200;
+
+            public const int TelefoneMaxLenght = 10;
+
+            public const int EmailMaxLenght = 300;
+
+            public const int ImageUrlMaxLenght = 2048;
         }
 
         public static class Muscle

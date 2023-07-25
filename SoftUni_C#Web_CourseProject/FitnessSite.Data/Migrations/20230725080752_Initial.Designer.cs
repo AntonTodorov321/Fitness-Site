@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    [Migration("20230722143506_AddIsAddedPropertyToExerciseEntity")]
-    partial class AddIsAddedPropertyToExerciseEntity
+    [Migration("20230725080752_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,8 +70,8 @@ namespace FitnessSite.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainerId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("TrainerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("TrainingId")
                         .HasColumnType("uniqueidentifier");
@@ -116,9 +116,6 @@ namespace FitnessSite.Data.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<bool>("IsAdded")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("Kilogram")
                         .HasColumnType("int");
 
@@ -150,10 +147,9 @@ namespace FitnessSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fcb146b6-d311-45a8-8b19-045afa5c7fd8"),
+                            Id = new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"),
                             Description = "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
-                            IsAdded = false,
                             Name = "Push-Ups",
                             Reps = "10",
                             Sets = "4",
@@ -161,10 +157,9 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("359e28c4-d432-4c01-a646-6bfe9d976876"),
+                            Id = new Guid("c110f0d7-669a-4a11-848f-5384a15f296b"),
                             Description = "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
                             ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
-                            IsAdded = false,
                             Name = "Plank",
                             Reps = "8",
                             Sets = "3",
@@ -172,28 +167,25 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("03746141-0b21-4158-8808-a8dc661ed880"),
+                            Id = new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"),
                             Description = "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
                             ImageUrl = "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg",
-                            IsAdded = false,
                             Name = "Pull-Ups",
                             TypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("879008aa-1f0e-45f2-be64-9ade06a609da"),
+                            Id = new Guid("44d5ed06-1160-4649-84fe-dc12e97fe016"),
                             Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
                             ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
-                            IsAdded = false,
                             Name = "Cycling",
                             TypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("c9982883-d125-4b2b-89b7-910444a72eec"),
+                            Id = new Guid("5bdf7178-fb7b-420c-96a5-99846c021bf9"),
                             Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
                             ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
-                            IsAdded = false,
                             Name = "Bench Press",
                             Reps = "10 - 12",
                             Sets = "4",
@@ -201,10 +193,9 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("93ab69a1-bb0e-4cc4-b2bd-956bbe13d30c"),
+                            Id = new Guid("b5138db6-8c21-43ad-b9bb-d5bc0e773d29"),
                             Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
                             ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
-                            IsAdded = false,
                             Name = "Squat",
                             Reps = "8 - 10",
                             Sets = "3-4",
@@ -346,16 +337,24 @@ namespace FitnessSite.Data.Migrations
 
             modelBuilder.Entity("FitnessSite.Data.Models.Trainer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -367,6 +366,11 @@ namespace FitnessSite.Data.Migrations
 
                     b.Property<int>("StartedAt")
                         .HasColumnType("int");
+
+                    b.Property<string>("TelefoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -412,7 +416,7 @@ namespace FitnessSite.Data.Migrations
                     b.Property<Guid>("ExerciseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsModify")
+                    b.Property<bool>("IsDoneForToday")
                         .HasColumnType("bit");
 
                     b.HasKey("TrainingId", "ExerciseId");

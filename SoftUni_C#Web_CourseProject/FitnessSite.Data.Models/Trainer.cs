@@ -8,11 +8,12 @@
     {
         public Trainer()
         {
+            Id = Guid.NewGuid();
             ApllicationUsers = new HashSet<ApplicationUser>();
         }
 
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(NameMaxLengh)]
@@ -23,6 +24,18 @@
         public int StartedAt { get; set; }
 
         public decimal PricePerMonth { get; set; }
+
+        [Required]
+        [MaxLength(TelefoneMaxLenght)]
+        public string TelefoneNumber { get; set; } = null!;
+
+        [Required]
+        [MaxLength(EmailMaxLenght)]
+        public string Email { get; set; } = null!;
+
+        [Required]
+        [MaxLength(ImageUrlMaxLenght)]
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         [MaxLength(DescriptionMaxLengh)]

@@ -37,6 +37,8 @@
                 Select(t => new TrainingViewModel()
                 {
                     Id = t.Id,
+                    IsEnded = t.IsEnded,
+                    IsStarted = t.IsStarted,
                     Exercises = dbContext.TrainingExercises!
                      .Where(te => te.TrainingId == t.Id)
                      .Select(te => new AllExerciseViewModel()
@@ -59,7 +61,7 @@
             return trainingViewModel;
         }
 
-        public async Task<bool> isExerciseExistInTrainingAsync
+        public async Task<bool> IsExerciseExistInTrainingAsync
             (string userId, Guid exerciseId)
         {
             ApplicationUser user = await GetApplicationUserByIdAsync(userId);
@@ -96,7 +98,6 @@
             await dbContext.SaveChangesAsync();
         }
 
-
         private async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
         {
             return await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
@@ -106,6 +107,15 @@
         {
             return await dbContext.Trainings.
                 FirstOrDefaultAsync(t => t.Id.ToString() == user.TrainingId.ToString());
+        }
+        
+        public async Task StartTraining(Guid id)
+        {
+            Training training = await dbContext.Trainings.FirstAsync(t => t.Id == id);
+            training.Start = DateTime.UtcNow;
+            training.IsStarted = true;
+
+            await dbContext.SaveChangesAsync();
         }
     }
 }

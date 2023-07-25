@@ -14,6 +14,6 @@
 
         public virtual Exercise Exercise { get; set; } = null!;
 
-        public bool IsModify { get; set; }
+        public bool IsDoneForToday { get; set; }
     }
 }
