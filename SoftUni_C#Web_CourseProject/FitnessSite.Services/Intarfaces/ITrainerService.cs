@@ -5,5 +5,7 @@
     public interface ITrainerService
     {
         Task<List<AllTrainerViewModel>> GetAllTrainersAsync();
+
+
     }
 }

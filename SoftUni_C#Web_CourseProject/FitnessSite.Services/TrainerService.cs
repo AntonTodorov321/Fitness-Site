@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using FitnessSite.Data.Models;
     using Intarfaces;
     using Microsoft.EntityFrameworkCore;
     using Web.Data;
@@ -30,6 +30,25 @@
                 .ToListAsync();
 
             return allTrainers;
+        }
+
+        public async Task<DetailsTrainerViewModel> GetTrainerDetailsAsync(string id)
+        {
+            DetailsTrainerViewModel trainer = await dbContext
+                .Trainers.Select(t => new DetailsTrainerViewModel()
+                {
+                    Id = t.Id,
+                    Description = t.Description,
+                    Email = t.Email,
+                    ImageUrl = t.ImageUrl,
+                    PricePerMonth = t.PricePerMonth,
+                    StartedAt = t.StartedAt,
+                    TelefoneNumber = t.TelefoneNumber,
+                    YearExperience = t.YearExperience
+                })
+                .FirstAsync(t => t.Id.ToString() == id);
+
+            return trainer;
         }
     }
 }

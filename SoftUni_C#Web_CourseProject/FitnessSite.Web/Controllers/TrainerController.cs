@@ -32,6 +32,12 @@
                return GeneralError();
             }
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            return Ok();
+        }
+
         private IActionResult GeneralError()
         {
             TempData[ErrorMessage] =
