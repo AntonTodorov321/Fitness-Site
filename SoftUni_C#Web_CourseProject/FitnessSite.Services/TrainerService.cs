@@ -8,6 +8,7 @@
     using Intarfaces;
     using Web.Data;
     using Web.ViewModels.Trainer;
+    using Data.Models;
 
     public class TrainerService : ITrainerService
     {
@@ -31,6 +32,14 @@
                 .ToListAsync();
 
             return allTrainers;
+        }
+
+        public async Task<string> GetFullNameTrainerById(string id)
+        {
+            Trainer trainer =
+                await dbContext.Trainers.FirstAsync(t => t.Id.ToString() == id);
+
+            return $"{trainer.FirstName} {trainer.LastName}";
         }
 
         public async Task<DetailsTrainerViewModel> GetTrainerDetailsAsync(string id)

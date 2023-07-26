@@ -29,14 +29,14 @@
             }
             catch (Exception)
             {
-               return GeneralError();
+                return GeneralError();
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
-            bool isTrainerExist = 
+            bool isTrainerExist =
                 await trainerService.IsTrainerExesitAsync(id);
             if (!isTrainerExist)
             {
@@ -44,9 +44,16 @@
                 return RedirectToAction("All");
             }
 
-            DetailsTrainerViewModel trainer = await trainerService.GetTrainerDetailsAsync(id);
+            try
+            {
+                DetailsTrainerViewModel trainer = await trainerService.GetTrainerDetailsAsync(id);
+                return View(trainer);
 
-            return Ok();
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
         }
 
         private IActionResult GeneralError()

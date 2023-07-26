@@ -9,5 +9,7 @@
         Task<DetailsTrainerViewModel> GetTrainerDetailsAsync(string id);
 
         Task<bool> IsTrainerExesitAsync(string id);
+
+        Task<string> GetFullNameTrainerById(string id);
     }
 }

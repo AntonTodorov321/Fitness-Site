@@ -1,0 +1,7 @@
+﻿@model DetailsTrainerViewModel
+@inject ITrainerService trainerService
+@{
+    ViewBag.Titile = $"See more info abaut {await trainerService.GetFullNameTrainerById(Model.Id.ToString())}";
+}
+
+<h1 class="text-center text-success">@ViewBag.Titile</h1>
