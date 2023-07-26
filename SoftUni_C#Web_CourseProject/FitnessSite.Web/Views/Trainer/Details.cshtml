@@ -1,7 +1,22 @@
 ﻿@model DetailsTrainerViewModel
 @inject ITrainerService trainerService
 @{
-    ViewBag.Titile = $"See more info abaut {await trainerService.GetFullNameTrainerById(Model.Id.ToString())}";
+    string trainerFullName = await trainerService.GetFullNameTrainerById(Model.Id.ToString());
+    ViewBag.Titile = $"More info abaut {trainerFullName}";
 }
 
-<h1 class="text-center text-success">@ViewBag.Titile</h1>
+<h1 class="text-center">@ViewBag.Titile</h1>    
+<img class="d-flex pb-2 pt-5 rounded mx-auto d-block" style="height:340px" src="@Model.ImageUrl" alt=@trainerFullName>
+<h4 class = "text-center">Contacts</h4>
+<div class="text-center">Telefone number: @Model.TelefoneNumber</div>
+<div class="text-center">Email: @Model.Email</div>
+<div class="text-center fw-bold mt-2"> Description</div>
+<div class="d-flex pt-2 mx-auto d-block text-center" style="max-width:280px"> @Model.Description</div>
+<div class="text-center fw-bold mt-2"> Expiriance: </div>
+<div class="text-center">I start at @Model.StartedAt years old and I have @Model.YearExperience year expiriance</div>
+<div class="text-center fw-bold">Price per month</div>
+<div class="text-center">@Model.PricePerMonth$</div>
+<h3 class="text-center">If you like me send me a message</h3>
+<form asp-area="" asp-controller="Trainer" asp-action="SendMessage" asp-route-id="@Model.Id" method="get">
+    <input type="submit" class="btn btn-primary d-flex rounded mx-auto d-block" value="Send message">
+</form>
