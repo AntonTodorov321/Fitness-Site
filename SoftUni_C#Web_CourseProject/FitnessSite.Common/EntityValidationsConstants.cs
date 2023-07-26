@@ -21,8 +21,11 @@
 
         public static class Trainer
         {
-            public const int NameMinLengh = 1;
-            public const int NameMaxLengh = 747;
+            public const int FirstNameMinLengh = 1;
+            public const int FirstNameMaxLengh = 747;
+
+            public const int LastNameMinLengh = 1;
+            public const int LastNameMaxLengh = 747;
 
             public const int DescriptionMinLenght = 30;
             public const int DescriptionMaxLengh = 200;

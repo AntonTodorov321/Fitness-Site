@@ -1,0 +1,13 @@
+﻿@model List<AllTrainerViewModel>
+@{
+    ViewBag.Title = "Choose one of the top trainers";
+}
+
+<h1 class="text-center text-success">@ViewBag.Title</h1>
+@foreach(var trainer in Model)
+{
+     <img class="d-flex pb-2 pt-3" style="height:250px" src="@trainer.ImageUrl" alt="@trainer.Name">
+     <div>First name: @trainer.Name</div>
+     <div>Last name: @trainer.Name</div>
+     <div>@trainer.Year</div>
+}

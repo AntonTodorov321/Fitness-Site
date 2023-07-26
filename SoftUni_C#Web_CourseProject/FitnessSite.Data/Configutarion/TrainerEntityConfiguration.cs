@@ -17,7 +17,8 @@
             {
                  new Trainer()
                  {
-                      Name = "Ivan",
+                      FirstName = "Ivan",
+                      LastName = "Ivanov",
                       Year = 31,
                       PricePerMonth = 89.99m,
                       StartedAt = 23,
@@ -29,7 +30,8 @@
 
                  new Trainer()
                  {
-                      Name = "Maria",
+                      FirstName = "Maria",
+                      LastName = "Asenova",
                       Year = 28,
                       PricePerMonth = 84.99m,
                       StartedAt = 21,

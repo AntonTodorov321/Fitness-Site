@@ -16,8 +16,12 @@
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLengh)]
-        public string Name { get; set; } = null!;
+        [MaxLength(FirstNameMaxLengh)]
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(LastNameMaxLengh)]
+        public string LastName { get; set; } = null!;
 
         public int Year { get; set; }
 

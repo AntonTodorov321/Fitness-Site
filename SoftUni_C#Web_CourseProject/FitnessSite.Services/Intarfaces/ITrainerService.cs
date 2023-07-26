@@ -1,12 +1,9 @@
 ﻿namespace FitnessSite.Services.Intarfaces
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Web.ViewModels.Trainer;
 
-    internal interface ITrainerService
+    public interface ITrainerService
     {
+        Task<List<AllTrainerViewModel>> GetAllTrainersAsync();
     }
 }
