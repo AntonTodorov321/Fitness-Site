@@ -2,7 +2,11 @@
 {
     public class AllTrainerViewModel
     {
-        public string Name { get; set; } = null!;
+        public Guid Id { get; set; }
+
+        public string FirstName { get; set; } = null!;
+
+        public string LastName { get; set; } = null!;
 
         public int Year { get; set; }
 

@@ -6,8 +6,17 @@
 <h1 class="text-center text-success">@ViewBag.Title</h1>
 @foreach(var trainer in Model)
 {
-     <img class="d-flex pb-2 pt-3" style="height:250px" src="@trainer.ImageUrl" alt="@trainer.Name">
-     <div>First name: @trainer.Name</div>
-     <div>Last name: @trainer.Name</div>
-     <div>@trainer.Year</div>
+    <div>
+     <img class="d-flex pb-2 pt-3" style="height:250px" src="@trainer.ImageUrl" alt=@trainer.FirstName>
+     @if (this.User.Identity?.IsAuthenticated ?? false)
+     {
+         <form class="text-center" asp-controller="Trainer" asp-action="Details" method="post" asp-route-id="@trainer.Id">
+           <input type="submit" value="Details" class="btn btn-warning text-center">
+         </form>
+     }
+     </div>
+     <div>First name: @trainer.FirstName</div>
+     <div>Last name: @trainer.LastName</div>
+     <div>Year @trainer.Year</div>
+     <hr />
 }

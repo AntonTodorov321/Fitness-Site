@@ -21,8 +21,10 @@
             List<AllTrainerViewModel> allTrainers = await dbContext.Trainers
                 .Select(t => new AllTrainerViewModel()
                 {
+                    Id = t.Id,
                     ImageUrl = t.ImageUrl,
-                    Name = t.FirstName,
+                    FirstName = t.FirstName,
+                    LastName = t.LastName,
                     Year = t.Year,
                 })
                 .ToListAsync();
