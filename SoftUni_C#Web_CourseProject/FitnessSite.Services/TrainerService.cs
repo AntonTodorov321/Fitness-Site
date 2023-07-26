@@ -2,9 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using FitnessSite.Data.Models;
-    using Intarfaces;
+
     using Microsoft.EntityFrameworkCore;
+
+    using Intarfaces;
     using Web.Data;
     using Web.ViewModels.Trainer;
 
@@ -44,11 +45,17 @@
                     PricePerMonth = t.PricePerMonth,
                     StartedAt = t.StartedAt,
                     TelefoneNumber = t.TelefoneNumber,
-                    YearExperience = t.YearExperience
+                    Year = t.Year
                 })
                 .FirstAsync(t => t.Id.ToString() == id);
 
+            trainer.YearExperience = trainer.Year - trainer.StartedAt;
             return trainer;
+        }
+
+        public async Task<bool> IsTrainerExesitAsync(string id)
+        {
+            return await dbContext.Trainers.AnyAsync(t => t.Id.ToString() == id);
         }
     }
 }

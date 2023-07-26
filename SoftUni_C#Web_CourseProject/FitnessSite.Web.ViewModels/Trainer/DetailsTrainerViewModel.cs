@@ -9,7 +9,7 @@
         public string Email { get; set; } = null!;
         public string ImageUrl { get; set; } = null!;
         public string Description { get; set; } = null!;
-
         public int YearExperience { get; set; }
+        public int Year { get; set; }
     }
 }

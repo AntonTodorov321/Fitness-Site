@@ -33,8 +33,19 @@
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
+            bool isTrainerExist = 
+                await trainerService.IsTrainerExesitAsync(id);
+            if (!isTrainerExist)
+            {
+                TempData[WarningMessage] = "This trainer does not exist! Pleace select existing one";
+                return RedirectToAction("All");
+            }
+
+            DetailsTrainerViewModel trainer = await trainerService.GetTrainerDetailsAsync(id);
+
             return Ok();
         }
 

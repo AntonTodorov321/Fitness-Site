@@ -6,6 +6,8 @@
     {
         Task<List<AllTrainerViewModel>> GetAllTrainersAsync();
 
+        Task<DetailsTrainerViewModel> GetTrainerDetailsAsync(string id);
 
+        Task<bool> IsTrainerExesitAsync(string id);
     }
 }

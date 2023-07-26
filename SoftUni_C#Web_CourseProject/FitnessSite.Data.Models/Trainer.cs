@@ -45,13 +45,6 @@
         [MaxLength(DescriptionMaxLengh)]
         public string Description { get; set; } = null!;
 
-        public int YearExperience
-        {
-            get
-            {
-                return this.Year - this.YearExperience;
-            }
-        }
         public virtual ICollection<ApplicationUser> ApllicationUsers { get; set; }
     }
 }
