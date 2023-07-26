@@ -31,7 +31,7 @@
                     AllExercises = dbContext.Exercises.
                 Where(e => e.TypeId == t.Id && !(e.TrainingExercises.
                 Any(te => te.TrainingId == trainingId))).
-                Where(e => !e.UserId.HasValue).
+                Where(e => e.UserId == null).
                 Select(e => new AllExerciseViewModel()
                 {
                     Id = e.Id,
@@ -211,10 +211,14 @@
                 return new List<string>();
             }
 
+            ApplicationUser user = 
+                await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
+
             return
-                await dbContext.Exercises.
-                Where(e => e.UserId.ToString() == userId).
-                Select(e => e.Name).
+                await dbContext.TrainingExercises!.
+                Include(te => te.Exercise).
+                Where(te => te.TrainingId == user.TrainingId).
+                Select(te => te.Exercise.Name).
                 ToListAsync();
         }
 
