@@ -31,7 +31,7 @@
                     AllExercises = dbContext.Exercises.
                 Where(e => e.TypeId == t.Id && !(e.TrainingExercises.
                 Any(te => te.TrainingId == trainingId))).
-                Where(e => e.UserId == null).
+                Where(e => !e.UserId.HasValue).
                 Select(e => new AllExerciseViewModel()
                 {
                     Id = e.Id,
@@ -101,7 +101,8 @@
                 Select(t => new TypeExerciseViewModel()
                 {
                     Name = t.Name,
-                    AllExercises = dbContext.Exercises.Where(e => e.TypeId == t.Id).
+                    AllExercises = dbContext.Exercises
+                    .Where(e => e.TypeId == t.Id && !e.UserId.HasValue).
                 Select(e => new AllExerciseViewModel()
                 {
                     Id = e.Id,

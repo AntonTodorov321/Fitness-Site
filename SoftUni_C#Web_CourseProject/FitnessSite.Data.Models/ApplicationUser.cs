@@ -8,6 +8,7 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
+            Messages = new HashSet<Message>();
         }
 
         [ForeignKey(nameof(Trainer))]
@@ -20,5 +21,7 @@
         public Guid? TrainingId { get; set; }
 
         public Training? Training { get; set; }
+
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

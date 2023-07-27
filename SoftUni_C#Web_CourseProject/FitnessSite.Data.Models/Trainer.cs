@@ -10,6 +10,7 @@
         {
             Id = Guid.NewGuid();
             ApllicationUsers = new HashSet<ApplicationUser>();
+            Messages = new HashSet<Message>();
         }
 
         [Key]
@@ -46,5 +47,7 @@
         public string Description { get; set; } = null!;
 
         public virtual ICollection<ApplicationUser> ApllicationUsers { get; set; }
+
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

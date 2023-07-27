@@ -22,6 +22,7 @@
         public DbSet<TrainingExercise>? TrainingExercises { get; set; }
         public DbSet<Muscle> Muscles { get; set; } = null!;
         public DbSet<MuscleExercise> MuscleExercises { get; set; } = null!;
+        public DbSet<Message>? Messages { get; set; }
 
 
 
