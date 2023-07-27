@@ -66,5 +66,13 @@
         {
             return await dbContext.Trainers.AnyAsync(t => t.Id.ToString() == id);
         }
+
+        public async Task<bool> IsUserHaveTrainerAsync(string id)
+        {
+            ApplicationUser user =
+                await dbContext.Users.FirstAsync(u => u.Id.ToString() == id);
+
+            return user.TrainerId.HasValue;
+        }
     }
 }

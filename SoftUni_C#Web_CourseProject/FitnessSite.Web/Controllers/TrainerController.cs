@@ -5,6 +5,7 @@
 
     using ViewModels.Trainer;
     using Services.Intarfaces;
+    using Infastructure.Extensions;
     using static Common.NotificationMessagesConstants;
 
     [Authorize]
@@ -54,6 +55,30 @@
             {
                 return GeneralError();
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SendMessage(string id)
+        {
+            bool isTrainerExist =
+                await trainerService.IsTrainerExesitAsync(id);
+            if (!isTrainerExist)
+            {
+                TempData[WarningMessage] = 
+                    "This trainer does not exist! Pleace select existing one";
+                return RedirectToAction("All");
+            }
+
+            bool isUserHaveTrainer =
+                await trainerService.IsUserHaveTrainerAsync(User.GetById());
+            if (isUserHaveTrainer)
+            {
+                TempData[WarningMessage] = 
+                    "You allready have trainer. You can have only one";
+                return RedirectToAction("All");
+            }
+
+            return View(id);
         }
 
         private IActionResult GeneralError()

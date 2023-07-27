@@ -11,5 +11,7 @@
         Task<bool> IsTrainerExesitAsync(string id);
 
         Task<string> GetFullNameTrainerById(string id);
+
+        Task<bool> IsUserHaveTrainerAsync(string id);
     }
 }
