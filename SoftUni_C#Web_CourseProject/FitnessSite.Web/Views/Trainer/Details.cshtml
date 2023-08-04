@@ -17,6 +17,6 @@
 <div class="text-center fw-bold">Price per month</div>
 <div class="text-center">@Model.PricePerMonth$</div>
 <h3 class="text-center">If you like me send me a message</h3>
-<form asp-area="" asp-controller="Trainer" asp-action="SendMessage" asp-route-id="@Model.Id" method="get">
+<form asp-area="" asp-controller="Message" asp-action="SendMessage" asp-route-id="@Model.Id" method="get">
     <input type="submit" class="btn btn-primary d-flex rounded mx-auto d-block" value="Send message">
 </form>

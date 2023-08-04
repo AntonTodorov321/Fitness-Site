@@ -4,6 +4,6 @@
 
     public interface IMessageService
     {
-        MessageViewModel GetMessageToSendAsync(string senderId, string recipientId);
+        Task SendMessageAsync(string senderId, string recipientId, MessageViewModel messageViewModel);
     }
 }

@@ -4,19 +4,32 @@
 
     using Web.ViewModels.Message;
     using Intarfaces;
+    using Data.Models;
+    using Web.Data;
 
     public class MessageService : IMessageService
     {
-        public MessageViewModel GetMessageToSendAsync(string senderId,
-                                                            string recipientId)
+        private readonly FitnessSiteDbContext dbContext;
+
+        public MessageService(FitnessSiteDbContext dbContext)
         {
-            MessageViewModel messageViewModel = new MessageViewModel()
+            this.dbContext = dbContext;
+        }
+
+        public async Task SendMessageAsync(string senderId, string recipientId, MessageViewModel messageViewModel)
+        {
+            Message message = new Message()
             {
                 SenderId = Guid.Parse(senderId),
-                RecipientId = Guid.Parse(recipientId)
+                RecipientId = Guid.Parse(recipientId),
+                Description = messageViewModel.Description,
+                Questions = messageViewModel.Question,
+                SenderFirstName = messageViewModel.SenderFirstName,
+                SenderLastName = messageViewModel.SenderLastName,
             };
 
-            return messageViewModel;
+            await dbContext.Messages!.AddAsync(message);
+            await dbContext.SaveChangesAsync();
         }
     }
 }
