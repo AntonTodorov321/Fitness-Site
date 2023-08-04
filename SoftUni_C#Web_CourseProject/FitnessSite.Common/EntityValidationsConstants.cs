@@ -43,5 +43,14 @@
             public const int NameMaxLenght = 20;
         }
 
+        public static class Message
+        {
+            public const int FirstNameMinLengh = 1;
+            public const int FirstNameMaxLengh = 747;
+
+            public const int LastNameMinLengh = 1;
+            public const int LastNameMaxLengh = 747;
+        }
+
     }
 }

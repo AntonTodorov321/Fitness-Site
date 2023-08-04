@@ -1,0 +1,9 @@
+﻿@model int;
+@{
+    ViewBag.Title = "Send me a message";
+}
+
+<h1 class="text-center">@ViewBag.Title</h1>
+<form asp-controller="Trainer" asp-action="SendMessage" method="post" asp-route-id="@Model">
+
+</form>

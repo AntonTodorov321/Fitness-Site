@@ -1,5 +1,8 @@
 ﻿namespace FitnessSite.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using static Common.EntityValidationsConstants.Message;
 
     public class Message
     {
@@ -10,7 +13,10 @@
 
         public Guid Id { get; set; }
 
+        [MaxLength(FirstNameMaxLengh)]
         public string SenderFirstName { get; set; } = null!;
+
+        [MaxLength(LastNameMaxLengh)]
         public string SenderLastName { get; set; } = null!;
 
         public string? Questions { get; set; }
