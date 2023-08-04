@@ -7,15 +7,19 @@
     using Services.Intarfaces;
     using Infastructure.Extensions;
     using static Common.NotificationMessagesConstants;
+    using FitnessSite.Web.ViewModels.Message;
 
     [Authorize]
     public class TrainerController : Controller
     {
         private readonly ITrainerService trainerService;
+        private readonly IMessageService messageService;
 
-        public TrainerController(ITrainerService trainerService)
+        public TrainerController(ITrainerService trainerService,
+                                 IMessageService messageService)
         {
             this.trainerService = trainerService;
+            this.messageService = messageService;
         }
 
         [AllowAnonymous]
@@ -78,7 +82,9 @@
                 return RedirectToAction("All");
             }
 
-            return View(id);
+            string senderId = User.GetById();
+            MessageViewModel message = messageService.GetMessageToSendAsync(senderId,id);
+            return View(message);
         }
 
         private IActionResult GeneralError()

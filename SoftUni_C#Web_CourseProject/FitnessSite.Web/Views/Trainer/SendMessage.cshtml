@@ -1,9 +1,20 @@
-﻿@model int;
+﻿@model MessageViewModel;
 @{
     ViewBag.Title = "Send me a message";
 }
 
-<h1 class="text-center">@ViewBag.Title</h1>
-<form asp-controller="Trainer" asp-action="SendMessage" method="post" asp-route-id="@Model">
-
+<h1 class="text-center pb-2">@ViewBag.Title</h1>
+<form asp-controller="Trainer" asp-action="SendMessage" method="post">
+  <div class="row">
+       <div class="col">
+            <label>First Name</label>
+            <input asp-for="@Model.SenderFirstName" class="form-control" placeholder="First Name">
+            <span asp-validation-for="@Model.SenderFirstName" class="small text-danger"></span>
+       </div>
+       <div class="col">
+            <label>Last Name</label>
+            <input asp-for="@Model.SenderLastName" class="form-control" placeholder="Last Name">
+            <span asp-validation-for="@Model.SenderLastName" class="small text-danger"></span>
+       </div>
+  </div>
 </form>

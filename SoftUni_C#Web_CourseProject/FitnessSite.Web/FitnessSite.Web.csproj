@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Trainer\SendMessage.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
@@ -27,18 +23,6 @@
     <ProjectReference Include="..\FitnessSite.Services\FitnessSite.Services.csproj" />
     <ProjectReference Include="..\FitnessSite.Web.Infastructure\FitnessSite.Web.Infastructure.csproj" />
     <ProjectReference Include="..\FitnessSite.Web.ViewModels\FitnessSite.Web.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Trainer\SendMessage.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Trainer\SendMessage.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Trainer\SendMessage.cshtml" />
   </ItemGroup>
 
 </Project>
