@@ -38,9 +38,15 @@ namespace FitnessSite.Web
                 })
                 .AddEntityFrameworkStores<FitnessSiteDbContext>();
 
-            builder.Services.AddControllersWithViews();
 
             builder.Services.AddApplicationServices(typeof(IExerciseService));
+
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/User/Login";
+            });
+
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
