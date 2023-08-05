@@ -17,6 +17,7 @@
             {
                  new Trainer()
                  {
+                      Id = Guid.Parse("0291F83E-22AB-46C6-820F-738318F84E75"),
                       FirstName = "Ivan",
                       LastName = "Ivanov",
                       Year = 31,
@@ -30,6 +31,7 @@
 
                  new Trainer()
                  {
+                      Id = Guid.Parse("5CDF48BB-09A1-4A2C-8A57-9EDC675DEAF9"),
                       FirstName = "Maria",
                       LastName = "Asenova",
                       Year = 28,

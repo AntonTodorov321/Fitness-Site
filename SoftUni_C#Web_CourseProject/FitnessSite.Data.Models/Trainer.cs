@@ -1,6 +1,7 @@
 ﻿namespace FitnessSite.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using static Common.EntityValidationsConstants.Trainer;
 
@@ -45,6 +46,11 @@
         [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
+
+        [ForeignKey(nameof(ApplicationUser))]
+        public Guid ApllicationUserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; } = null!;
 
         public virtual ICollection<ApplicationUser> ApllicationUsers { get; set; }
 
