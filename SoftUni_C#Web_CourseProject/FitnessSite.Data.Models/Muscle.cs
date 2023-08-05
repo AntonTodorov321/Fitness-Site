@@ -15,7 +15,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLenght)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
        public virtual ICollection<MuscleExercise> MuscleExercises { get; set; }

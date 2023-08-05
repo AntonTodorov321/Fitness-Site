@@ -5,7 +5,7 @@ namespace FitnessSite.Web
     using Data;
     using FitnessSite.Data.Models;
     using Infastructure.Extensions;
-    using FitnessSite.Services.Intarfaces;
+    using Services.Intarfaces;
 
     public class Program
     {

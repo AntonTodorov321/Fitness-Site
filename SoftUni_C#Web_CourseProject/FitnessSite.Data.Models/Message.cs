@@ -13,10 +13,10 @@
 
         public Guid Id { get; set; }
 
-        [MaxLength(FirstNameMaxLengh)]
+        [MaxLength(FirstNameMaxLength)]
         public string SenderFirstName { get; set; } = null!;
 
-        [MaxLength(LastNameMaxLengh)]
+        [MaxLength(LastNameMaxLength)]
         public string SenderLastName { get; set; } = null!;
 
         public string? Questions { get; set; }

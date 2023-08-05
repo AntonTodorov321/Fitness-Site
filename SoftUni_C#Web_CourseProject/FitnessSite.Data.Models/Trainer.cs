@@ -17,11 +17,11 @@
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(FirstNameMaxLengh)]
+        [MaxLength(FirstNameMaxLength)]
         public string FirstName { get; set; } = null!;
 
         [Required]
-        [MaxLength(LastNameMaxLengh)]
+        [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = null!;
 
         public int Year { get; set; }
@@ -35,15 +35,15 @@
         public string TelefoneNumber { get; set; } = null!;
 
         [Required]
-        [MaxLength(EmailMaxLenght)]
+        [MaxLength(EmailMaxLength)]
         public string Email { get; set; } = null!;
 
         [Required]
-        [MaxLength(ImageUrlMaxLenght)]
+        [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        [MaxLength(DescriptionMaxLengh)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
         public virtual ICollection<ApplicationUser> ApllicationUsers { get; set; }

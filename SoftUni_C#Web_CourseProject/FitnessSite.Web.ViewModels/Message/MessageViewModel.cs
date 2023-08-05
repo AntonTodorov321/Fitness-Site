@@ -5,10 +5,10 @@
     using static Common.EntityValidationsConstants.Message;
     public class MessageViewModel
     {
-        [StringLength(FirstNameMaxLengh, MinimumLength = FirstNameMinLengh)]
+        [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         public string SenderFirstName { get; set; } = null!;
 
-        [StringLength(LastNameMaxLengh, MinimumLength = LastNameMinLengh)]
+        [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
         public string SenderLastName { get; set; } = null!;
 
         public string? Description { get; set; }

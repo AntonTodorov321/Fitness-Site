@@ -18,7 +18,7 @@
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLenght)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
 
@@ -28,7 +28,7 @@
         public virtual TypeExercise Type { get; set; } = null!;
 
         [Required]
-        [MaxLength(DescriptionMaxLenght)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
         public string? Reps { get; set; }
@@ -36,7 +36,7 @@
         public string? Sets { get; set; }
 
         [Required]
-        [MaxLength(ImageUrlMaxLenght)]
+        [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
 
         public int? Kilogram { get; set; }
