@@ -1,20 +1,22 @@
 namespace FitnessSite.Web
 {
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
 
     using Data;
     using FitnessSite.Data.Models;
     using Infastructure.Extensions;
     using Services.Intarfaces;
+    using static Common.GeneralApplicationConstants;
 
     public class Program
     {
         public static async Task Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<FitnessSiteDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -36,6 +38,7 @@ namespace FitnessSite.Web
                     options.Password.RequiredLength =
                     builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
                 })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<FitnessSiteDbContext>();
 
 
@@ -48,7 +51,7 @@ namespace FitnessSite.Web
 
             builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+            WebApplication app = builder.Build();
 
             if (app.Environment.IsDevelopment())
             {
@@ -67,6 +70,9 @@ namespace FitnessSite.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedTrainer(DevelopmentTrainerIvanEmail);
+            app.SeedTrainer(DevelopmentTrainerMariaEmail);
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();

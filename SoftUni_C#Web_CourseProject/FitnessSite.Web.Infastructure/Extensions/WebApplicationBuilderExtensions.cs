@@ -2,7 +2,12 @@
 {
     using System.Reflection;
 
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using FitnessSite.Data.Models;
+    using static Common.GeneralApplicationConstants;
 
     public static class WebApplicationBuilderExtensions
     {
@@ -31,6 +36,39 @@
                 service.AddScoped(interfaceType, currentType);
             }
 
+        }
+
+        public static IApplicationBuilder SeedTrainer(this IApplicationBuilder app, string email)
+        {
+            using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
+
+            var serviceProvider = scopedServices.ServiceProvider;
+
+            UserManager<ApplicationUser> userManager =
+                serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            RoleManager<IdentityRole<Guid>> roleManager =
+                serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+            Task.Run(async() =>
+            {
+                ApplicationUser user = await userManager.FindByEmailAsync(email);
+                bool isUserInRole = await userManager.IsInRoleAsync(user, TrainerRoleName);
+
+                if (await roleManager.RoleExistsAsync(TrainerRoleName) && isUserInRole)
+                {
+                    return;
+                }
+
+                IdentityRole<Guid> role = new IdentityRole<Guid>(TrainerRoleName);
+
+                await roleManager.CreateAsync(role);
+
+                await userManager.AddToRoleAsync(user, TrainerRoleName);
+            })
+                .GetAwaiter()
+                .GetResult();
+
+            return app;
         }
     }
 }
