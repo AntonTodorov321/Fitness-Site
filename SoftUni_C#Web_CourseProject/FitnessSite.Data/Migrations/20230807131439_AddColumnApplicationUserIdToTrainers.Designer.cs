@@ -4,6 +4,7 @@ using FitnessSite.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    partial class FitnessSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807131439_1")]
+    partial class AddColumnApplicationUserIdToTrainers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,7 +181,7 @@ namespace FitnessSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a56d7b9c-1fc0-4340-983b-5a6401fd994b"),
+                            Id = new Guid("4aaee5ce-08ff-4776-9c18-d97331694e88"),
                             Description = "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
                             Name = "Push-Ups",
@@ -189,7 +191,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3feee688-0784-40c8-8f72-5f960e6d573d"),
+                            Id = new Guid("95476204-8253-4610-811c-3b59b3c49eaf"),
                             Description = "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
                             ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
                             Name = "Plank",
@@ -199,7 +201,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3de69090-792a-4138-8b0b-bd3d31dbddb8"),
+                            Id = new Guid("751c0077-81eb-4887-92af-12f3734f8ac5"),
                             Description = "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
                             ImageUrl = "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg",
                             Name = "Pull-Ups",
@@ -207,7 +209,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ea0c9cba-6849-4a46-8e80-d6e5f0495d5a"),
+                            Id = new Guid("c08ef61b-08b0-4c95-9752-5ad78cb45791"),
                             Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
                             ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
                             Name = "Cycling",
@@ -215,7 +217,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ed5ce0b4-888e-4234-9255-26829db17b06"),
+                            Id = new Guid("37ab2738-2e83-4cc0-ab5e-dd41c50fd359"),
                             Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
                             ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
                             Name = "Bench Press",
@@ -225,7 +227,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f953a21f-59b3-4e54-a152-99575045f187"),
+                            Id = new Guid("b821afa3-e7a0-4c9f-a814-389b2e2c5b54"),
                             Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
                             ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
                             Name = "Squat",
@@ -462,7 +464,7 @@ namespace FitnessSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("438bfe04-c75e-4aad-ac1e-4284d07e7903"),
+                            Id = new Guid("5b39b703-a3b5-484b-9289-2bb3b778765b"),
                             ApplicationUserId = new Guid("673fc005-4fbb-403b-8931-61c02f901f56"),
                             Description = "Hello, my name is Ivan. I know every type of exercise and i will be glad if i work with you! I work mostly with men.",
                             FirstName = "Ivan",
@@ -475,7 +477,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("94429628-91f2-4e7d-b265-4b350c1547ce"),
+                            Id = new Guid("9e4ab043-010c-4681-b263-a789e4ae606b"),
                             ApplicationUserId = new Guid("3cb73cf9-de66-4109-aa37-b36b72787df7"),
                             Description = "Hello, my name is Maria.I've been going to the gym since i was 16, and when i grow up i decide to become professional trainer. I work mostly with men.",
                             FirstName = "Maria",

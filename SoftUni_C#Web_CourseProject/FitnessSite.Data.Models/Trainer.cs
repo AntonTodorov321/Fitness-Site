@@ -36,10 +36,6 @@
         public string TelefoneNumber { get; set; } = null!;
 
         [Required]
-        [MaxLength(EmailMaxLength)]
-        public string Email { get; set; } = null!;
-
-        [Required]
         [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
 
@@ -48,7 +44,7 @@
         public string Description { get; set; } = null!;
 
         [ForeignKey(nameof(ApplicationUser))]
-        public Guid ApllicationUserId { get; set; }
+        public Guid ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; } = null!;
 

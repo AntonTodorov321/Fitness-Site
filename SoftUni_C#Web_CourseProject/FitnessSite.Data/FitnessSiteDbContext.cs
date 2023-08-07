@@ -44,6 +44,12 @@
                 .OnDelete(DeleteBehavior.Restrict);
             });
 
+            builder.Entity<Trainer>(e =>
+            {
+                e.HasMany(t => t.ApllicationUsers)
+                .WithOne(au => au.Trainer);
+            });
+
             Assembly assembly = Assembly.GetAssembly(typeof(FitnessSiteDbContext))
                 ?? Assembly.GetExecutingAssembly();
 

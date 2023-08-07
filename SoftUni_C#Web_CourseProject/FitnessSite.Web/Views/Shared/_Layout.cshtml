@@ -1,5 +1,8 @@
 ﻿@using static FitnessSite.Common.GeneralApplicationConstants
-
+@inject ITrainerService trainerService;
+@{
+    bool isUserHaveTrainer = await trainerService.IsUserHaveTrainerAsync(this.User.GetById());
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,14 +31,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Exercise" asp-action="All">All Exercises</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="All">Choose your trainer</a>
-                        </li>
+                        @if (!isUserHaveTrainer)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="All">Choose your trainer</a>
+                            </li>
+                        }
                         @if (this.User.Identity?.IsAuthenticated ?? false)
                         {
                              <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Training" asp-action="Mine">Start Training</a>
-                        </li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Training" asp-action="Mine">Start Training</a>
+                             </li>
+                        }
+                        @if (isUserHaveTrainer)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="MyTrainer">My Trainer</a>
+                             </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />

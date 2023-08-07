@@ -29,11 +29,6 @@
 
             TrainingViewModel? myTraining = await trainingServise.GetTrainingAsync(userId);
 
-            if (myTraining!.IsStarted)
-            {
-
-            }
-
             return View(myTraining);
         }
 

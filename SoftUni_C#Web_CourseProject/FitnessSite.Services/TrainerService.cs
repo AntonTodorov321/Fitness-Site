@@ -49,7 +49,6 @@
                 {
                     Id = t.Id,
                     Description = t.Description,
-                    Email = t.Email,
                     ImageUrl = t.ImageUrl,
                     PricePerMonth = t.PricePerMonth,
                     StartedAt = t.StartedAt,
@@ -69,8 +68,13 @@
 
         public async Task<bool> IsUserHaveTrainerAsync(string id)
         {
-            ApplicationUser user =
-                await dbContext.Users.FirstAsync(u => u.Id.ToString() == id);
+            ApplicationUser? user =
+                await dbContext.Users.FirstOrDefaultAsync(u => u.Id.ToString() == id);
+
+            if (user == null)
+            {
+                return false;
+            }
 
             return user.TrainerId.HasValue;
         }

@@ -5,9 +5,8 @@
 
     using ViewModels.Trainer;
     using Services.Intarfaces;
-    using Infastructure.Extensions;
     using static Common.NotificationMessagesConstants;
-    using FitnessSite.Web.ViewModels.Message;
+    using FitnessSite.Web.Infastructure.Extensions;
 
     [Authorize]
     public class TrainerController : Controller
@@ -25,6 +24,16 @@
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
+            bool isUserHaveTrainer =
+                await trainerService.IsUserHaveTrainerAsync(User.GetById());
+
+            if (isUserHaveTrainer)
+            {
+                TempData[WarningMessage] =
+                    "You already have trainer. Please contact your trainer";
+                return RedirectToAction("MyTrainer");
+            }
+
             try
             {
                 List<AllTrainerViewModel> allTrainers = await
@@ -59,6 +68,11 @@
             {
                 return GeneralError();
             }
+        }
+
+        public async Task<IActionResult> MyTrainer()
+        {
+            return Ok();
         }
 
         private IActionResult GeneralError()
