@@ -1,7 +1,7 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = $"Hello, {User.Identity?.Name}";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 

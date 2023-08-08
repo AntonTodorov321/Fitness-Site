@@ -1,7 +1,6 @@
 ﻿namespace FitnessSite.Services.Intarfaces
 {
-    using FitnessSite.Web.ViewModels.Exercise;
-    using System.Diagnostics.SymbolStore;
+    using Web.ViewModels.Exercise;
     using Web.ViewModels.TypeExercise;
 
     public interface IExerciseService
@@ -25,5 +24,7 @@
         public Task<List<string>> AllUserExercisesNames(string userId);
 
         public Task<bool> IsEditExerciseAddToTraining(string id, string userId);
+
+        public Task GetGlobalExerciseToEditAsync(string id);
     }
 }
