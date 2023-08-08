@@ -71,13 +71,24 @@ namespace FitnessSite.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.SeedTrainer(DevelopmentTrainerIvanEmail);
-            app.SeedTrainer(DevelopmentTrainerMariaEmail);
+            if (app.Environment.IsDevelopment())
+            {
+                app.SeedTrainer(DevelopmentTrainerIvanEmail);
+                app.SeedTrainer(DevelopmentTrainerMariaEmail);
+            }
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
 
-           await app.RunAsync();
+            await app.RunAsync();
         }
     }
 }
