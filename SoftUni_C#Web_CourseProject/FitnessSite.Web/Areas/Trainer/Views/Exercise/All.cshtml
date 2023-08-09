@@ -11,7 +11,7 @@
       {
              <Partial name = "_ExercisePartial" model="exercise"/>
 
-              <form class="text-center" asp-area="Trainer"  asp-controller="Exercise" asp-action="Edit" method="post" asp-route-id="@exercise.Id">
+              <form class="text-center" asp-area="Trainer"  asp-controller="Exercise" asp-action="Edit" method="get" asp-route-id="@exercise.Id">
                  <input type="submit" value="Edit" class="btn btn-warning text-center">
               </form>
              <hr />

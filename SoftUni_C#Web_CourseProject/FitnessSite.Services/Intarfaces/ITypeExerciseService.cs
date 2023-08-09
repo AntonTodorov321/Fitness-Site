@@ -4,6 +4,6 @@
 
     public interface ITypeExerciseService
     {
-        public ICollection<TypeExerciseViewModel> GetTypesAsync();
+        public Task<ICollection<TypeExerciseViewModel>> GetTypesAsync();
     }
 }

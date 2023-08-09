@@ -1,0 +1,57 @@
+﻿@model EditGlobalExerciseViewModel
+@{
+ ViewBag.Title = "Edit exercise";
+}
+<h1 class="text-center">@ViewBag.Title</h1>
+<div class="row">
+   <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+     <form asp-area="Trainer" asp-controller="Exercise" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+       <div class="mb-3">
+          <label asp-for="Name" class="form-label">Name</label>
+          <input asp-for="Name" class="form-control" aria-required="true" />
+          <span asp-validation-for="Name" class="text-danger"></span>
+      </div>
+      <div class="mb-3">
+         <label asp-for="Description" class="form-label">Description</label>
+         <textarea asp-for="Description" class="form-control" placeholder="Description" rows="3"></textarea>
+         <span asp-validation-for="Description" class="text-danger"></span>
+      </div>
+       <div class="mb-3">
+          <label asp-for="ImageUrl" class="form-label">ImageUrl</label>
+          <input asp-for="ImageUrl" class="form-control" aria-required="true" />
+          <span asp-validation-for="ImageUrl" class="text-danger"></span>
+      </div>
+       <div class="mb-3">
+          <label asp-for="Reps" class="form-label">Reps</label>
+          <input asp-for="Reps" class="form-control" aria-required="true" />
+          <span asp-validation-for="Reps" class="text-danger"></span>
+      </div>
+       <div class="mb-3">
+          <label asp-for="Sets" class="form-label">Sets</label>
+          <input asp-for="Sets" class="form-control" aria-required="true" />
+          <span asp-validation-for="Sets" class="text-danger"></span>
+      </div>
+       <div class="mb-3">
+          <label asp-for="Kilogram" class="form-label">Kg</label>
+          <input asp-for="Kilogram" class="form-control" aria-required="true" />
+          <span asp-validation-for="Kilogram" class="text-danger"></span>
+      </div>
+      <div class="mb-3">
+         <label asp-for="TypeId" class="form-label">Category</label>
+         <select asp-for="TypeId" class="form-control">
+         @foreach (TypeExerciseViewModel type in Model.AllTypes)
+         {
+            <option value="@type.Id">@type.Name</option>
+         }
+         </select>
+         <span asp-validation-for="TypeId" class="text-danger"></span>
+      </div>
+      <div class="col-md-12 text-center">
+          <input class="btn btn-warning btn-lg" type="submit" value="Edit" />
+     </div>
+ </form>
+ </div>
+</div>
+@section Scripts {
+ <partial name="_ValidationScriptsPartial" />
+}
