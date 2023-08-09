@@ -16,7 +16,7 @@
 
         public async Task<IActionResult> All()
         {
-           IEnumerable<TypeExerciseViewModel> allExercises =
+           IEnumerable<TypeExerciseViewModelAllExrcises> allExercises =
                 await exerciseService.AllExerciseWithoutUserAsync();
 
             return View(allExercises);

@@ -5,9 +5,9 @@
 
     public interface IExerciseService
     {
-        public Task<IEnumerable<TypeExerciseViewModel>> AllExerciseWithUserAsync(string userId);
+        public Task<IEnumerable<TypeExerciseViewModelAllExrcises>> AllExerciseWithUserAsync(string userId);
 
-        public Task<IEnumerable<TypeExerciseViewModel>> AllExerciseWithoutUserAsync();
+        public Task<IEnumerable<TypeExerciseViewModelAllExrcises>> AllExerciseWithoutUserAsync();
 
         public Task AddExerciseAsync(Guid id, string userId);
 
@@ -25,6 +25,6 @@
 
         public Task<bool> IsEditExerciseAddToTraining(string id, string userId);
 
-        public Task GetGlobalExerciseToEditAsync(string id);
+        public Task<EditGlobalExerciseViewModel> GetGlobalExerciseToEditAsync(string id);
     }
 }

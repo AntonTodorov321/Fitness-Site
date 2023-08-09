@@ -1,14 +1,12 @@
-﻿namespace FitnessSite.Web.Areas.Trainer.Models.Exercise
+﻿namespace FitnessSite.Web.ViewModels.Exercise
 {
     using System.ComponentModel.DataAnnotations;
 
     using TypeExercise;
     using static Common.EntityValidationsConstants.Exercise;
 
-    public class EditGlobalExerciseViewModel
+    public class EditGlobalExerciseViewModel : EditExerciseViewModel
     {
-        public Guid Id { get; set; }
-
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; } = null!;
@@ -17,17 +15,9 @@
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; } = null!;
 
-        [RegularExpression(RepsRegularExpression, 
-            ErrorMessage = RepsErrorMessage)]
-        public string? Reps { get; set; }
-
-        public string? Sets { get; set; }
-
         [Required]
         [StringLength(DescriptionMaxLength,MinimumLength = DescriptionMinLength)]
         public string ImageUrl { get; set; } = null!;
-
-        public int? Kilogram { get; set; }
 
         public int TypeId { get; set; }
 

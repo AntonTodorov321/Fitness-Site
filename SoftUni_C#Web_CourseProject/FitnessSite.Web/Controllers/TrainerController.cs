@@ -70,11 +70,6 @@
             }
         }
 
-        public async Task<IActionResult> MyTrainer()
-        {
-            return Ok();
-        }
-
         private IActionResult GeneralError()
         {
             TempData[ErrorMessage] =

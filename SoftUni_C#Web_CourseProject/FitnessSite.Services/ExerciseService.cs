@@ -19,13 +19,13 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<TypeExerciseViewModel>> AllExerciseWithUserAsync(string userId)
+        public async Task<IEnumerable<TypeExerciseViewModelAllExrcises>> AllExerciseWithUserAsync(string userId)
         {
             ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
             Guid? trainingId = user?.TrainingId;
 
-            IEnumerable<TypeExerciseViewModel> models =
-                await dbContext.TypeExercises.Select(t => new TypeExerciseViewModel()
+            IEnumerable<TypeExerciseViewModelAllExrcises> models =
+                await dbContext.TypeExercises.Select(t => new TypeExerciseViewModelAllExrcises()
                 {
                     Name = t.Name,
                     AllExercises = dbContext.Exercises.
@@ -95,10 +95,10 @@
             && te.ExerciseId == exerciseToAdd.Id);
         }
 
-        public async Task<IEnumerable<TypeExerciseViewModel>> AllExerciseWithoutUserAsync()
+        public async Task<IEnumerable<TypeExerciseViewModelAllExrcises>> AllExerciseWithoutUserAsync()
         {
-            IEnumerable<TypeExerciseViewModel> models = await dbContext.TypeExercises.
-                Select(t => new TypeExerciseViewModel()
+            IEnumerable<TypeExerciseViewModelAllExrcises> models = await dbContext.TypeExercises.
+                Select(t => new TypeExerciseViewModelAllExrcises()
                 {
                     Name = t.Name,
                     AllExercises = dbContext.Exercises
@@ -212,7 +212,7 @@
                 return new List<string>();
             }
 
-            ApplicationUser user = 
+            ApplicationUser user =
                 await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
 
             return
@@ -223,26 +223,40 @@
                 ToListAsync();
         }
 
-        public async Task<bool> IsEditExerciseAddToTraining(string id,string userId)
+        public async Task<bool> IsEditExerciseAddToTraining(string id, string userId)
         {
-            Exercise originalExercise = await 
+            Exercise originalExercise = await
                 dbContext.Exercises.FirstAsync(e => e.Id.ToString() == id);
 
             ApplicationUser? user = await dbContext.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
             string? trainingId = user!.TrainingId.ToString();
-                
 
-            TrainingExercise[] userExercises = 
+
+            TrainingExercise[] userExercises =
                 await dbContext.TrainingExercises!.Include(te => te.Exercise).
                 Where(te => te.TrainingId.ToString() == trainingId).ToArrayAsync();
 
             return userExercises.Any(te => te.Exercise.Name == originalExercise.Name && te.Exercise.UserId.ToString() == userId);
         }
 
-        public async Task GetGlobalExerciseToEditAsync(string id)
+        public async Task<EditGlobalExerciseViewModel> GetGlobalExerciseToEditAsync(string id)
         {
-            
+            EditGlobalExerciseViewModel model =
+                await dbContext.Exercises.Select(e => new EditGlobalExerciseViewModel()
+                {
+                    Id = e.Id,
+                    Description = e.Description,
+                    ImageUrl = e.ImageUrl,
+                    Kilogram = e.Kilogram,
+                    Name = e.Name,
+                    Reps = e.Reps,
+                    Sets = e.Sets,
+
+                })
+                .FirstAsync(e => e.Id.ToString() == id);
+
+            return model;
         }
     }
 }
