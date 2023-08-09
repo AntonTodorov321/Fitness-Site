@@ -23,7 +23,7 @@
             List<AllTrainerViewModel> allTrainers = await dbContext.Trainers
                 .Select(t => new AllTrainerViewModel()
                 {
-                    Id = t.Id,
+                    Id = t.Id.ToString(),
                     ImageUrl = t.ImageUrl,
                     FirstName = t.FirstName,
                     LastName = t.LastName,
@@ -47,7 +47,7 @@
             DetailsTrainerViewModel trainer = await dbContext
                 .Trainers.Select(t => new DetailsTrainerViewModel()
                 {
-                    Id = t.Id,
+                    Id = t.Id.ToString(),
                     Description = t.Description,
                     ImageUrl = t.ImageUrl,
                     PricePerMonth = t.PricePerMonth,
@@ -55,7 +55,7 @@
                     TelefoneNumber = t.TelefoneNumber,
                     Year = t.Year
                 })
-                .FirstAsync(t => t.Id.ToString() == id);
+                .FirstAsync(t => t.Id == id);
 
             trainer.YearExperience = trainer.Year - trainer.StartedAt;
             return trainer;

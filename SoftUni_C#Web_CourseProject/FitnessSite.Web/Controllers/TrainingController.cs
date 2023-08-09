@@ -33,7 +33,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Start(Guid id)
+        public async Task<IActionResult> Start(string id)
         {
             await trainingServise.StartTraining(id);
 
@@ -48,7 +48,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Remove(Guid id)
+        public async Task<IActionResult> Remove(string id)
         {
             bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
 
@@ -84,17 +84,19 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(string id)
         {
             bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
             if (!isExerciseExist)
             {
-                TempData[ErrorMessage] = "Selected exercise does not exist. Please select existing exercise";
+                TempData[ErrorMessage] =
+                    "Selected exercise does not exist. Please select existing exercise";
                 return RedirectToAction("Mine");
             }
 
             string userId = User.GetById();
-            bool isExerciseInTraining = await trainingServise.IsExerciseExistInTrainingAsync(userId, id);
+            bool isExerciseInTraining =
+                await trainingServise.IsExerciseExistInTrainingAsync(userId, id);
 
             if (!isExerciseInTraining)
             {
@@ -103,23 +105,27 @@
                 return RedirectToAction("Mine");
             }
 
-            GetExerciseToEditViewModel viewModel = await exerciseServise.GetExerciseToEditAsync(id);
+            GetExerciseToEditViewModel viewModel = 
+                await exerciseServise.GetExerciseToEditAsync(id);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Guid id, EditExerciseViewModel model)
+        public async Task<IActionResult> Edit(string id, EditExerciseViewModel model)
         {
-            bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
+            bool isExerciseExist =
+                await exerciseServise.IsExersiceExistById(id);
             if (!isExerciseExist)
             {
-                TempData[ErrorMessage] = "Selected exercise does not exist. Please select existing exercise";
+                TempData[ErrorMessage] = 
+                    "Selected exercise does not exist. Please select existing exercise";
                 return RedirectToAction("Mine");
             }
 
             string userId = User.GetById();
-            bool isExerciseInTraining = await trainingServise.IsExerciseExistInTrainingAsync(userId, id);
+            bool isExerciseInTraining =
+                await trainingServise.IsExerciseExistInTrainingAsync(userId, id);
 
             if (!isExerciseInTraining)
             {
@@ -134,10 +140,12 @@
                 return RedirectToAction("Edit");
             }
 
+            string exerciseName = await exerciseServise.GetExerciseNameByIdAsync(id);
             try
             {
                 await exerciseServise.EditExerciseAsync(id, model, userId);
-                TempData[SuccessMessage] = $"You successfully edit {await exerciseServise.GetExerciseNameByIdAsync(id)} exercise";
+                TempData[SuccessMessage] = 
+                    $"You successfully edit {exerciseName} exercise";
                 return RedirectToAction("Mine");
             }
             catch (Exception)

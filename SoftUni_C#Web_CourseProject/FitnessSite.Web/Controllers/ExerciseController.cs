@@ -50,7 +50,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Guid id)
+        public async Task<IActionResult> Add(string id)
         {
             string userId = User.GetById();
 
@@ -68,18 +68,20 @@
                 return RedirectToAction("Mine", "Training");
             }
 
-            bool IsEditExerciseAddToTraining = await exerciseService.IsEditExerciseAddToTraining(id.ToString(), userId);
+            bool IsEditExerciseAddToTraining = await exerciseService.IsEditExerciseAddToTraining(id, userId);
             if (IsEditExerciseAddToTraining)
             {
                 TempData[WarningMessage] = "You already have this exercise to your training";
                 return RedirectToAction("Mine", "Training");
             }
 
+            string exerciseName = 
+                await exerciseService.GetExerciseNameByIdAsync(id);
             try
             {
                 await exerciseService.AddExerciseAsync(id, userId);
                 TempData[SuccessMessage] =
-                    $"You successfully add {await exerciseService.GetExerciseNameByIdAsync(id)} exercise.";
+                    $"You successfully add {exerciseName} exercise.";
                 return RedirectToAction("All");
             }
             catch (Exception)

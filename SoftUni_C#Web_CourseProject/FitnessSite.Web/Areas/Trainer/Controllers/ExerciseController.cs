@@ -28,7 +28,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(string id)
         {
             bool isExerciseExist = await exerciseService.IsExersiceExistById(id);
             if (!isExerciseExist)
@@ -39,7 +39,7 @@
             }
 
             EditGlobalExerciseViewModel model = 
-                await exerciseService.GetGlobalExerciseToEditAsync(id.ToString());
+                await exerciseService.GetGlobalExerciseToEditAsync(id);
 
             model.AllTypes = await typeExerciseService.GetTypesAsync();
 
@@ -49,7 +49,36 @@
         [HttpPost]
         public async Task<IActionResult> Edit(EditGlobalExerciseViewModel model,string id)
         {
+            if (!ModelState.IsValid)
+            {
+                model.AllTypes = await typeExerciseService.GetTypesAsync();
+                return View(model);
+            }
 
+            bool isTypeExist = await typeExerciseService.IsTypeExistAsync(model.TypeId);
+            if (!isTypeExist)
+            {
+                model.AllTypes = await typeExerciseService.GetTypesAsync();
+                ModelState.AddModelError(nameof(model.TypeId),
+                    "Selected board does not exist!");
+            }
+
+            string exerciseName = 
+                await exerciseService.GetExerciseNameByIdAsync(id.ToString());
+            try
+            {
+                await exerciseService.EditGlobalExerciseAsync(id, model);
+                TempData[SuccessMessage] =
+                    $"You successfully edit {exerciseName}";
+                return RedirectToAction("Index","Home");
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later or contact administrator";
+
+                return this.RedirectToAction("Index", "Home");
+            }
         }
 
     }

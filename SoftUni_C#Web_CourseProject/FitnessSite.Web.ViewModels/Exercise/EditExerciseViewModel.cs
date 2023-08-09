@@ -6,7 +6,7 @@
 
     public class EditExerciseViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = null!;
 
         [RegularExpression(RepsRegularExpression,
             ErrorMessage = RepsErrorMessage)]

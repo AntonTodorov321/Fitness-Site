@@ -9,7 +9,7 @@
             Exercises = new HashSet<AllExerciseViewModel>();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; } = null!;
 
         public bool IsStarted { get; set; }
 

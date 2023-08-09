@@ -29,5 +29,10 @@
 
             return allTypes;
         }
+
+        public async Task<bool> IsTypeExistAsync(int id)
+        {
+            return await dbContext.TypeExercises.AnyAsync(te => te.Id == id);
+        }
     }
 }

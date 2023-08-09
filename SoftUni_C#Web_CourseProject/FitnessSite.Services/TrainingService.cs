@@ -36,7 +36,7 @@
                  dbContext.Trainings.
                 Select(t => new TrainingViewModel()
                 {
-                    Id = t.Id,
+                    Id = t.Id.ToString(),
                     IsEnded = t.IsEnded,
                     IsStarted = t.IsStarted,
                     Exercises = dbContext.TrainingExercises!
@@ -44,7 +44,7 @@
                      .Select(te => new AllExerciseViewModel()
                      {
                          Name = te.Exercise.Name,
-                         Id = te.Exercise.Id,
+                         Id = te.Exercise.Id.ToString(),
                          Description = te.Exercise.Description,
                          ImageUrl = te.Exercise.ImageUrl,
                          Reps = te.Exercise.Reps,
@@ -55,25 +55,26 @@
                          Where(me => me.ExerciseId == te.Exercise.Id).
                          Select(me => me.Muscle.Name).ToList()
                      }).ToList()
-                }).FirstOrDefaultAsync(t => t.Id == training.Id);
+                }).FirstOrDefaultAsync(t => t.Id == training.Id.ToString());
 
 
             return trainingViewModel;
         }
 
         public async Task<bool> IsExerciseExistInTrainingAsync
-            (string userId, Guid exerciseId)
+            (string userId, string exerciseId)
         {
             ApplicationUser user = await GetApplicationUserByIdAsync(userId);
 
             Training? training = await GetTrainingByUserAsync(user);
 
             return await dbContext.Trainings
-                .AnyAsync(t => t.TrainingExercises.
-                Any(te => te.TrainingId == training!.Id && te.ExerciseId == exerciseId));
+                .AnyAsync(t => t.TrainingExercises
+                .Any(te => te.TrainingId == training!.Id
+                 && te.ExerciseId.ToString() == exerciseId));
         }
 
-        public async Task RemoveExerciseFromTrainingAsync(Guid exersiceId, string userId)
+        public async Task RemoveExerciseFromTrainingAsync(string exersiceId, string userId)
         {
             ApplicationUser user = await GetApplicationUserByIdAsync(userId);
 
@@ -81,14 +82,14 @@
 
             TrainingExercise trainingExerciseToRemove = new TrainingExercise()
             {
-                ExerciseId = exersiceId,
+                ExerciseId = Guid.Parse(exersiceId),
                 TrainingId = training!.Id
             };
 
             dbContext.TrainingExercises!.Remove(trainingExerciseToRemove);
 
             Exercise exercise =
-                await dbContext.Exercises.FirstAsync(e => e.Id == exersiceId);
+                await dbContext.Exercises.FirstAsync(e => e.Id.ToString() == exersiceId);
 
             if (exercise.UserId.HasValue)
             {
@@ -109,9 +110,10 @@
                 FirstOrDefaultAsync(t => t.Id.ToString() == user.TrainingId.ToString());
         }
         
-        public async Task StartTraining(Guid id)
+        public async Task StartTraining(string id)
         {
-            Training training = await dbContext.Trainings.FirstAsync(t => t.Id == id);
+            Training training = 
+                await dbContext.Trainings.FirstAsync(t => t.Id.ToString() == id);
             training.Start = DateTime.UtcNow;
             training.IsStarted = true;
 

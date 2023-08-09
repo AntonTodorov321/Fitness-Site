@@ -60,7 +60,8 @@
 
             try
             {
-                DetailsTrainerViewModel trainer = await trainerService.GetTrainerDetailsAsync(id);
+                DetailsTrainerViewModel trainer
+                    = await trainerService.GetTrainerDetailsAsync(id);
                 return View(trainer);
 
             }

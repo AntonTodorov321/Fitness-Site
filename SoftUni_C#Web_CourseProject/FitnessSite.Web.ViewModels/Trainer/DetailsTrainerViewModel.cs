@@ -2,7 +2,7 @@
 {
     public class DetailsTrainerViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = null!;
         public int StartedAt { get; set; }
         public decimal PricePerMonth { get; set; }
         public string TelefoneNumber { get; set; } = null!;

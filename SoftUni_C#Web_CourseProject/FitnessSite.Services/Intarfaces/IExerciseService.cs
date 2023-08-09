@@ -9,22 +9,24 @@
 
         public Task<IEnumerable<TypeExerciseViewModelAllExrcises>> AllExerciseWithoutUserAsync();
 
-        public Task AddExerciseAsync(Guid id, string userId);
+        public Task AddExerciseAsync(string id, string userId);
 
-        public Task<bool> IsExersiceExistById(Guid id);
+        public Task<bool> IsExersiceExistById(string id);
 
-        public Task<bool> IsExerciseExistInThisTrainingAsync(Guid id,string userId);
+        public Task<bool> IsExerciseExistInThisTrainingAsync(string id,string userId);
 
-        public Task<string> GetExerciseNameByIdAsync(Guid id);
+        public Task<string> GetExerciseNameByIdAsync(string id);
 
-        public Task<GetExerciseToEditViewModel> GetExerciseToEditAsync(Guid id);
+        public Task<GetExerciseToEditViewModel> GetExerciseToEditAsync(string id);
 
-        public Task EditExerciseAsync(Guid id,EditExerciseViewModel model, string userId);
+        public Task EditExerciseAsync(string id,EditExerciseViewModel model, string userId);
 
         public Task<List<string>> AllUserExercisesNames(string userId);
 
         public Task<bool> IsEditExerciseAddToTraining(string id, string userId);
 
         public Task<EditGlobalExerciseViewModel> GetGlobalExerciseToEditAsync(string id);
+
+        public Task EditGlobalExerciseAsync(string id, EditGlobalExerciseViewModel model);
     }
 }

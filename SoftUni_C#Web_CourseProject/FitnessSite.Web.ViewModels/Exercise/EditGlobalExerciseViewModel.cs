@@ -7,6 +7,11 @@
 
     public class EditGlobalExerciseViewModel : EditExerciseViewModel
     {
+        public EditGlobalExerciseViewModel()
+        {
+            AllTypes = new HashSet<TypeExerciseViewModel>();
+        }
+
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; } = null!;

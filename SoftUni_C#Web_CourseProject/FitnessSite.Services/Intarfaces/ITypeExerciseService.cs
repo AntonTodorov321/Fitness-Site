@@ -5,5 +5,7 @@
     public interface ITypeExerciseService
     {
         public Task<ICollection<TypeExerciseViewModel>> GetTypesAsync();
+
+        public Task<bool> IsTypeExistAsync(int id);
     }
 }
