@@ -17,6 +17,14 @@
 
             public const int NameMinLength = 5;
             public const int NameMaxLength = 70;
+
+            public const string RepsRegularExpression = @"(^\d{1,2} - \d{1,2}$|^\d{1,2}$)";
+            public const string SetsRegularExpression = @"(^\d{1,2} - \d{1,2}$|^\d{1,2}$)";
+
+            public const string RepsErrorMessage =
+                "Reps must be in format 1d or 2d or dd - dd";
+            public const string SetsErrorMessage =
+                "Sets must be in format 1d or 2d or dd - dd";
         }
 
         public static class Trainer

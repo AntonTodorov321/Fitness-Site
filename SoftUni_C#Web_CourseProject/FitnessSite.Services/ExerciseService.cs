@@ -240,7 +240,7 @@
             return userExercises.Any(te => te.Exercise.Name == originalExercise.Name && te.Exercise.UserId.ToString() == userId);
         }
 
-        public Task GetGlobalExerciseToEditAsync(string id)
+        public async Task GetGlobalExerciseToEditAsync(string id)
         {
             
         }

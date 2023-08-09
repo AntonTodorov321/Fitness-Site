@@ -32,7 +32,6 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Pages\Account\" />
     <Folder Include="Areas\Trainer\Data\" />
-    <Folder Include="Areas\Trainer\Models\" />
   </ItemGroup>
 
 </Project>

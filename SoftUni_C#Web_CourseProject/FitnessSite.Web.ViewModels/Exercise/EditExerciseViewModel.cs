@@ -2,16 +2,18 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static Common.EntityValidationsConstants.Exercise;
+
     public class EditExerciseViewModel
     {
         public Guid Id { get; set; }
 
-        [RegularExpression(@"(^\d{1,2} - \d{1,2}$|^\d{1,2}$)",
-            ErrorMessage = "Reps must be in format dd or dd - dd")]
+        [RegularExpression(RepsRegularExpression,
+            ErrorMessage = RepsErrorMessage)]
         public string? Reps { get; set; }
 
-        [RegularExpression(@"(^\d{1,2} - \d{1,2}$|^\d{1,2}$)",
-              ErrorMessage = "Sets must be in format dd or dd - dd")]
+        [RegularExpression(SetsRegularExpression,
+              ErrorMessage = SetsErrorMessage)]
         public string? Sets { get; set; }
 
         [Display(Name = "Kg")]
