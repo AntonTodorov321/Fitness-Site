@@ -32,14 +32,6 @@
             return View(myTraining);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Start(string id)
-        {
-            await trainingServise.StartTraining(id);
-
-            return RedirectToAction("Mine");
-        }
-
         [HttpGet]
         public IActionResult Remove()
         {

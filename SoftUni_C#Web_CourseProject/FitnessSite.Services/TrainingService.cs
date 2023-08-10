@@ -99,16 +99,6 @@
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task StartTraining(string id)
-        {
-            Training training = 
-                await dbContext.Trainings.FirstAsync(t => t.Id.ToString() == id);
-            training.Start = DateTime.UtcNow;
-            training.IsStarted = true;
-
-            await dbContext.SaveChangesAsync();
-        }
-
         private async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
         {
             return await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);

@@ -29,7 +29,7 @@ else
               <th scope="row" class="text-start">@message.SenderFirstName @message.SenderLastName</th>
               <th scope="row" class="text-truncate" style="max-width:100px">@message.Description</th>
               <th scope="row">
-              <form class="text-end" asp-area="Trainer"  asp-controller="Message" asp-action="ShowDetails" method="get" asp-route-id="@message.Id">
+              <form class="text-end" asp-area=""  asp-controller="Message" asp-action="ShowDetails" method="get" asp-route-id="@message.Id">
                  <input type="submit" value="Show" class="btn btn-primary">
               </form>
               </th>

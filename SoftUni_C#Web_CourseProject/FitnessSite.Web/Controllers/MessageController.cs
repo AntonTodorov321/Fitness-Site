@@ -13,12 +13,16 @@
     {
         private readonly ITrainerService trainerService;
         private readonly IMessageService messageService;
+        private readonly IUserService userService;
 
         public MessageController(ITrainerService trainerService,
-                                 IMessageService messageService)
+                                 IMessageService messageService,
+                                 IUserService userService)
         {
             this.trainerService = trainerService;
             this.messageService = messageService;
+            this.userService = userService;
+
         }
 
         [HttpGet]
@@ -34,7 +38,7 @@
             }
 
             bool isUserHaveTrainer =
-                await trainerService.IsUserHaveTrainerAsync(User.GetById());
+                await userService.IsUserHaveTrainerAsync(User.GetById());
             if (isUserHaveTrainer)
             {
                 TempData[WarningMessage] =
@@ -42,11 +46,11 @@
                 return RedirectToAction("All", "Trainer");
             }
 
-            return View(new MessageViewModel());
+            return View(new SendMessageViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendMessage(MessageViewModel message, string id)
+        public async Task<IActionResult> SendMessage(SendMessageViewModel message, string id)
         {
             bool isTrainerExist =
                await trainerService.IsTrainerExesitAsync(id);
@@ -58,15 +62,59 @@
             }
 
             string senderId = User.GetById();
-            string trainerApplicationUserId =
-                await trainerService.GetTrainerApplicationUserIdAsync(id);
 
             try
             {
                 await messageService.
-                    SendMessageAsync(senderId, trainerApplicationUserId, message);
+                    SendMessageAsync(senderId, id, message);
                 TempData[SuccessMessage] = "You successfully send a message";
                 return RedirectToAction("All", "Trainer");
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+
+        public async Task<IActionResult> All()
+        {
+            string userId = User.GetById();
+
+            ICollection<AllMessageViewModel>? messages =
+                await messageService.MyMessagesAsync(userId);
+
+            return View(messages);
+        }
+
+        public async Task<IActionResult> ShowDetails(string id)
+        {
+            bool isMessageExist = await messageService.IsMessageExistAsync(id);
+            if (!isMessageExist)
+            {
+                return MessageDontExist();
+            }
+
+            ShowDetailsMessageViewModel message =
+                await messageService.GetMessageDetailsAsync(id);
+
+            return View(message);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool isMessageExist = await messageService.IsMessageExistAsync(id);
+            if (!isMessageExist)
+            {
+                return MessageDontExist();
+            }
+
+            try
+            {
+                await messageService.DeleteMessageAsync(id);
+                TempData[SuccessMessage] =
+                    "You successfully delete this message";
+                return RedirectToAction("All");
             }
             catch (Exception)
             {
@@ -80,6 +128,13 @@
                 "Unexpected error occurred! Please try again later or contact administrator";
 
             return this.RedirectToAction("Index", "Home");
+        }
+
+        private IActionResult MessageDontExist()
+        {
+            TempData[ErrorMessage] =
+                    "This message does not exist. Please select existing one";
+            return RedirectToAction("All");
         }
     }
 }

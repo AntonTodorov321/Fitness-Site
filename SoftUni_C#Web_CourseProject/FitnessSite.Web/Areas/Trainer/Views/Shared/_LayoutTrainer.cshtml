@@ -1,7 +1,7 @@
 ﻿@using static FitnessSite.Common.GeneralApplicationConstants
-@inject ITrainerService trainerService;
+@inject IUserService userService;
 @{
-    bool isUserHaveTrainer = await trainerService.IsUserHaveTrainerAsync(this.User.GetById());
+    bool isUserHaveTrainer = await userService.IsUserHaveTrainerAsync(this.User.GetById());
 }
 <!DOCTYPE html>
 <html lang="en">

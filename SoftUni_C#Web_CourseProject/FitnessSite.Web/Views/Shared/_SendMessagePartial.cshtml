@@ -1,0 +1,23 @@
+﻿@model SendMessageViewModel
+
+  <div class="row">
+       <div class="col">
+            <label class="pb-1">First Name</label>
+            <input asp-for="@Model.SenderFirstName" class="form-control" placeholder="First Name">
+            <span asp-validation-for="@Model.SenderFirstName" class="small text-danger"></span>
+       </div>
+       <div class="col">
+            <label class="pb-1">Last Name</label>
+            <input asp-for="@Model.SenderLastName" class="form-control" placeholder="Last Name">
+            <span asp-validation-for="@Model.SenderLastName" class="small text-danger"></span>
+       </div>
+  </div>
+    <div class="col">
+            <label class="pb-1 pt-2">Question:</label>
+            <textarea asp-for="@Model.Question" class="form-control" placeholder="Question" rows="3"></textarea>
+       </div>
+       <div class="col">
+            <label class="pb-1 pt-2">Description:</label>
+            <textarea asp-for="@Model.Description" class="form-control" placeholder="Description" rows="6"></textarea>
+       </div>
+      <input class="btn btn-primary mt-2 d-grid gap-2 col-6 mx-auto" type="submit" value="Send">

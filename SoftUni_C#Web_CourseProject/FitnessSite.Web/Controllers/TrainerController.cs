@@ -13,19 +13,23 @@
     {
         private readonly ITrainerService trainerService;
         private readonly IMessageService messageService;
+        private readonly IUserService userService;
 
         public TrainerController(ITrainerService trainerService,
-                                 IMessageService messageService)
+                                 IMessageService messageService,
+                                 IUserService userService)
         {
             this.trainerService = trainerService;
             this.messageService = messageService;
+            this.userService = userService;
+
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             bool isUserHaveTrainer =
-                await trainerService.IsUserHaveTrainerAsync(User.GetById());
+                await userService.IsUserHaveTrainerAsync(User.GetById());
 
             if (isUserHaveTrainer)
             {

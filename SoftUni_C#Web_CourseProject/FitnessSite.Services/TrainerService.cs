@@ -69,22 +69,27 @@
             return trainer;
         }
 
+        public async Task<string> GetTrainerIdByApplicationUserIdAsync(string id)
+        {
+            Trainer trainer =
+                await dbContext.Trainers
+                .FirstAsync(t => t.ApplicationUserId.ToString() == id);
+
+            return trainer.Id.ToString();
+        }
+
         public async Task<bool> IsTrainerExesitAsync(string id)
         {
             return await dbContext.Trainers.AnyAsync(t => t.Id.ToString() == id);
         }
 
-        public async Task<bool> IsUserHaveTrainerAsync(string id)
+        public async Task<bool> IsTrainerHaveThisUserAsync(string trainerId, string userId)
         {
-            ApplicationUser? user =
-                await dbContext.Users.FirstOrDefaultAsync(u => u.Id.ToString() == id);
+            bool isUserHaveThisTrainer =
+                await dbContext.Trainers.
+                AnyAsync(t => t.ApllicationUsers.Any(au => au.Id.ToString() == userId));
 
-            if (user == null)
-            {
-                return false;
-            }
-
-            return user.TrainerId.HasValue;
+            return isUserHaveThisTrainer;
         }
     }
 }

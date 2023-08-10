@@ -21,8 +21,6 @@
 
         public Task EditExerciseAsync(string id,EditExerciseViewModel model, string userId);
 
-        public Task<List<string>> AllUserExercisesNames(string userId);
-
         public Task<bool> IsEditExerciseAddToTraining(string id, string userId);
 
         public Task<EditGlobalExerciseViewModel> GetGlobalExerciseToEditAsync(string id);

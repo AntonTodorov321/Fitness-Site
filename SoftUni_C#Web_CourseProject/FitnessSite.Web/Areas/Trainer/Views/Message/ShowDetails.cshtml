@@ -1,0 +1,24 @@
+﻿@model ShowDetailsMessageViewModel
+@{
+    ViewBag.Title = "Details";
+    bool isTrainerHaveThisUser =
+         await trainerService.IsTrainerHaveThisUserAsync(User.GetById(), Model.SenderId);
+}
+@inject ITrainerService trainerService
+
+<h1 class="text-center pb-3">@ViewBag.Title</h1>
+<partial name="_DetailMessagePartial" model="Model"/>
+
+<form class="text-center pt-2" asp-area="Trainer"  asp-controller="Message" asp-action="SendMessage" method="get" asp-route-id="@Model.SenderId">
+       <input type="submit" value="Reply" class="btn btn-primary">
+</form>    
+@if (!isTrainerHaveThisUser)
+{
+    <form class="text-center pt-2" asp-area="Trainer"  asp-controller="Message" asp-action="Accept" method="post" asp-route-id="@Model.SenderId">
+       <input type="submit" value="Accept" class="btn btn-primary">
+    </form>
+}
+
+<form class="text-center pt-2" asp-area="Trainer"  asp-controller="Message" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+        <input type="submit" value="Delete" class="btn btn-danger">
+</form>

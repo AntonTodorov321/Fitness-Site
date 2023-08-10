@@ -1,0 +1,20 @@
+﻿@model ShowDetailsMessageViewModel
+
+<div class="text-center fw-bold">Description: </div>
+    @if(Model.Description == null)
+    {
+        <div class="text-center">No Description</div>
+    }
+    else
+    {
+        <div class="text-center">@Model.Description</div>
+    }
+<div class="text-center fw-bold pt-3">Questions: </div>
+    @if(Model.Questions == null)
+    {
+        <div class="text-center">No Question</div>
+    }
+    else
+    {
+        <div class="text-center">@Model.Questions</div>
+    }

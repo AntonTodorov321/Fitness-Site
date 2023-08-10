@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationsConstants.Message;
-    public class MessageViewModel
+    public class SendMessageViewModel
     {
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         public string SenderFirstName { get; set; } = null!;

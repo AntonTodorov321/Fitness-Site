@@ -174,7 +174,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", (string)null);
 
                     b.HasData(
                         new
@@ -275,7 +275,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Muscle", b =>
@@ -293,7 +293,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Muscles");
+                    b.ToTable("Muscles", (string)null);
 
                     b.HasData(
                         new
@@ -345,7 +345,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("MuscleId");
 
-                    b.ToTable("MuscleExercises");
+                    b.ToTable("MuscleExercises", (string)null);
 
                     b.HasData(
                         new
@@ -457,7 +457,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Trainers");
+                    b.ToTable("Trainers", (string)null);
 
                     b.HasData(
                         new
@@ -513,7 +513,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Trainings");
+                    b.ToTable("Trainings", (string)null);
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.TrainingExercise", b =>
@@ -531,7 +531,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("TrainingExercises");
+                    b.ToTable("TrainingExercises", (string)null);
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.TypeExercise", b =>
@@ -549,7 +549,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeExercises");
+                    b.ToTable("TypeExercises", (string)null);
 
                     b.HasData(
                         new

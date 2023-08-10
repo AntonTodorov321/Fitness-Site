@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<TypeExerciseViewModelAllExrcises>
-@inject IExerciseService exerciseService
+@inject IUserService userService
 @{
     ViewBag.Title = "Choose your favorite exersice";
-    List<string> allUserExerciseNames = await exerciseService.AllUserExercisesNames(User.GetById());
+    List<string> allUserExerciseNames = await userService.AllUserExercisesNames(User.GetById());
 
     int counter = 0;
     int colResult = 12 / Model.Count();

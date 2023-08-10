@@ -4,9 +4,8 @@
 }
 
 <h1 class="text-center pb-2">@ViewBag.Title</h1>
-
-<form asp-area="" asp-controller="Message" asp-action="SendMessage" method="post">
-     <Partial name="_SendMessagepartial" model="Model"/>
+<form asp-area="Trainer" asp-controller="Message" asp-action="SendMessage" method="post">
+        <Partial name="_SendMessagepartial" model="Model"/>
 </form>
 
 @section Scripts

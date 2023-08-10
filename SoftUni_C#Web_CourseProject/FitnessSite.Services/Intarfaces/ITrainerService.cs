@@ -12,8 +12,10 @@
 
         Task<string> GetFullNameTrainerById(string id);
 
-        Task<bool> IsUserHaveTrainerAsync(string id);
-
         Task<string> GetTrainerApplicationUserIdAsync(string trainerId);
+
+        Task<bool> IsTrainerHaveThisUserAsync(string trainerId, string userId);
+
+        Task<string> GetTrainerIdByApplicationUserIdAsync(string id);
     }
 }

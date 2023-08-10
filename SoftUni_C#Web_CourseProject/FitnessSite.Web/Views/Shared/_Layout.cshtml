@@ -1,7 +1,7 @@
 ﻿@using static FitnessSite.Common.GeneralApplicationConstants
-@inject ITrainerService trainerService;
+@inject IUserService userService;
 @{
-    bool isUserHaveTrainer = await trainerService.IsUserHaveTrainerAsync(this.User.GetById());
+    bool isUserHaveTrainer = await userService.IsUserHaveTrainerAsync(this.User.GetById());
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -37,16 +37,21 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="All">Choose your trainer</a>
                             </li>
                         }
+
+                        @if(isUserHaveTrainer)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="MyTrainer">My Trainer</a>
+                             </li>
+                        }
+
                         @if (this.User.Identity?.IsAuthenticated ?? false)
                         {
                              <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Training" asp-action="Mine">Start Training</a>
                              </li>
-                        }
-                        @if (isUserHaveTrainer)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="MyTrainer">My Trainer</a>
+                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="All">My messages</a>
                              </li>
                         }
                     </ul>

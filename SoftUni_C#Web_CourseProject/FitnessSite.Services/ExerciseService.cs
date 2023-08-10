@@ -209,24 +209,6 @@
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<string>> AllUserExercisesNames(string userId)
-        {
-            if (userId == null)
-            {
-                return new List<string>();
-            }
-
-            ApplicationUser user =
-                await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
-
-            return
-                await dbContext.TrainingExercises!.
-                Include(te => te.Exercise).
-                Where(te => te.TrainingId == user.TrainingId).
-                Select(te => te.Exercise.Name).
-                ToListAsync();
-        }
-
         public async Task<bool> IsEditExerciseAddToTraining(string id, string userId)
         {
             Exercise originalExercise = await
