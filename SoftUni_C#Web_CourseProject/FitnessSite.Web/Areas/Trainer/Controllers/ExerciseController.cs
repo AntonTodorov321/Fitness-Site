@@ -70,7 +70,7 @@
                 await exerciseService.EditGlobalExerciseAsync(id, model);
                 TempData[SuccessMessage] =
                     $"You successfully edit {exerciseName}";
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("All");
             }
             catch (Exception)
             {

@@ -99,17 +99,6 @@
             await dbContext.SaveChangesAsync();
         }
 
-        private async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
-        {
-            return await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
-        }
-
-        private async Task<Training?> GetTrainingByUserAsync(ApplicationUser user)
-        {
-            return await dbContext.Trainings.
-                FirstOrDefaultAsync(t => t.Id.ToString() == user.TrainingId.ToString());
-        }
-        
         public async Task StartTraining(string id)
         {
             Training training = 
@@ -119,5 +108,17 @@
 
             await dbContext.SaveChangesAsync();
         }
+
+        private async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
+        {
+            return await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
+        }
+
+        private async Task<Training?> GetTrainingByUserAsync(ApplicationUser user)
+        {
+            return await dbContext.Trainings.
+                FirstOrDefaultAsync(t => t.Id == user.TrainingId);
+        }
+        
     }
 }

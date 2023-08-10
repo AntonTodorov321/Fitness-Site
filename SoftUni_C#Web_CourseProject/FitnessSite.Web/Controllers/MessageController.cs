@@ -58,10 +58,13 @@
             }
 
             string senderId = User.GetById();
+            string trainerApplicationUserId =
+                await trainerService.GetTrainerApplicationUserIdAsync(id);
 
             try
             {
-                await messageService.SendMessageAsync(senderId, id, message);
+                await messageService.
+                    SendMessageAsync(senderId, trainerApplicationUserId, message);
                 TempData[SuccessMessage] = "You successfully send a message";
                 return RedirectToAction("All", "Trainer");
             }

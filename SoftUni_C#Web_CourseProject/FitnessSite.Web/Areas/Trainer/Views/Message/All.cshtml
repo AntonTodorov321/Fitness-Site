@@ -1,0 +1,43 @@
+﻿@model ICollection<MessageViewModel>
+@{
+    ViewBag.Title = "Your messages";
+}
+
+@if(Model == null)
+{
+    <h1 class="text-center text-danger">You dont have messages yet!</h1>
+}
+else 
+{
+    <h1 class="text-center mb-2">@ViewBag.Title</h1>
+
+    <div class="row">
+        <div class="col-8 d-flex pt-2 mx-auto d-block text-center">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="text-start">From</th>
+              <th scope="col">Description</th>
+              <th scope="col" class="text-end">Details</th>
+            </tr>
+          </thead>
+
+    @foreach (MessageViewModel message in Model)
+    {
+          <tbody>
+            <tr>
+              <th scope="row" class="text-start">@message.SenderFirstName @message.SenderLastName</th>
+              <th scope="row" class="text-truncate" style="max-width:100px">@message.Description</th>
+              <th scope="row">
+              <form class="text-end" asp-area="Trainer"  asp-controller="Message" asp-action="Show" method="get" asp-route-id="@message">
+                 <input type="submit" value="Show" class="btn btn-primary">
+              </form>
+              </th>
+            </tr>
+          </tbody>
+    }
+        </table>
+        </div>
+        </div>
+
+}

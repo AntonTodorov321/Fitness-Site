@@ -42,6 +42,14 @@
             return $"{trainer.FirstName} {trainer.LastName}";
         }
 
+        public async Task<string> GetTrainerApplicationUserIdAsync(string trainerId)
+        {
+            Trainer trainer =
+                await dbContext.Trainers.FirstAsync(t => t.Id.ToString() == trainerId);
+
+            return trainer.ApplicationUserId.ToString();
+        }
+
         public async Task<DetailsTrainerViewModel> GetTrainerDetailsAsync(string id)
         {
             DetailsTrainerViewModel trainer = await dbContext

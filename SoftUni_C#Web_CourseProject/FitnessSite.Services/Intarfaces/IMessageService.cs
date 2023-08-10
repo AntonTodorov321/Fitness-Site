@@ -5,5 +5,7 @@
     public interface IMessageService
     {
         Task SendMessageAsync(string senderId, string recipientId, MessageViewModel messageViewModel);
+
+        Task<ICollection<MessageViewModel>?> MyMessagesAsync(string userId);
     }
 }
