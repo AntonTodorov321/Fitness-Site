@@ -54,7 +54,7 @@
         {
             string userId = User.GetById();
 
-            bool isExerciceExist = await exerciseService.IsExersiceExistById(id);
+            bool isExerciceExist = await exerciseService.IsExersiceExistByIdAsync(id);
             if (!isExerciceExist)
             {
                 TempData[ErrorMessage] = "Selected exercise does not exist.";
@@ -68,7 +68,7 @@
                 return RedirectToAction("Mine", "Training");
             }
 
-            bool IsEditExerciseAddToTraining = await exerciseService.IsEditExerciseAddToTraining(id, userId);
+            bool IsEditExerciseAddToTraining = await exerciseService.IsEditExerciseAddToTrainingAsync(id, userId);
             if (IsEditExerciseAddToTraining)
             {
                 TempData[WarningMessage] = "You already have this exercise to your training";

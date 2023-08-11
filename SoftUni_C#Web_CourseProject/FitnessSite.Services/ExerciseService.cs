@@ -79,20 +79,21 @@
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExersiceExistById(string id)
+        public async Task<bool> IsExersiceExistByIdAsync(string id)
         {
             return await dbContext.Exercises.AnyAsync(e => e.Id.ToString() == id);
         }
 
         public async Task<bool> IsExerciseExistInThisTrainingAsync(string id, string userId)
         {
-            Exercise exerciseToAdd =
+            Exercise exercise =
                 dbContext.Exercises.First(e => e.Id.ToString() == id);
 
             ApplicationUser user = dbContext.Users.First(u => u.Id.ToString() == userId);
 
-            return await dbContext.TrainingExercises!.AnyAsync(te => te.TrainingId == user.TrainingId
-            && te.ExerciseId == exerciseToAdd.Id);
+            return await dbContext.TrainingExercises!
+                .AnyAsync(te => te.TrainingId == user.TrainingId
+                       && te.ExerciseId == exercise.Id);
         }
 
         public async Task<IEnumerable<TypeExerciseViewModelAllExrcises>> AllExerciseWithoutUserAsync()
@@ -209,7 +210,7 @@
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> IsEditExerciseAddToTraining(string id, string userId)
+        public async Task<bool> IsEditExerciseAddToTrainingAsync(string id, string userId)
         {
             Exercise originalExercise = await
                 dbContext.Exercises.FirstAsync(e => e.Id.ToString() == id);
@@ -218,12 +219,12 @@
 
             string? trainingId = user!.TrainingId.ToString();
 
-
             TrainingExercise[] userExercises =
                 await dbContext.TrainingExercises!.Include(te => te.Exercise).
                 Where(te => te.TrainingId.ToString() == trainingId).ToArrayAsync();
 
-            return userExercises.Any(te => te.Exercise.Name == originalExercise.Name && te.Exercise.UserId.ToString() == userId);
+            return userExercises.Any(ue => ue.Exercise.Name == originalExercise.Name
+            && ue.Exercise.UserId.ToString() == userId);
         }
 
         public async Task<EditGlobalExerciseViewModel> GetGlobalExerciseToEditAsync(string id)

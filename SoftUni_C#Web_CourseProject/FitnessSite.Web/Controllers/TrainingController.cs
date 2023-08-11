@@ -42,7 +42,7 @@
         [HttpPost]
         public async Task<IActionResult> Remove(string id)
         {
-            bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
+            bool isExerciseExist = await exerciseServise.IsExersiceExistByIdAsync(id);
 
             if (!isExerciseExist)
             {
@@ -78,7 +78,7 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            bool isExerciseExist = await exerciseServise.IsExersiceExistById(id);
+            bool isExerciseExist = await exerciseServise.IsExersiceExistByIdAsync(id);
             if (!isExerciseExist)
             {
                 TempData[ErrorMessage] =
@@ -107,7 +107,7 @@
         public async Task<IActionResult> Edit(string id, EditExerciseViewModel model)
         {
             bool isExerciseExist =
-                await exerciseServise.IsExersiceExistById(id);
+                await exerciseServise.IsExersiceExistByIdAsync(id);
             if (!isExerciseExist)
             {
                 TempData[ErrorMessage] = 

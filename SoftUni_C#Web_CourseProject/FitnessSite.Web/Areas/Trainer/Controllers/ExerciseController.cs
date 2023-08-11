@@ -30,7 +30,7 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            bool isExerciseExist = await exerciseService.IsExersiceExistById(id);
+            bool isExerciseExist = await exerciseService.IsExersiceExistByIdAsync(id);
             if (!isExerciseExist)
             {
                 TempData[ErrorMessage] = 

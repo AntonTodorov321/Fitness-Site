@@ -10,9 +10,16 @@
     public class FitnessSiteDbContext 
         : IdentityDbContext<ApplicationUser,IdentityRole<Guid>, Guid>
     {
-        public FitnessSiteDbContext(DbContextOptions<FitnessSiteDbContext> options)
+        private readonly bool seedDb;
+        public FitnessSiteDbContext(DbContextOptions<FitnessSiteDbContext> options,
+                                    bool seedDb = true)
         : base(options)
         {
+            if (!Database.IsRelational())
+            {
+                Database.EnsureCreated();
+            }
+            this.seedDb = seedDb;
         }
 
         public DbSet<Exercise> Exercises { get; set; } = null!;
@@ -53,7 +60,11 @@
             Assembly assembly = Assembly.GetAssembly(typeof(FitnessSiteDbContext))
                 ?? Assembly.GetExecutingAssembly();
 
-            builder.ApplyConfigurationsFromAssembly(assembly);
+            if (seedDb)
+            {
+                builder.ApplyConfigurationsFromAssembly(assembly);
+            }
+
             base.OnModelCreating(builder);
         }
     }

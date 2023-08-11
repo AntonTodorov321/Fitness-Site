@@ -11,7 +11,7 @@
 
         public Task AddExerciseAsync(string id, string userId);
 
-        public Task<bool> IsExersiceExistById(string id);
+        public Task<bool> IsExersiceExistByIdAsync(string id);
 
         public Task<bool> IsExerciseExistInThisTrainingAsync(string id,string userId);
 
@@ -21,7 +21,7 @@
 
         public Task EditExerciseAsync(string id,EditExerciseViewModel model, string userId);
 
-        public Task<bool> IsEditExerciseAddToTraining(string id, string userId);
+        public Task<bool> IsEditExerciseAddToTrainingAsync(string id, string userId);
 
         public Task<EditGlobalExerciseViewModel> GetGlobalExerciseToEditAsync(string id);
 
