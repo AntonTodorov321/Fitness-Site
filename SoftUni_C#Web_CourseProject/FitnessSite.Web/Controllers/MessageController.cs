@@ -68,11 +68,17 @@
 
             bool isUserHaveTrainer =
                await userService.IsUserHaveThisTrainerAsync(User.GetById(), id);
-            if (!isUserHaveTrainer)
+            if (isUserHaveTrainer)
             {
-                TempData[WarningMessage] =
-                    "You allready have trainer. You can have only one";
-                return RedirectToAction("All", "Trainer");
+                bool isUserHaveThisTrainer =
+                    await userService.IsUserHaveThisTrainerAsync(User.GetById(), id);
+                if (!isUserHaveThisTrainer)
+                {
+                    TempData[WarningMessage] =
+                        "You allready have trainer. You can have only one";
+                    return RedirectToAction("All", "Trainer");
+                }
+
             }
 
             string senderId = User.GetById();

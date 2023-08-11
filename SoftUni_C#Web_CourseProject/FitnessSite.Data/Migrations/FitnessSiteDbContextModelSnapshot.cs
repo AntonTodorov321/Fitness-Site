@@ -174,12 +174,12 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Exercises", (string)null);
+                    b.ToTable("Exercises");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a56d7b9c-1fc0-4340-983b-5a6401fd994b"),
+                            Id = new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"),
                             Description = "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
                             Name = "Push-Ups",
@@ -189,7 +189,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3feee688-0784-40c8-8f72-5f960e6d573d"),
+                            Id = new Guid("422095ab-bc18-40da-860c-1ede0265847c"),
                             Description = "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
                             ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
                             Name = "Plank",
@@ -199,7 +199,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3de69090-792a-4138-8b0b-bd3d31dbddb8"),
+                            Id = new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
                             Description = "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
                             ImageUrl = "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg",
                             Name = "Pull-Ups",
@@ -207,7 +207,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ea0c9cba-6849-4a46-8e80-d6e5f0495d5a"),
+                            Id = new Guid("61f17628-8461-48aa-b20f-f71fc53fa4bd"),
                             Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
                             ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
                             Name = "Cycling",
@@ -215,7 +215,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ed5ce0b4-888e-4234-9255-26829db17b06"),
+                            Id = new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"),
                             Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
                             ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
                             Name = "Bench Press",
@@ -225,7 +225,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f953a21f-59b3-4e54-a152-99575045f187"),
+                            Id = new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"),
                             Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
                             ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
                             Name = "Squat",
@@ -275,7 +275,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Muscle", b =>
@@ -293,7 +293,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Muscles", (string)null);
+                    b.ToTable("Muscles");
 
                     b.HasData(
                         new
@@ -345,67 +345,67 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("MuscleId");
 
-                    b.ToTable("MuscleExercises", (string)null);
+                    b.ToTable("MuscleExercises");
 
                     b.HasData(
                         new
                         {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 7
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("23f41c9e-da15-4282-b5cc-1cbadb6ca92e"),
-                            MuscleId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("8cb1af1b-b63a-458b-adfa-dc077a02c4f9"),
-                            MuscleId = 6
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
-                            MuscleId = 7
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
-                            MuscleId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("23f41c9e-da15-4282-b5cc-1cbadb6ca92e"),
+                            ExerciseId = new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"),
                             MuscleId = 5
                         },
                         new
                         {
-                            ExerciseId = new Guid("a22ab0dd-3e6a-444f-b21d-b7f69707bb28"),
-                            MuscleId = 4
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("6587e2a8-e9f1-4fd9-bd7e-503078be010b"),
+                            ExerciseId = new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"),
                             MuscleId = 2
                         },
                         new
                         {
-                            ExerciseId = new Guid("8cb1af1b-b63a-458b-adfa-dc077a02c4f9"),
+                            ExerciseId = new Guid("422095ab-bc18-40da-860c-1ede0265847c"),
+                            MuscleId = 6
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
+                            MuscleId = 7
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("422095ab-bc18-40da-860c-1ede0265847c"),
+                            MuscleId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
+                            MuscleId = 1
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
+                            MuscleId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"),
+                            MuscleId = 5
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("61f17628-8461-48aa-b20f-f71fc53fa4bd"),
                             MuscleId = 4
                         },
                         new
                         {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
+                            ExerciseId = new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"),
+                            MuscleId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"),
+                            MuscleId = 4
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"),
                             MuscleId = 6
                         });
                 });
@@ -457,12 +457,12 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Trainers", (string)null);
+                    b.ToTable("Trainers");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("438bfe04-c75e-4aad-ac1e-4284d07e7903"),
+                            Id = new Guid("604e402d-75b2-427d-8257-ebcada529edc"),
                             ApplicationUserId = new Guid("673fc005-4fbb-403b-8931-61c02f901f56"),
                             Description = "Hello, my name is Ivan. I know every type of exercise and i will be glad if i work with you! I work mostly with men.",
                             FirstName = "Ivan",
@@ -475,7 +475,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("94429628-91f2-4e7d-b265-4b350c1547ce"),
+                            Id = new Guid("be87d8ba-9a39-494f-9935-473cc70b620e"),
                             ApplicationUserId = new Guid("3cb73cf9-de66-4109-aa37-b36b72787df7"),
                             Description = "Hello, my name is Maria.I've been going to the gym since i was 16, and when i grow up i decide to become professional trainer. I work mostly with men.",
                             FirstName = "Maria",
@@ -497,23 +497,11 @@ namespace FitnessSite.Data.Migrations
                     b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEnded")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsStarted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Trainings", (string)null);
+                    b.ToTable("Trainings");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.TrainingExercise", b =>
@@ -524,14 +512,11 @@ namespace FitnessSite.Data.Migrations
                     b.Property<Guid>("ExerciseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsDoneForToday")
-                        .HasColumnType("bit");
-
                     b.HasKey("TrainingId", "ExerciseId");
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("TrainingExercises", (string)null);
+                    b.ToTable("TrainingExercises");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.TypeExercise", b =>
@@ -549,7 +534,7 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeExercises", (string)null);
+                    b.ToTable("TypeExercises");
 
                     b.HasData(
                         new

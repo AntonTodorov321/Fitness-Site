@@ -8,13 +8,6 @@
     <h1 class="text-center">@ViewBag.Title</h1>
     <div class="row">
 
-        @if (!Model.IsStarted)
-        {   
-            <form  asp-controller="Training" asp-action="Start" method="post" asp-route-id="@Model.Id">
-            <input type="submit" value="Start training" class="btn btn-primary mb-2">
-            </form>
-        }
-
         @foreach(AllExerciseViewModel exercise in Model!.Exercises)
         {
             <div class="col-4 d-inline">
@@ -26,12 +19,6 @@
             <input type="submit" value="Edit" class="btn btn-warning">
             </form>
            </div>
-        }
-        @if (Model.IsEnded)
-        {
-            <form  asp-controller="Training" asp-action="Finish" method="post" asp-route-id="@Model.Id">
-            <input type="submit" value="Finish training" class="btn btn-primary mb-2">
-            </form>
         }
     </div>
 }

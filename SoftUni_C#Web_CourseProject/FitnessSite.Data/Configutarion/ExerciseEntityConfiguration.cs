@@ -18,6 +18,7 @@
             {
                  new Exercise()
                  {
+                     Id = Guid.Parse("aae7f8d7-7c1f-49a4-af67-d994b578c64b"),
                       Name = "Push-Ups",
                       Description =
                       "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
@@ -29,6 +30,7 @@
 
                   new Exercise()
                  {
+                      Id = Guid.Parse("422095ab-bc18-40da-860c-1ede0265847c"),
                       Name = "Plank",
                       Description =
                       "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
@@ -40,6 +42,7 @@
 
                    new Exercise()
                  {
+                      Id = Guid.Parse("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
                       Name = "Pull-Ups",
                       Description =
                       "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
@@ -48,6 +51,7 @@
                  },
                     new Exercise()
                  {
+                      Id = Guid.Parse("61f17628-8461-48aa-b20f-f71fc53fa4bd"),
                       Name = "Cycling",
                       Description =
                        "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
@@ -56,6 +60,7 @@
                  },
                      new Exercise()
                  {
+                      Id = Guid.Parse("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"),
                       Name = "Bench Press",
                        Description =
                        "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
@@ -66,6 +71,7 @@
                  },
                       new Exercise()
                  {
+                      Id = Guid.Parse("0537415a-8a0b-40fa-a546-f9f9299d781f"),
                       Name = "Squat",
                       Description =
                        "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",

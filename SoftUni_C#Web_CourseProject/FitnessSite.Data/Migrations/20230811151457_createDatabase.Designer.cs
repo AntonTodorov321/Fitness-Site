@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessSite.Data.Migrations
 {
     [DbContext(typeof(FitnessSiteDbContext))]
-    [Migration("20230725080752_Initial")]
-    partial class Initial
+    [Migration("20230811151457_createDatabase")]
+    partial class createDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.14")
+                .HasAnnotation("ProductVersion", "6.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -98,6 +98,40 @@ namespace FitnessSite.Data.Migrations
                     b.HasIndex("TrainingId");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("673fc005-4fbb-403b-8931-61c02f901f56"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e58d020a-8b2e-4638-ab42-d61fc242ed18",
+                            Email = "ivantrainer@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "IVANTRAINER@GMAIL.COM",
+                            NormalizedUserName = "IVANTRAINER@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPkFrXPoUKAiePrdfD7MpV8GM3DDLiGHeL0t59CRhINfNeFNYk5KsFBtvu4333byRQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "BNB3HKKNVR6EQGG33PZ2PKZZ2E3A3BRM",
+                            TwoFactorEnabled = false,
+                            UserName = "ivantrainer@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("3cb73cf9-de66-4109-aa37-b36b72787df7"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "cc188f75-7cf1-43eb-9b59-45b85f0db93b",
+                            Email = "mariatrainer@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "MARIATRAINER@GMAIL.COM",
+                            NormalizedUserName = "MARIATRAINER@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAED2g4IMnJy5+pVB/Al2nlBK2s6EfebghA0LGqA+e1qJ45j9COBwKW9gIxV6jhrmKvw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "3RCFHYMOTYHUGUNQDYGDXXG5OWPTH5J4",
+                            TwoFactorEnabled = false,
+                            UserName = "mariatrainer@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Exercise", b =>
@@ -147,7 +181,7 @@ namespace FitnessSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"),
+                            Id = new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"),
                             Description = "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders",
                             ImageUrl = "https://blog.nasm.org/hubfs/power-pushups.jpg",
                             Name = "Push-Ups",
@@ -157,7 +191,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c110f0d7-669a-4a11-848f-5384a15f296b"),
+                            Id = new Guid("422095ab-bc18-40da-860c-1ede0265847c"),
                             Description = "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.",
                             ImageUrl = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg",
                             Name = "Plank",
@@ -167,7 +201,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"),
+                            Id = new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
                             Description = "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.",
                             ImageUrl = "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg",
                             Name = "Pull-Ups",
@@ -175,7 +209,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("44d5ed06-1160-4649-84fe-dc12e97fe016"),
+                            Id = new Guid("61f17628-8461-48aa-b20f-f71fc53fa4bd"),
                             Description = "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.",
                             ImageUrl = "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413",
                             Name = "Cycling",
@@ -183,7 +217,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5bdf7178-fb7b-420c-96a5-99846c021bf9"),
+                            Id = new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"),
                             Description = "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.",
                             ImageUrl = "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg",
                             Name = "Bench Press",
@@ -193,7 +227,7 @@ namespace FitnessSite.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b5138db6-8c21-43ad-b9bb-d5bc0e773d29"),
+                            Id = new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"),
                             Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes",
                             ImageUrl = "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all",
                             Name = "Squat",
@@ -201,6 +235,49 @@ namespace FitnessSite.Data.Migrations
                             Sets = "3-4",
                             TypeId = 3
                         });
+                });
+
+            modelBuilder.Entity("FitnessSite.Data.Models.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Questions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RecipientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SenderFirstName")
+                        .IsRequired()
+                        .HasMaxLength(747)
+                        .HasColumnType("nvarchar(747)");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SenderLastName")
+                        .IsRequired()
+                        .HasMaxLength(747)
+                        .HasColumnType("nvarchar(747)");
+
+                    b.Property<Guid?>("TrainerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("TrainerId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Muscle", b =>
@@ -275,62 +352,62 @@ namespace FitnessSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 7
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("23f41c9e-da15-4282-b5cc-1cbadb6ca92e"),
-                            MuscleId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("8cb1af1b-b63a-458b-adfa-dc077a02c4f9"),
-                            MuscleId = 6
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
-                            MuscleId = 7
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
-                            MuscleId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("2d41e21a-e8c8-4c7a-8690-3a846772b6b6"),
-                            MuscleId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("23f41c9e-da15-4282-b5cc-1cbadb6ca92e"),
+                            ExerciseId = new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"),
                             MuscleId = 5
                         },
                         new
                         {
-                            ExerciseId = new Guid("a22ab0dd-3e6a-444f-b21d-b7f69707bb28"),
-                            MuscleId = 4
-                        },
-                        new
-                        {
-                            ExerciseId = new Guid("6587e2a8-e9f1-4fd9-bd7e-503078be010b"),
+                            ExerciseId = new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"),
                             MuscleId = 2
                         },
                         new
                         {
-                            ExerciseId = new Guid("8cb1af1b-b63a-458b-adfa-dc077a02c4f9"),
+                            ExerciseId = new Guid("422095ab-bc18-40da-860c-1ede0265847c"),
+                            MuscleId = 6
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
+                            MuscleId = 7
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("422095ab-bc18-40da-860c-1ede0265847c"),
+                            MuscleId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
+                            MuscleId = 1
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"),
+                            MuscleId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"),
+                            MuscleId = 5
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("61f17628-8461-48aa-b20f-f71fc53fa4bd"),
                             MuscleId = 4
                         },
                         new
                         {
-                            ExerciseId = new Guid("88922675-b7df-4a4a-9313-231d2c13a3a2"),
+                            ExerciseId = new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"),
+                            MuscleId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"),
+                            MuscleId = 4
+                        },
+                        new
+                        {
+                            ExerciseId = new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"),
                             MuscleId = 6
                         });
                 });
@@ -341,22 +418,25 @@ namespace FitnessSite.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(747)
+                        .HasColumnType("nvarchar(747)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(747)
                         .HasColumnType("nvarchar(747)");
@@ -377,7 +457,37 @@ namespace FitnessSite.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.ToTable("Trainers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c2a1d108-a670-41b9-ae62-548e4ba1730c"),
+                            ApplicationUserId = new Guid("673fc005-4fbb-403b-8931-61c02f901f56"),
+                            Description = "Hello, my name is Ivan. I know every type of exercise and i will be glad if i work with you! I work mostly with men.",
+                            FirstName = "Ivan",
+                            ImageUrl = "https://media.istockphoto.com/id/1072395722/photo/fitness-trainer-at-gym.jpg?s=612x612&w=0&k=20&c=3VBLCgbxG3bGNRp9Sc3tN_7G-g_DxXhGk9rhuZo-jkE=",
+                            LastName = "Ivanov",
+                            PricePerMonth = 89.99m,
+                            StartedAt = 23,
+                            TelefoneNumber = "0895543981",
+                            Year = 31
+                        },
+                        new
+                        {
+                            Id = new Guid("78d84a8b-245e-4691-984c-1ffb1c85afce"),
+                            ApplicationUserId = new Guid("3cb73cf9-de66-4109-aa37-b36b72787df7"),
+                            Description = "Hello, my name is Maria.I've been going to the gym since i was 16, and when i grow up i decide to become professional trainer. I work mostly with men.",
+                            FirstName = "Maria",
+                            ImageUrl = "https://media.istockphoto.com/id/856797530/photo/portrait-of-a-beautiful-woman-at-the-gym.jpg?s=612x612&w=0&k=20&c=0wMa1MYxt6HHamjd66d5__XGAKbJFDFQyu9LCloRsYU=",
+                            LastName = "Asenova",
+                            PricePerMonth = 84.99m,
+                            StartedAt = 21,
+                            TelefoneNumber = "0875587458",
+                            Year = 28
+                        });
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Training", b =>
@@ -628,6 +738,17 @@ namespace FitnessSite.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FitnessSite.Data.Models.Message", b =>
+                {
+                    b.HasOne("FitnessSite.Data.Models.ApplicationUser", null)
+                        .WithMany("Messages")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("FitnessSite.Data.Models.Trainer", null)
+                        .WithMany("Messages")
+                        .HasForeignKey("TrainerId");
+                });
+
             modelBuilder.Entity("FitnessSite.Data.Models.MuscleExercise", b =>
                 {
                     b.HasOne("FitnessSite.Data.Models.Exercise", "Exercise")
@@ -645,6 +766,17 @@ namespace FitnessSite.Data.Migrations
                     b.Navigation("Exercise");
 
                     b.Navigation("Muscle");
+                });
+
+            modelBuilder.Entity("FitnessSite.Data.Models.Trainer", b =>
+                {
+                    b.HasOne("FitnessSite.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Training", b =>
@@ -728,6 +860,11 @@ namespace FitnessSite.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FitnessSite.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Messages");
+                });
+
             modelBuilder.Entity("FitnessSite.Data.Models.Exercise", b =>
                 {
                     b.Navigation("MuscleExercises");
@@ -743,6 +880,8 @@ namespace FitnessSite.Data.Migrations
             modelBuilder.Entity("FitnessSite.Data.Models.Trainer", b =>
                 {
                     b.Navigation("ApllicationUsers");
+
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("FitnessSite.Data.Models.Training", b =>

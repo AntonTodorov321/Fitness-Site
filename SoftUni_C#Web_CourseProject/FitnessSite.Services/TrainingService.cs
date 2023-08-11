@@ -37,8 +37,6 @@
                 Select(t => new TrainingViewModel()
                 {
                     Id = t.Id.ToString(),
-                    IsEnded = t.IsEnded,
-                    IsStarted = t.IsStarted,
                     Exercises = dbContext.TrainingExercises!
                      .Where(te => te.TrainingId == t.Id)
                      .Select(te => new AllExerciseViewModel()

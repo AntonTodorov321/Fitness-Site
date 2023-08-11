@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FitnessSite.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class createDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,25 +34,6 @@ namespace FitnessSite.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Muscles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Trainers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(747)", maxLength: 747, nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    StartedAt = table.Column<int>(type: "int", nullable: false),
-                    PricePerMonth = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TelefoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Trainers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -161,11 +142,6 @@ namespace FitnessSite.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Trainers_TrainerId",
-                        column: x => x.TrainerId,
-                        principalTable: "Trainers",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -219,6 +195,32 @@ namespace FitnessSite.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Trainers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(747)", maxLength: 747, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(747)", maxLength: 747, nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    StartedAt = table.Column<int>(type: "int", nullable: false),
+                    PricePerMonth = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TelefoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trainers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Trainers_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Trainings",
                 columns: table => new
                 {
@@ -265,6 +267,35 @@ namespace FitnessSite.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SenderFirstName = table.Column<string>(type: "nvarchar(747)", maxLength: 747, nullable: false),
+                    SenderLastName = table.Column<string>(type: "nvarchar(747)", maxLength: 747, nullable: false),
+                    Questions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SenderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RecipientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    TrainerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Messages_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Messages_Trainers_TrainerId",
+                        column: x => x.TrainerId,
+                        principalTable: "Trainers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TrainingExercises",
                 columns: table => new
                 {
@@ -287,6 +318,15 @@ namespace FitnessSite.Data.Migrations
                         principalTable: "Trainings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TrainerId", "TrainingId", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { new Guid("3cb73cf9-de66-4109-aa37-b36b72787df7"), 0, "cc188f75-7cf1-43eb-9b59-45b85f0db93b", "mariatrainer@gmail.com", false, true, null, "MARIATRAINER@GMAIL.COM", "MARIATRAINER@GMAIL.COM", "AQAAAAEAACcQAAAAED2g4IMnJy5+pVB/Al2nlBK2s6EfebghA0LGqA+e1qJ45j9COBwKW9gIxV6jhrmKvw==", null, false, "3RCFHYMOTYHUGUNQDYGDXXG5OWPTH5J4", null, null, false, "mariatrainer@gmail.com" },
+                    { new Guid("673fc005-4fbb-403b-8931-61c02f901f56"), 0, "e58d020a-8b2e-4638-ab42-d61fc242ed18", "ivantrainer@gmail.com", false, true, null, "IVANTRAINER@GMAIL.COM", "IVANTRAINER@GMAIL.COM", "AQAAAAEAACcQAAAAEPkFrXPoUKAiePrdfD7MpV8GM3DDLiGHeL0t59CRhINfNeFNYk5KsFBtvu4333byRQ==", null, false, "BNB3HKKNVR6EQGG33PZ2PKZZ2E3A3BRM", null, null, false, "ivantrainer@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -318,12 +358,21 @@ namespace FitnessSite.Data.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "Kilogram", "Name", "Reps", "Sets", "TypeId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"), "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders", "https://blog.nasm.org/hubfs/power-pushups.jpg", null, "Push-Ups", "10", "4", 1, null },
-                    { new Guid("44d5ed06-1160-4649-84fe-dc12e97fe016"), "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.", "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413", null, "Cycling", null, null, 2, null },
-                    { new Guid("5bdf7178-fb7b-420c-96a5-99846c021bf9"), "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.", "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg", null, "Bench Press", "10 - 12", "4", 3, null },
-                    { new Guid("b5138db6-8c21-43ad-b9bb-d5bc0e773d29"), "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes", "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all", null, "Squat", "8 - 10", "3-4", 3, null },
-                    { new Guid("c110f0d7-669a-4a11-848f-5384a15f296b"), "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.", "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg", null, "Plank", "8", "3", 1, null },
-                    { new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"), "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.", "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg", null, "Pull-Ups", null, null, 2, null }
+                    { new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"), "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes", "https://www.muscleandfitness.com/wp-content/uploads/2019/02/1109-Barbell-Back-Squat-GettyImages-614107160.jpg?quality=86&strip=all", null, "Squat", "8 - 10", "3-4", 3, null },
+                    { new Guid("422095ab-bc18-40da-860c-1ede0265847c"), "Start in a tabletop position on your hands and knees, then lower down toyour forearms with your elbows stacked beneath your shoulders. Step yo  feet back until your body makes a line from shoulders to heels.", "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/06152556/3.jpg", null, "Plank", "8", "3", 1, null },
+                    { new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"), "Pullup is a challenging upper body exercise where you grip an overhead bar  and lift your body until your chin is above that bar.", "https://calisthenicsworldwide.com/wp-content/uploads/2023/02/152-CWW_20-pull-ups.jpg", null, "Pull-Ups", null, null, 2, null },
+                    { new Guid("61f17628-8461-48aa-b20f-f71fc53fa4bd"), "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking  is the use of cycles for transport, recreation, exercise or sport. People engaged in cycling are referred to as cyclists,bicyclists, or bikers.", "https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Cube-Axial-WS-12-45369da.jpg?quality=90&resize=620%2C413", null, "Cycling", null, null, 2, null },
+                    { new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"), "An exercise in which a person, keeping a prone position with thehandspalms down under the shoulders", "https://blog.nasm.org/hubfs/power-pushups.jpg", null, "Push-Ups", "10", "4", 1, null },
+                    { new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"), "The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.", "https://cdn.muscleandstrength.com/sites/default/files/barbell-bench-press_0.jpg", null, "Bench Press", "10 - 12", "4", 3, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Trainers",
+                columns: new[] { "Id", "ApplicationUserId", "Description", "FirstName", "ImageUrl", "LastName", "PricePerMonth", "StartedAt", "TelefoneNumber", "Year" },
+                values: new object[,]
+                {
+                    { new Guid("78d84a8b-245e-4691-984c-1ffb1c85afce"), new Guid("3cb73cf9-de66-4109-aa37-b36b72787df7"), "Hello, my name is Maria.I've been going to the gym since i was 16, and when i grow up i decide to become professional trainer. I work mostly with men.", "Maria", "https://media.istockphoto.com/id/856797530/photo/portrait-of-a-beautiful-woman-at-the-gym.jpg?s=612x612&w=0&k=20&c=0wMa1MYxt6HHamjd66d5__XGAKbJFDFQyu9LCloRsYU=", "Asenova", 84.99m, 21, "0875587458", 28 },
+                    { new Guid("c2a1d108-a670-41b9-ae62-548e4ba1730c"), new Guid("673fc005-4fbb-403b-8931-61c02f901f56"), "Hello, my name is Ivan. I know every type of exercise and i will be glad if i work with you! I work mostly with men.", "Ivan", "https://media.istockphoto.com/id/1072395722/photo/fitness-trainer-at-gym.jpg?s=612x612&w=0&k=20&c=3VBLCgbxG3bGNRp9Sc3tN_7G-g_DxXhGk9rhuZo-jkE=", "Ivanov", 89.99m, 23, "0895543981", 31 }
                 });
 
             migrationBuilder.InsertData(
@@ -331,18 +380,18 @@ namespace FitnessSite.Data.Migrations
                 columns: new[] { "ExerciseId", "MuscleId" },
                 values: new object[,]
                 {
-                    { new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"), 2 },
-                    { new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"), 5 },
-                    { new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"), 1 },
-                    { new Guid("5bdf7178-fb7b-420c-96a5-99846c021bf9"), 2 },
-                    { new Guid("c110f0d7-669a-4a11-848f-5384a15f296b"), 7 },
-                    { new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"), 2 },
-                    { new Guid("005fc9d8-9340-4bb7-988c-11e95962e2f0"), 3 },
-                    { new Guid("b5138db6-8c21-43ad-b9bb-d5bc0e773d29"), 6 },
-                    { new Guid("b5138db6-8c21-43ad-b9bb-d5bc0e773d29"), 7 },
-                    { new Guid("dd2b77ac-f382-4219-93d0-c19a812dc024"), 4 },
-                    { new Guid("c110f0d7-669a-4a11-848f-5384a15f296b"), 6 },
-                    { new Guid("44d5ed06-1160-4649-84fe-dc12e97fe016"), 4 }
+                    { new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"), 4 },
+                    { new Guid("0537415a-8a0b-40fa-a546-f9f9299d781f"), 6 },
+                    { new Guid("422095ab-bc18-40da-860c-1ede0265847c"), 3 },
+                    { new Guid("422095ab-bc18-40da-860c-1ede0265847c"), 6 },
+                    { new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"), 1 },
+                    { new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"), 2 },
+                    { new Guid("5ddfc3ee-0162-445b-a496-eaedd09f5369"), 7 },
+                    { new Guid("61f17628-8461-48aa-b20f-f71fc53fa4bd"), 4 },
+                    { new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"), 2 },
+                    { new Guid("aae7f8d7-7c1f-49a4-af67-d994b578c64b"), 5 },
+                    { new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"), 2 },
+                    { new Guid("c2bc09b8-3eab-4186-97a3-b6c7ea22abd0"), 5 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -405,9 +454,24 @@ namespace FitnessSite.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_ApplicationUserId",
+                table: "Messages",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_TrainerId",
+                table: "Messages",
+                column: "TrainerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MuscleExercises_MuscleId",
                 table: "MuscleExercises",
                 column: "MuscleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trainers_ApplicationUserId",
+                table: "Trainers",
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingExercises_ExerciseId",
@@ -444,6 +508,13 @@ namespace FitnessSite.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_Trainers_TrainerId",
+                table: "AspNetUsers",
+                column: "TrainerId",
+                principalTable: "Trainers",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUsers_Trainings_TrainingId",
                 table: "AspNetUsers",
                 column: "TrainingId",
@@ -453,6 +524,10 @@ namespace FitnessSite.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Trainers_AspNetUsers_ApplicationUserId",
+                table: "Trainers");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Trainings_AspNetUsers_ApplicationUserId",
                 table: "Trainings");
@@ -471,6 +546,9 @@ namespace FitnessSite.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "MuscleExercises");
