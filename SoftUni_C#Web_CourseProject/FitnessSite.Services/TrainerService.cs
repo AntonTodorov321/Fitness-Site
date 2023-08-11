@@ -78,6 +78,14 @@
             return trainer.Id.ToString();
         }
 
+        public async Task<string> GetTrainerIdByUserId(string userId)
+        {
+            ApplicationUser user =
+                await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
+
+            return user.TrainerId.ToString()!;
+        }
+
         public async Task<bool> IsTrainerExesitAsync(string id)
         {
             return await dbContext.Trainers.AnyAsync(t => t.Id.ToString() == id);

@@ -38,12 +38,17 @@
             }
 
             bool isUserHaveTrainer =
-                await userService.IsUserHaveTrainerAsync(User.GetById());
+                await userService.IsUserHaveTrainerAsync(User.GetById().ToString());
             if (isUserHaveTrainer)
             {
-                TempData[WarningMessage] =
-                    "You allready have trainer. You can have only one";
-                return RedirectToAction("All", "Trainer");
+                bool isUserHaveThisTrainer =
+                    await userService.IsUserHaveThisTrainerAsync(User.GetById(), id);
+                if (!isUserHaveThisTrainer)
+                {
+                    TempData[WarningMessage] =
+                        "You allready have trainer. You can have only one";
+                    return RedirectToAction("MyTrainer", "Trainer");
+                }
             }
 
             return View(new SendMessageViewModel());
@@ -58,6 +63,15 @@
             {
                 TempData[WarningMessage] =
                     "This trainer does not exist! Pleace select existing one";
+                return RedirectToAction("All", "Trainer");
+            }
+
+            bool isUserHaveTrainer =
+               await userService.IsUserHaveThisTrainerAsync(User.GetById(), id);
+            if (!isUserHaveTrainer)
+            {
+                TempData[WarningMessage] =
+                    "You allready have trainer. You can have only one";
                 return RedirectToAction("All", "Trainer");
             }
 

@@ -58,5 +58,13 @@
 
             return true;
         }
+
+        public async Task<bool> IsUserHaveThisTrainerAsync(string userId, string trainerId)
+        {
+            ApplicationUser? user =
+               await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
+
+            return user.TrainerId.ToString()!.ToUpper() == trainerId;
+        }
     }
 }

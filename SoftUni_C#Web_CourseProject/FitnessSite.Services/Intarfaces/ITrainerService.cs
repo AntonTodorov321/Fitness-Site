@@ -17,5 +17,7 @@
         Task<bool> IsTrainerHaveThisUserAsync(string trainerId, string userId);
 
         Task<string> GetTrainerIdByApplicationUserIdAsync(string id);
+
+        Task<string> GetTrainerIdByUserId(string userId);
     }
 }

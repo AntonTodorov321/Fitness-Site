@@ -28,16 +28,6 @@
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            bool isUserHaveTrainer =
-                await userService.IsUserHaveTrainerAsync(User.GetById());
-
-            if (isUserHaveTrainer)
-            {
-                TempData[WarningMessage] =
-                    "You already have trainer. Please contact your trainer";
-                return RedirectToAction("MyTrainer");
-            }
-
             try
             {
                 List<AllTrainerViewModel> allTrainers = await
@@ -58,7 +48,8 @@
                 await trainerService.IsTrainerExesitAsync(id);
             if (!isTrainerExist)
             {
-                TempData[WarningMessage] = "This trainer does not exist! Pleace select existing one";
+                TempData[WarningMessage] = 
+                    "This trainer does not exist! Pleace select existing one";
                 return RedirectToAction("All");
             }
 
@@ -73,6 +64,26 @@
             {
                 return GeneralError();
             }
+        }
+
+        public async Task<IActionResult> MyTrainer()
+        {
+            bool isUserHaveTrainer =
+                await userService.IsUserHaveTrainerAsync(User.GetById());
+            if (!isUserHaveTrainer)
+            {
+                TempData[WarningMessage] =
+                    "You dont have trainer yet!";
+
+                return RedirectToAction("All", "Trainer");
+            }
+
+            string trainerId = 
+                await trainerService.GetTrainerIdByUserId(User.GetById());
+            DetailsTrainerViewModel model =
+                await trainerService.GetTrainerDetailsAsync(trainerId);
+
+            return View(model);
         }
 
         private IActionResult GeneralError()

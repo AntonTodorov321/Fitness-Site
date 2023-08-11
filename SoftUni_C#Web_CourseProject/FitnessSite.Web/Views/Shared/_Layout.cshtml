@@ -31,6 +31,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Exercise" asp-action="All">All Exercises</a>
                         </li>
+
                         @if (!isUserHaveTrainer)
                         {
                             <li class="nav-item">
@@ -38,15 +39,14 @@
                             </li>
                         }
 
-                        @if(isUserHaveTrainer)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="MyTrainer">My Trainer</a>
-                             </li>
-                        }
-
                         @if (this.User.Identity?.IsAuthenticated ?? false)
                         {
+                            @if(isUserHaveTrainer)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="MyTrainer">My Trainer</a>
+                                 </li>
+                            }
                              <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Training" asp-action="Mine">Start Training</a>
                              </li>
