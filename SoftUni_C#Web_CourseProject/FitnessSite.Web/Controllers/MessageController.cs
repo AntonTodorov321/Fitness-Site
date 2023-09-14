@@ -75,7 +75,7 @@
                 if (!isUserHaveThisTrainer)
                 {
                     TempData[WarningMessage] =
-                        "You allready have trainer. You can have only one";
+                        "You already have trainer. You can have only one";
                     return RedirectToAction("All", "Trainer");
                 }
 
@@ -111,7 +111,7 @@
             bool isMessageExist = await messageService.IsMessageExistAsync(id);
             if (!isMessageExist)
             {
-                return MessageDontExist();
+                return MessageDoNotExist();
             }
 
             ShowDetailsMessageViewModel message =
@@ -126,7 +126,7 @@
             bool isMessageExist = await messageService.IsMessageExistAsync(id);
             if (!isMessageExist)
             {
-                return MessageDontExist();
+                return MessageDoNotExist();
             }
 
             try
@@ -150,7 +150,7 @@
             return this.RedirectToAction("Index", "Home");
         }
 
-        private IActionResult MessageDontExist()
+        private IActionResult MessageDoNotExist()
         {
             TempData[ErrorMessage] =
                     "This message does not exist. Please select existing one";

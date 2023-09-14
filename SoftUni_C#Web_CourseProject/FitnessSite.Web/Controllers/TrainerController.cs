@@ -6,7 +6,7 @@
     using ViewModels.Trainer;
     using Services.Intarfaces;
     using static Common.NotificationMessagesConstants;
-    using FitnessSite.Web.Infastructure.Extensions;
+    using Infastructure.Extensions;
 
     [Authorize]
     public class TrainerController : Controller

@@ -75,7 +75,7 @@
                 return RedirectToAction("Mine", "Training");
             }
 
-            string exerciseName = 
+            string exerciseName =
                 await exerciseService.GetExerciseNameByIdAsync(id);
             try
             {
