@@ -5,10 +5,6 @@ This is my course work for C# Web Advanced 2023.
 <h1>App Details</h1>
 
 This app is based on ASP.NET Core MVC.<br>
-I have 2 trainers:<br>
-   <ol><li>ivantrainer@gmail.com with password - 123456<br></li>
-   <li>mariatrainer@gmail.com with password - 123456</li></ol>
-<br>
 <ul>
   <li>.NET 6</li>
   <li>SQL Database</li>
