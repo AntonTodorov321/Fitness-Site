@@ -8,8 +8,6 @@ This app is based on ASP.NET Core MVC.<br>
 I have 2 trainers:<br>
    <ol><li>ivantrainer@gmail.com with password - 123456<br></li>
    <li>mariatrainer@gmail.com with password - 123456</li></ol>
-
-<br>
 <br>
 <ul>
   <li>.NET 6</li>
@@ -35,15 +33,20 @@ I have 2 trainers:<br>
 
 <h1>Screenshots</h1>
 
-<img src="Screenshots/Screenshot1.png">
 <br>
-<img src="Screenshots/Screenshot2.png">
+<kbd><img style="border: 30px solid black;" src="Screenshots/Screenshot1.png" /></kbd>
 <br>
-<img src="Screenshots/Screenshot3.png">
 <br>
-<img src="Screenshots/Screenshot4.png">
+<kbd><img src="Screenshots/Screenshot2.png"></kbd>
 <br>
-<img src="Screenshots/Screenshot5.png">
+<br>
+<kbd><img src="Screenshots/Screenshot3.png"></kbd>
+<br>
+<br>
+<kbd><img src="Screenshots/Screenshot4.png"></kbd>
+<br>
+<br>
+<kbd><img src="Screenshots/Screenshot5.png"></kbd>
 
 
 
