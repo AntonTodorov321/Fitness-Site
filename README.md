@@ -12,7 +12,7 @@ I have 2 trainers:<br>
 <br>
 <br>
 <ul>
-  <li>>NET 6</li>
+  <li>.NET 6</li>
   <li>SQL Database</li>
   <li>HTML</li>
   <li>MVC pattern</li>
