@@ -14,13 +14,12 @@
         private readonly IUserService userService;
 
         public MessageController(IMessageService messageService,
-                                 ITrainerService trainerService,
-                                 IUserService userService)
+            ITrainerService trainerService,
+            IUserService userService)
         {
             this.messageService = messageService;
             this.trainerService = trainerService;
             this.userService = userService;
-
         }
 
 
@@ -39,10 +38,10 @@
             bool isMessageExist = await messageService.IsMessageExistAsync(id);
             if (!isMessageExist)
             {
-                return MessageDontExist();
+                return MessageDoNotExist();
             }
 
-            ShowDetailsMessageViewModel message = 
+            ShowDetailsMessageViewModel message =
                 await messageService.GetMessageDetailsAsync(id);
 
             return View(message);
@@ -54,7 +53,7 @@
             bool isMessageExist = await messageService.IsMessageExistAsync(id);
             if (!isMessageExist)
             {
-                return MessageDontExist();
+                return MessageDoNotExist();
             }
 
             try
@@ -66,7 +65,7 @@
             }
             catch (Exception)
             {
-              return GeneralError();
+                return GeneralError();
             }
         }
 
@@ -106,7 +105,7 @@
             if (!isUserExist)
             {
                 TempData[WarningMessage] =
-                    "This user does not exist! Pleace select existing one";
+                    "This user does not exist! Please select existing one";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -117,22 +116,21 @@
         public async Task<IActionResult> SendMessage(SendMessageViewModel message, string id)
         {
             bool isUserExist =
-               await userService.IsUserExistAsync(id);
+                await userService.IsUserExistAsync(id);
             if (!isUserExist)
             {
                 TempData[WarningMessage] =
-                    "This user does not exist! Pleace select existing one";
+                    "This user does not exist! Please select existing one";
                 return RedirectToAction("Index", "Home");
             }
 
             string userId = User.GetById();
-            string trainerId = 
+            string trainerId =
                 await trainerService.GetTrainerIdByApplicationUserIdAsync(userId);
 
             try
             {
-                await messageService.
-                    SendMessageAsync(trainerId, id, message);
+                await messageService.SendMessageAsync(userId, id, message);
                 TempData[SuccessMessage] = "You successfully send a message";
                 return RedirectToAction("Index", "Home");
             }
@@ -142,10 +140,10 @@
             }
         }
 
-        private IActionResult MessageDontExist()
+        private IActionResult MessageDoNotExist()
         {
             TempData[ErrorMessage] =
-                    "This message does not exist. Please select existing one";
+                "This message does not exist. Please select existing one";
             return RedirectToAction("All");
         }
 

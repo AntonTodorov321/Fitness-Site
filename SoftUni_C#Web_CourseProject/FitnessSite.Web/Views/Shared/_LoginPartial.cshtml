@@ -2,7 +2,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject IUserService userService;
 @{
-    string userFullname = await userService.GetUserNameByEmailAsync(User.Identity?.Name);
+    string userFullname = await userService.GetUserNameByEmailAsync(User.Identity?.Name!);
 }
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
