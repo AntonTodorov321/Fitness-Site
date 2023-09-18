@@ -1,6 +1,5 @@
 ﻿namespace FitnessSite.Services.Intarfaces
 {
-
     public interface IUserService
     {
         Task<bool> IsUserExistAsync(string id);
@@ -10,5 +9,7 @@
         Task<bool> IsUserHaveTrainerAsync(string id);
 
         Task<bool> IsUserHaveThisTrainerAsync(string userId, string trainerId);
+
+        Task<string> GetUserNameByEmailAsync(string email);
     }
 }

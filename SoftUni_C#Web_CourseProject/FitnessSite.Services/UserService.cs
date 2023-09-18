@@ -1,9 +1,7 @@
 ﻿namespace FitnessSite.Services
 {
     using System.Threading.Tasks;
-
     using Microsoft.EntityFrameworkCore;
-
     using Web.Data;
     using Intarfaces;
     using Data.Models;
@@ -31,14 +29,12 @@
             {
                 return new List<string>();
             }
+
             ApplicationUser user =
                 await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
             return
-                await dbContext.TrainingExercises!.
-                Include(te => te.Exercise).
-                Where(te => te.TrainingId == user.TrainingId).
-                Select(te => te.Exercise.Name).
-                ToListAsync();
+                await dbContext.TrainingExercises!.Include(te => te.Exercise)
+                    .Where(te => te.TrainingId == user.TrainingId).Select(te => te.Exercise.Name).ToListAsync();
         }
 
         public async Task<bool> IsUserHaveTrainerAsync(string id)
@@ -62,9 +58,22 @@
         public async Task<bool> IsUserHaveThisTrainerAsync(string userId, string trainerId)
         {
             ApplicationUser? user =
-               await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
+                await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
 
             return user.TrainerId.ToString()!.ToUpper() == trainerId;
+        }
+
+        public async Task<string> GetUserNameByEmailAsync(string email)
+        {
+            ApplicationUser? user = await dbContext.Users
+                .FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+            {
+                return string.Empty;
+            }
+
+            return $"{user.FirstName} {user.LastName}";
         }
     }
 }

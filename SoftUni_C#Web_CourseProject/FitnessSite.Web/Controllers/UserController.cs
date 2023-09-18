@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
     using FitnessSite.Data.Models;
     using ViewModels.User;
     using static Common.NotificationMessagesConstants;
