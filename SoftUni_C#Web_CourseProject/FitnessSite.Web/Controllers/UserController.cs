@@ -12,8 +12,9 @@
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+
         public UserController(SignInManager<ApplicationUser> signInManager,
-                              UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -34,6 +35,9 @@
             }
 
             ApplicationUser user = new ApplicationUser();
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
 
             await userManager.SetEmailAsync(user, model.Email);
             await userManager.SetUserNameAsync(user, model.Email);
@@ -75,9 +79,8 @@
                 return View(model);
             }
 
-           var result = 
-                await signInManager.
-                PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            var result =
+                await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
             if (!result.Succeeded)
             {

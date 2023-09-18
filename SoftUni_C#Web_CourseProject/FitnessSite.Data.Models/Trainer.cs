@@ -2,7 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
     using static Common.EntityValidationsConstants.Trainer;
 
     public class Trainer
@@ -32,7 +31,7 @@
         public decimal PricePerMonth { get; set; }
 
         [Required]
-        [MaxLength(TelefoneMaxLenght)]
+        [MaxLength(PhoneMaxLength)]
         public string TelefoneNumber { get; set; } = null!;
 
         [Required]

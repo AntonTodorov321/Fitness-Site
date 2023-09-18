@@ -1,13 +1,15 @@
 ﻿namespace FitnessSite.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Microsoft.AspNetCore.Identity;
+    using static Common.EntityValidationsConstants.User;
 
     public class ApplicationUser : IdentityUser<Guid>
     {
         public ApplicationUser()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             Messages = new HashSet<Message>();
         }
 
@@ -23,5 +25,13 @@
         public Training? Training { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
+
+        [Required]
+        [MaxLength(FirstNameMaxLength)]
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(LastNameMaxLength)]
+        public string LastName { get; set; } = null!;
     }
 }
