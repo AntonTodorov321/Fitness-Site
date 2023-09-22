@@ -6,6 +6,7 @@
     using FitnessSite.Data.Models;
     using ViewModels.User;
     using static Common.NotificationMessagesConstants;
+    using Griesoft.AspNetCore.ReCaptcha;
 
     public class UserController : Controller
     {
@@ -26,6 +27,7 @@
         }
 
         [HttpPost]
+        [ValidateRecaptcha(Action = "submit", ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
             if (!ModelState.IsValid)

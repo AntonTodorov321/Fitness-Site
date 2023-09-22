@@ -2,7 +2,6 @@ namespace FitnessSite.Web
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity;
-
     using Data;
     using FitnessSite.Data.Models;
     using Infastructure.Extensions;
@@ -16,7 +15,9 @@ namespace FitnessSite.Web
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 
-            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                                      throw new InvalidOperationException(
+                                          "Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<FitnessSiteDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -24,19 +25,19 @@ namespace FitnessSite.Web
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount =
-                    builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+                        builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
 
                     options.Password.RequireLowercase =
-                    builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
+                        builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
 
                     options.Password.RequireUppercase =
-                    builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
+                        builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
 
                     options.Password.RequireNonAlphanumeric =
-                    builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+                        builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
 
                     options.Password.RequiredLength =
-                    builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
+                        builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
                 })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<FitnessSiteDbContext>();
@@ -44,10 +45,9 @@ namespace FitnessSite.Web
 
             builder.Services.AddApplicationServices(typeof(IExerciseService));
 
-            builder.Services.ConfigureApplicationCookie(cfg =>
-            {
-                cfg.LoginPath = "/User/Login";
-            });
+            builder.Services.AddRecaptchaService();
+
+            builder.Services.ConfigureApplicationCookie(cfg => { cfg.LoginPath = "/User/Login"; });
 
             builder.Services.AddControllersWithViews();
 
@@ -82,8 +82,8 @@ namespace FitnessSite.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    name: "areas",
+                    pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
 

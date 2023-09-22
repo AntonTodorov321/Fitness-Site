@@ -47,9 +47,11 @@
 
         public static class Message
         {
-            public const int QuestionMaxLength = 200;
+            public const int FirstNameMinLength = 1;
+            public const int FirstNameMaxLength = 747;
 
-            public const int DescriptionMaxLength = 500;
+            public const int LastNameMinLength = 1;
+            public const int LastNameMaxLength = 747;
         }
 
         public static class User

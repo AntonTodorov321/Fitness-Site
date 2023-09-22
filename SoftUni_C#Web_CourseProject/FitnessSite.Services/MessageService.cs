@@ -2,7 +2,9 @@
 {
     using System.Threading.Tasks;
     using System.Collections.Generic;
+
     using Microsoft.EntityFrameworkCore;
+
     using Web.ViewModels.Message;
     using Intarfaces;
     using Data.Models;
@@ -19,16 +21,14 @@
 
         public async Task SendMessageAsync(string senderId, string recipientId, SendMessageViewModel messageViewModel)
         {
-            ApplicationUser senderUser = await dbContext.Users.FirstAsync(u => u.Id.ToString() == senderId);
-
             Message message = new Message()
             {
                 SenderId = Guid.Parse(senderId),
                 RecipientId = Guid.Parse(recipientId),
                 Description = messageViewModel.Description,
                 Questions = messageViewModel.Question,
-                SenderFirstName = senderUser.FirstName,
-                SenderLastName = senderUser.LastName,
+                SenderFirstName = messageViewModel.SenderFirstName,
+                SenderLastName = messageViewModel.SenderLastName,
             };
 
             await dbContext.Messages!.AddAsync(message);
@@ -47,14 +47,14 @@
 
             ICollection<AllMessageViewModel> messages =
                 await dbContext.Messages!.Where(m => m.RecipientId.ToString() == userId)
-                    .Select(m => new AllMessageViewModel
-                    {
-                        Id = m.Id.ToString(),
-                        SenderFirstName = m.SenderFirstName,
-                        SenderLastName = m.SenderLastName,
-                        Description = m.Description
-                    })
-                    .ToArrayAsync();
+                .Select(m => new AllMessageViewModel
+                {
+                    Id = m.Id.ToString(),
+                    SenderFirstName = m.SenderFirstName,
+                    SenderLastName = m.SenderLastName,
+                    Description = m.Description
+                })
+                .ToArrayAsync();
 
             return messages;
         }
@@ -66,14 +66,14 @@
 
         public async Task<ShowDetailsMessageViewModel> GetMessageDetailsAsync(string id)
         {
-            ShowDetailsMessageViewModel message = await dbContext.Messages!.Select(m =>
-                    new ShowDetailsMessageViewModel()
-                    {
-                        Id = m.Id.ToString(),
-                        Description = m.Description,
-                        Questions = m.Questions,
-                        SenderId = m.SenderId.ToString()
-                    })
+            ShowDetailsMessageViewModel message = await dbContext.Messages!.
+                Select(m => new ShowDetailsMessageViewModel()
+                {
+                    Id = m.Id.ToString(),
+                    Description = m.Description,
+                    Questions = m.Questions,
+                    SenderId = m.SenderId.ToString()
+                })
                 .FirstAsync(m => m.Id == id);
 
             return message;
@@ -81,7 +81,7 @@
 
         public async Task DeleteMessageAsync(string id)
         {
-            Message messageToDelete =
+            Message messageToDelete = 
                 await dbContext.Messages!.FirstAsync(m => m.Id.ToString() == id);
 
             dbContext.Messages!.Remove(messageToDelete);
@@ -90,10 +90,11 @@
 
         public async Task AssigningUserToTrainerAsync(string userId, string userTrainerId)
         {
-            ApplicationUser user =
+            ApplicationUser user = 
                 await dbContext.Users.FirstAsync(u => u.Id.ToString() == userId);
 
-            Trainer trainer = await dbContext.Trainers.FirstAsync(t => t.ApplicationUserId.ToString() == userTrainerId);
+            Trainer trainer = await dbContext.Trainers.
+                FirstAsync(t => t.ApplicationUserId.ToString() == userTrainerId);
             string trainerId = trainer.Id.ToString();
 
             user.TrainerId = Guid.Parse(trainerId);
@@ -105,7 +106,7 @@
         {
             Trainer trainer =
                 await dbContext.Trainers
-                    .FirstAsync(t => t.ApplicationUserId.ToString() == userId);
+                .FirstAsync(t => t.ApplicationUserId.ToString() == userId);
             string trainerId = trainer.Id.ToString();
 
             bool isUserHaveMessages =
@@ -118,23 +119,24 @@
 
             ICollection<AllMessageViewModel> messages =
                 await dbContext.Messages!.Where(m => m.RecipientId.ToString() == trainerId)
-                    .Select(m => new AllMessageViewModel
-                    {
-                        Id = m.Id.ToString(),
-                        SenderFirstName = m.SenderFirstName,
-                        SenderLastName = m.SenderLastName,
-                        Description = m.Description
-                    })
-                    .ToArrayAsync();
+                .Select(m => new AllMessageViewModel
+                {
+                    Id = m.Id.ToString(),
+                    SenderFirstName = m.SenderFirstName,
+                    SenderLastName = m.SenderLastName,
+                    Description = m.Description
+                })
+                .ToArrayAsync();
 
             return messages;
-        }
 
+
+        }
         private async Task<bool> IsUserHaveMessagesAsync(string userId)
         {
             return
                 await dbContext.Messages!
-                    .Where(m => m.RecipientId.ToString() == userId).AnyAsync();
+                .Where(m => m.RecipientId.ToString() == userId).AnyAsync();
         }
     }
 }

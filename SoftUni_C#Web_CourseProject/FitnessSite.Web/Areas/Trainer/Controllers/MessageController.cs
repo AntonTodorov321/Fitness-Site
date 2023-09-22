@@ -1,7 +1,6 @@
 ﻿namespace FitnessSite.Web.Areas.Trainer.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-
     using Infastructure.Extensions;
     using ViewModels.Message;
     using Services.Intarfaces;
@@ -14,12 +13,13 @@
         private readonly IUserService userService;
 
         public MessageController(IMessageService messageService,
-            ITrainerService trainerService,
-            IUserService userService)
+                                 ITrainerService trainerService,
+                                 IUserService userService)
         {
             this.messageService = messageService;
             this.trainerService = trainerService;
             this.userService = userService;
+
         }
 
 
@@ -38,10 +38,10 @@
             bool isMessageExist = await messageService.IsMessageExistAsync(id);
             if (!isMessageExist)
             {
-                return MessageDoNotExist();
+                return MessageDontExist();
             }
 
-            ShowDetailsMessageViewModel message =
+            ShowDetailsMessageViewModel message = 
                 await messageService.GetMessageDetailsAsync(id);
 
             return View(message);
@@ -53,7 +53,7 @@
             bool isMessageExist = await messageService.IsMessageExistAsync(id);
             if (!isMessageExist)
             {
-                return MessageDoNotExist();
+                return MessageDontExist();
             }
 
             try
@@ -65,7 +65,7 @@
             }
             catch (Exception)
             {
-                return GeneralError();
+              return GeneralError();
             }
         }
 
@@ -105,7 +105,7 @@
             if (!isUserExist)
             {
                 TempData[WarningMessage] =
-                    "This user does not exist! Please select existing one";
+                    "This user does not exist! Pleace select existing one";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -116,21 +116,22 @@
         public async Task<IActionResult> SendMessage(SendMessageViewModel message, string id)
         {
             bool isUserExist =
-                await userService.IsUserExistAsync(id);
+               await userService.IsUserExistAsync(id);
             if (!isUserExist)
             {
                 TempData[WarningMessage] =
-                    "This user does not exist! Please select existing one";
+                    "This user does not exist! Pleace select existing one";
                 return RedirectToAction("Index", "Home");
             }
 
             string userId = User.GetById();
-            string trainerId =
+            string trainerId = 
                 await trainerService.GetTrainerIdByApplicationUserIdAsync(userId);
 
             try
             {
-                await messageService.SendMessageAsync(userId, id, message);
+                await messageService.
+                    SendMessageAsync(trainerId, id, message);
                 TempData[SuccessMessage] = "You successfully send a message";
                 return RedirectToAction("Index", "Home");
             }
@@ -140,10 +141,10 @@
             }
         }
 
-        private IActionResult MessageDoNotExist()
+        private IActionResult MessageDontExist()
         {
             TempData[ErrorMessage] =
-                "This message does not exist. Please select existing one";
+                    "This message does not exist. Please select existing one";
             return RedirectToAction("All");
         }
 
